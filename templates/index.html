@@ -10,10 +10,15 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Web Icon -->
+    <link rel="icon" type="image/gif" href="{{ url_for('static', filename='icon.gif') }}">
 </head>
 
 <body class="bg-gray-200 min-h-screen">
 
+ <!-- Page Content -->
+    <div class="flex-grow">
     <!-- Header -->
     <header class="header-bar">
         Linguahe
@@ -82,7 +87,13 @@
             </div>
         </div>
 
+      </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer-bar">
+        &copy; 2026 Linguahe. All rights reserved.
+    </footer>
 
 </body>
 </html>
