@@ -1,99 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Linguahe</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Tailwind CDN -->
+  <head>
+    <meta charset="UTF-8" />
+    <title>Linguahe - Cultural Analyzer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon.png') }}" />
+  </head>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-    <!-- Web Icon -->
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon.png') }}">
-</head>
-
-<body class="bg-gray-200 min-h-screen">
-
- <!-- Page Content -->
-    <div class="flex-grow">
-    <!-- Header -->
-    <header class="header-bar">
-        Linguahe
-    </header>
+  <body class="bg-gray-200 min-h-screen">
+    <header class="header-bar">Linguahe</header>
 
     <div class="container mx-auto px-4 py-10">
-
-        <!-- Language Section -->
-        <div class="flex flex-col md:flex-row items-center justify-center gap-6">
-
-            <!-- Input Box -->
-            <div class="card-box">
-                <select class="dropdown">
-                    <option>Language #1</option>
-                    <option>English</option>
-                    <option>Ilocano</option>
-                </select>
-
-                <textarea 
-                    placeholder="Enter conversation..."
-                    class="textarea-main">
-                </textarea>
-            </div>
-
-            <!-- Swap Icon -->
-            <div class="swap-icon hidden md:block">
-                ⇄
-            </div>
-
-            <!-- Output Box -->
-            <div class="card-box">
-                <select class="dropdown">
-                    <option>Language #2</option>
-                    <option>Ilocano</option>
-                    <option>Filipino</option>
-                </select>
-
-                <textarea 
-                    placeholder="Processed output..."
-                    class="textarea-main bg-gray-100"
-                    readonly>
-                </textarea>
-            </div>
-
+      <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+        <div class="card-box">
+          <div class="flex justify-between items-center mb-2">
+            <p class="text-sm font-bold text-sky-600">INPUT TEXT</p>
+            <select id="languageSelect" class="text-xs border rounded p-1 bg-gray-50">
+              <option value="tl">Tagalog / Filipino</option>
+              <option value="tl">Ilocano</option>
+              <option value="tl">Bisaya</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+          <textarea id="inputText" placeholder="Waiting for voice input..." class="textarea-main"></textarea>
         </div>
 
-        <!-- Mic Button -->
-        <div class="flex justify-center mt-8">
-            <button class="mic-button">
-                🎤
-            </button>
+        <div class="swap-icon hidden md:block text-gray-400">⇄</div>
+
+        <div class="card-box">
+          <p class="text-sm font-bold text-sky-600 mb-2">ANALYSIS RESULT</p>
+          <div class="explanation-box" id="explanationBox">
+             <p class="text-gray-400 italic">Analysis will appear here...</p>
+          </div>
         </div>
+      </div>
 
-        <!-- Explanation Section -->
-        <div class="mt-12">
-            <div class="explanation-tab">
-                Explanation
-            </div>
-
-            <div class="explanation-box">
-                {% if result %}
-                    <p>{{ result }}</p>
-                {% else %}
-                    <p class="text-gray-500">System explanation will appear here.</p>
-                {% endif %}
-            </div>
-        </div>
-
+      <div class="flex flex-col items-center justify-center mt-8 gap-4">
+        <button id="micBtn" class="mic-button">🎤</button>
+        <p class="text-sm text-gray-500 font-medium" id="statusText">Tap to Record (5s)</p>
+        
+        <button id="clearBtn" class="text-sky-600 hover:underline text-sm font-bold">Clear All</button>
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer-bar">
-        &copy; 2026 Linguahe. All rights reserved.
-    </footer>
+    <footer class="footer-bar">&copy; 2026 Linguahe Team</footer>
 
-</body>
+    <script>
+      let recorder;
+      let audioChunks = [];
+      const micBtn = document.getElementById("micBtn");
+      const clearBtn = document.getElementById("clearBtn");
+      const statusText = document.getElementById("statusText");
+
+      async function startRecording() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          recorder = new MediaRecorder(stream);
+          
+          micBtn.innerHTML = "🔴";
+          micBtn.classList.add("animate-pulse");
+          statusText.innerText = "Listening...";
+
+          recorder.ondataavailable = (e) => audioChunks.push(e.data);
+
+          recorder.onstop = async () => {
+            micBtn.innerHTML = "🎤";
+            micBtn.classList.remove("animate-pulse");
+            statusText.innerText = "Processing AI...";
+
+            const blob = new Blob(audioChunks, { type: "audio/wav" });
+            const formData = new FormData();
+            
+            // Send audio + chosen language constraint
+            formData.append("audio", blob, "speech.wav");
+            formData.append("language", document.getElementById("languageSelect").value);
+
+            const tResponse = await fetch("/transcribe", { method: "POST", body: formData });
+            const tData = await tResponse.json();
+            
+            if(tData.text) {
+                document.getElementById("inputText").value = tData.text;
+                
+                const aResponse = await fetch("/analyze", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ conversation: tData.text }),
+                });
+                const aData = await aResponse.json();
+                document.getElementById("explanationBox").innerHTML = aData.explanation;
+                statusText.innerText = "Analysis Complete!";
+            } else {
+                statusText.innerText = "Error detected.";
+            }
+            audioChunks = [];
+          };
+
+          recorder.start();
+          setTimeout(() => { if(recorder.state === "recording") recorder.stop(); }, 5000);
+
+        } catch (err) {
+          alert("Check microphone permissions or HTTPS/Flags settings.");
+        }
+      }
+
+      // Clear functionality
+      clearBtn.addEventListener("click", () => {
+        document.getElementById("inputText").value = "";
+        document.getElementById("explanationBox").innerHTML = '<p class="text-gray-400 italic">Analysis will appear here...</p>';
+        statusText.innerText = "Tap to Record (5s)";
+      });
+
+      micBtn.addEventListener("click", startRecording);
+    </script>
+  </body>
 </html>
