@@ -1,0 +1,9 @@
+LINGUAHE DIAGNOSTIC - 2026-03-22 15:26:25.852775
+Transcript: biting po, maganda.
+Diction Score: 69.47%
+Semantic Match: Ilocano (75%)
+Verified via FLORES+ Benchmark
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+Detailed Analysis:
+⚠️ Risk: 'bitin' (Noun/Adj)
+<small style='color: #64748b; display: block; margin-bottom: 8px;'>— Risk: Tagalog: "short/unsatisfied"; Cebuano: "snake."

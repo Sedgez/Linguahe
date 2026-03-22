@@ -1,0 +1,6 @@
+LINGUAHE DIAGNOSTIC - 2026-03-22 15:27:40.916301
+Transcript: ...
+Diction Score: 12.36%
+Semantic Match: Ilocano (63%)
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+<p style='color: #94a3b8; font-style: italic;'>No specific regional markers or ambiguous homonyms detected in this sample.

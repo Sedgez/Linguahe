@@ -1,0 +1,10 @@
+LINGUAHE DIAGNOSTIC - 2026-03-22 15:30:25.269455
+Transcript: langgam, biting, ilong.
+Diction Score: 56.23%
+Semantic Match: Ilocano (75%)
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+Detailed Analysis:
+⚠️ Risk: 'langgam' (Noun)
+<small style='color: #64748b; display: block; margin-bottom: 8px;'>— High Risk: Tagalog: "ant"; Cebuano: "bird."
+⚠️ Risk: 'bitin' (Noun/Adj)
+<small style='color: #64748b; display: block; margin-bottom: 8px;'>— Risk: Tagalog: "short/unsatisfied"; Cebuano: "snake."

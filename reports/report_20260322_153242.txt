@@ -1,0 +1,8 @@
+LINGUAHE DIAGNOSTIC - 2026-03-22 15:32:42.592570
+Transcript: kaya balai, when na imbag buang.
+Diction Score: 68.88%
+Semantic Match: Ilocano (67%)
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+Detailed Analysis:
+✓ Marker: 'buang' (Adjective)
+<small style='color: #64748b; display: block; margin-bottom: 8px;'>— Marker: Visayan term for "crazy" (Tagalog: luko-luko).

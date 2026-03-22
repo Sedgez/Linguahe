@@ -1,0 +1,8 @@
+LINGUAHE DIAGNOSTIC - 2026-03-22 15:21:40.774354
+Transcript: puno, polo, bitin.
+Diction Score: 73.01%
+Semantic Match: Ilocano (60%)
+------------------------------------------
+Tokens Identified:
+⚠️ Risk: 'bitin' (Noun/Adj)
+⚠️ Risk: 'puno' (Noun)
