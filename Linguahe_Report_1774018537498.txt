@@ -1,0 +1,13 @@
+LINGUAHE LINGUISTIC DIAGNOSTIC REPORT
+Generated: 3/20/2026, 10:55:37 PM
+Target Dialect: Tagalog / Filipino
+------------------------------------------
+
+TRANSCRIPT:
+I got in the home of the poor. I got in the home of the poor.
+
+DIAGNOSTIC ANALYSIS:
+Diction Score: 63.99%
+Semantic Match: Cebuano (27%)
+------------------------------------------
+End of Document

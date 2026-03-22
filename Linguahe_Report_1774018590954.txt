@@ -1,0 +1,13 @@
+LINGUAHE LINGUISTIC DIAGNOSTIC REPORT
+Generated: 3/20/2026, 10:56:30 PM
+Target Dialect: Tagalog / Filipino
+------------------------------------------
+
+TRANSCRIPT:
+Yawa piste, piste yawa.
+
+DIAGNOSTIC ANALYSIS:
+Diction Score: 78.18%
+Semantic Match: Cebuano (53%)
+------------------------------------------
+End of Document

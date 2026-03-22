@@ -1,0 +1,15 @@
+LINGUAHE LINGUISTIC DIAGNOSTIC REPORT
+Generated: 3/20/2026, 10:59:26 PM
+Target Dialect: Tagalog / Filipino
+------------------------------------------
+
+TRANSCRIPT:
+Buang, dutaw, buang, dutaw
+
+DIAGNOSTIC ANALYSIS:
+Diction Score: 73.93%
+Semantic Match: Cebuano (45%)
+Tokens Identified:
+⚠️ Risk: 'buang' (Risk)
+------------------------------------------
+End of Document

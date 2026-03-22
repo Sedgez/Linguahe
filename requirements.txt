@@ -3,6 +3,10 @@ openai-whisper
 sentence-transformers
 torch
 numpy
+noisereduce
+librosa
+soundfile
+pandas
 Werkzeug==3.1.6
 Jinja2==3.1.6
 blinker==1.9.0
