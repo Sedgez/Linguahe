@@ -1,0 +1,10 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 01:25:33
+Transcript: puno inay po at opo.
+Diction Score: 56.78%
+Semantic Match: Tagalog (61%)
+Structural Status: Verified
+------------------------------------------
+Politeness Markers: po
+Detailed Linguistic Analysis:
+⚠️ Risk: 'puno' (Noun)— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."

@@ -11,6 +11,7 @@ body {
     font-family: 'Inter', sans-serif, system-ui;
 }
 
+
 .main-content {
     flex: 1 0 auto;
     padding-bottom: 40px;
@@ -72,12 +73,10 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    
-    /* Hard-coded padding */
+
     padding: 20px !important;
     margin: 0 !important;
-    
-    /* SWITCH TO MONOSPACE: This prevents character-width shifting */
+
     font-family: 'Courier New', Courier, monospace !important;
     font-size: 1.1rem !important;
     line-height: 1.5 !important; 
@@ -90,7 +89,7 @@ body {
     outline: none !important;
 }
 
-/* Bottom Layer: Highlights Only */
+
 #highlightLayer {
     z-index: 1;
     /* This makes the background text INVISIBLE so you only see the mark */
@@ -100,7 +99,6 @@ body {
     pointer-events: none;
 }
 
-/* Top Layer: The actual text you read */
 #inputText {
     z-index: 2;
     background: transparent !important; 

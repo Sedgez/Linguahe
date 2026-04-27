@@ -1,0 +1,11 @@
+LINGUAHE DIAGNOSTIC - Cebuano
+Transcript: puno kadi inday po
+<strong>Diction Score:</strong> 72.04%
+<strong>Semantic Match:</strong> Cebuano (49%)
+<strong>Structural Status:</strong> Verified (Transformer-Based Syntactic Analysis)
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+✓ <strong>Cultural Encoding:</strong> Politeness detected (po)
+<strong>Detailed Linguistic Analysis:</strong>
+✓ <strong>Marker</strong>: 'inday' (Noun)<br><small>— Visayan term of endearment for a young woman.</small>
+⚠️ <strong>Risk</strong>: 'puno' (Noun)<br><small>— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."</small>
+✓ <strong>Marker</strong>: 'kadi' (Particle)<br><small>— Exclusive Ilocano request particle (e.g., "Mangan ta kadi").</small>

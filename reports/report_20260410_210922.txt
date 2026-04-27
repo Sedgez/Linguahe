@@ -1,0 +1,7 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 21:09:22
+Transcript: ara
+Diction Score: 0%
+Semantic Match: Tagalog (56%)
+Structural Status: Verified
+------------------------------------------

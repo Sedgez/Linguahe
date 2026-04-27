@@ -1,0 +1,9 @@
+LINGUAHE DIAGNOSTIC - Cebuano
+Transcript: puno po po po po po
+<strong>Diction Score:</strong> 58.96%
+<strong>Semantic Match:</strong> Cebuano (65%)
+<strong>Structural Status:</strong> Verified (Transformer-Based Syntactic Analysis)
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+✓ <strong>Cultural Encoding:</strong> Politeness detected (po, po, po, po, po)
+<strong>Detailed Linguistic Analysis:</strong>
+⚠️ <strong>Risk</strong>: 'puno' (Noun)<br><small>— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."</small>

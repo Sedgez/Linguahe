@@ -5,10 +5,8 @@
     <title>Linguahe - Linguistic Analyzer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon.png') }}" />
   </head>
 
   <body>
@@ -20,11 +18,6 @@
           <div class="card-box w-full md:w-1/2">
             <div class="flex justify-between items-center mb-4">
               <p class="text-sm font-bold text-sky-600 uppercase">Transcript</p>
-              <select id="languageSelect" class="text-xs border rounded p-1">
-                <option value="tl">Tagalog / Filipino</option>
-                <option value="ilo">Ilocano</option>
-                <option value="ceb">Cebuano</option>
-              </select>
             </div>
 
             <div class="transcript-container">
@@ -38,10 +31,7 @@
 
             <div class="mt-4 flex items-center gap-2">
               <input type="checkbox" id="noiseToggle" class="w-4 h-4" />
-              <label
-                for="noiseToggle"
-                class="text-xs font-semibold text-gray-600"
-              >
+              <label for="noiseToggle" class="text-xs font-semibold text-gray-600">
                 Noise Suppression
               </label>
             </div>
@@ -59,9 +49,7 @@
           </div>
         </div>
 
-        <div
-          class="flex flex-col items-center justify-center gap-4 w-full py-6 bg-gray-50/80 backdrop-blur-sm border-t border-gray-200 sticky bottom-0 z-50"
-        >
+        <div class="flex flex-col items-center justify-center gap-4 w-full py-6 bg-gray-50/80 backdrop-blur-sm border-t border-gray-200 sticky bottom-0 z-50">
           <button id="micBtn" class="mic-button">🎤</button>
           <p class="text-sm text-gray-500 font-bold" id="statusText">
             Tap to Record (5s)
@@ -95,9 +83,7 @@
 
       async function startRecording() {
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-          });
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
           recorder = new MediaRecorder(stream);
           audioChunks = [];
 
@@ -115,57 +101,47 @@
             const blob = new Blob(audioChunks, { type: "audio/wav" });
             const formData = new FormData();
             formData.append("audio", blob);
-            formData.append(
-              "language",
-              document.getElementById("languageSelect").value,
-            );
-            formData.append(
-              "noise_suppression",
-              document.getElementById("noiseToggle").checked,
-            );
+            formData.append("language", "tl"); // Hardcoded for demo stability
+            formData.append("noise_suppression", document.getElementById("noiseToggle").checked);
 
             try {
-              const tResp = await fetch("/transcribe", {
-                method: "POST",
-                body: formData,
-              });
+              // Step 1: Transcription
+              const tResp = await fetch("/transcribe", { method: "POST", body: formData });
               const tData = await tResp.json();
 
-              // Logic to prevent "Stuck" state if no speech is detected
               if (tData.original_text && tData.original_text.trim() !== "") {
-                document.getElementById("inputText").value =
-                  tData.original_text;
-                document.getElementById("highlightLayer").innerHTML =
-                  tData.highlighted_text;
+                document.getElementById("inputText").value = tData.original_text;
+                document.getElementById("highlightLayer").innerHTML = tData.highlighted_text || tData.original_text;
 
+                // Step 2: Analysis
                 const aResp = await fetch("/analyze", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
                     conversation: tData.original_text,
                     diction_score: tData.diction_score,
+                    intonation: tData.intonation
                   }),
                 });
                 const aData = await aResp.json();
-                document.getElementById("explanationBox").innerHTML =
-                  aData.explanation;
+                document.getElementById("explanationBox").innerHTML = aData.explanation;
                 statusText.innerText = "Diagnostic Analysis Complete!";
               } else {
-                // Handling empty or silent results
                 statusText.innerText = "No clear speech detected. Try again.";
-                document.getElementById("explanationBox").innerHTML =
-                  `<p class="text-red-400 italic">Capture failed: Audio was unrecognizable or too quiet.</p>`;
               }
             } catch (e) {
-              statusText.innerText = "Connection error. Please restart server.";
+              console.error("Pipeline Error:", e);
+              statusText.innerText = "Connection error. Please check server.";
             }
           };
 
           recorder.start();
+          
           // Auto-stop after 5 seconds
           setTimeout(() => {
-            if (recorder.state === "recording") recorder.stop();
+            if (recorder && recorder.state === "recording") recorder.stop();
           }, 5000);
+
         } catch (err) {
           alert("Microphone access denied. Please check browser permissions.");
         }
@@ -180,47 +156,33 @@
         if (confirm("Clear current session?")) location.reload();
       });
 
-      // Local browser download (Client-side report)
+      // Local browser download
       document.getElementById("downloadBtn").addEventListener("click", () => {
         const transcript = document.getElementById("inputText").value;
         const analysisBox = document.getElementById("explanationBox");
-        const lang =
-          document.getElementById("languageSelect").options[
-            document.getElementById("languageSelect").selectedIndex
-          ].text;
 
         if (!transcript || transcript.trim() === "") {
           alert("No data available to download.");
           return;
         }
 
-        // --- IMPROVED CLEANING LOGIC ---
-        // This creates a temporary element to extract text properly without HTML tags
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = analysisBox.innerHTML;
 
-        // Replace <hr> and <br> with actual newlines before extracting text
         const hrs = tempDiv.querySelectorAll("hr");
-        hrs.forEach(
-          (hr) =>
-            (hr.outerHTML = "\n------------------------------------------\n"),
-        );
+        hrs.forEach(hr => hr.outerHTML = "\n------------------------------------------\n");
 
         const brs = tempDiv.querySelectorAll("br");
-        brs.forEach((br) => (br.outerHTML = "\n"));
-
-        let cleanAnalysis = tempDiv.innerText;
+        brs.forEach(br => br.outerHTML = "\n");
 
         const reportContent =
           `LINGUAHE LINGUISTIC DIAGNOSTIC REPORT\n` +
           `Generated: ${new Date().toLocaleString()}\n` +
-          `Language Focus: ${lang}\n` +
           `------------------------------------------\n\n` +
           `TRANSCRIPT:\n"${transcript}"\n\n` +
-          `DIAGNOSTIC FINDINGS:\n${cleanAnalysis}\n\n` +
+          `DIAGNOSTIC FINDINGS:\n${tempDiv.innerText}\n\n` +
           `------------------------------------------\n` +
-          `System: Linguahe Engine v1.0\n` +
-          `Status: Structural & Cultural Encoding Verified`;
+          `System: Linguahe Engine v1.0\n`;
 
         const blob = new Blob([reportContent], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
@@ -231,7 +193,7 @@
         URL.revokeObjectURL(url);
       });
 
-      // Scroll Sync for Highlight Layer
+      // Scroll Sync
       const inputArea = document.getElementById("inputText");
       const highlightArea = document.getElementById("highlightLayer");
       inputArea.addEventListener("scroll", () => {

@@ -1,0 +1,7 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-11 00:43:14
+Transcript: poza. hello. oppo.
+Diction Score: 58.16%
+Semantic Match: Ilocano (71%)
+Structural Status: Verified
+------------------------------------------

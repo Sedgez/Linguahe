@@ -1,0 +1,11 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 01:27:01
+Transcript: puno inday ka ayo po po po po po
+Diction Score: 54.29%
+Semantic Match: Tagalog (61%)
+Structural Status: Verified
+------------------------------------------
+Politeness Markers: po, po, po, po, po
+Detailed Linguistic Analysis:
+✓ Marker: 'inday' (Noun)— Visayan term of endearment for a young woman.
+⚠️ Risk: 'puno' (Noun)— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."

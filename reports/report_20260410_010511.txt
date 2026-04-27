@@ -1,0 +1,10 @@
+LINGUAHE DIAGNOSTIC - 2026-04-10 01:05:11.307838
+Transcript: uno kadi kaayo balai, when?
+Diction Score: 72.1%
+Semantic Match: Ilocano (74%)
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+Detailed Analysis:
+✓ Marker: 'kaayo' (Adverb)
+<small style='color: #64748b; display: block; margin-bottom: 8px;'>— Marker: Cebuano intensive for "very" (Tagalog: talaga).
+✓ Marker: 'kadi' (Particle)
+<small style='color: #64748b; display: block; margin-bottom: 8px;'>— Exclusive Ilocano request particle (e.g., "Mangan ta kadi").

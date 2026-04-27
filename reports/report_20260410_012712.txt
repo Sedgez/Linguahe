@@ -1,0 +1,7 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 01:27:12
+Transcript: bono indai, bono indai balai
+Diction Score: 74.56%
+Semantic Match: Ilocano (66%)
+Structural Status: Verified
+------------------------------------------

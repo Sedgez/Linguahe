@@ -1,0 +1,7 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-11 00:54:18
+Transcript: daudat
+Diction Score: 52.1%
+Semantic Match: Ilocano (64%)
+Structural Status: Verified
+------------------------------------------

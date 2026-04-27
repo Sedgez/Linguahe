@@ -1,0 +1,7 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 21:02:15
+Transcript: puntapotayo dito sa daga
+Diction Score: 61.83%
+Semantic Match: Ilocano (76%)
+Structural Status: Verified
+------------------------------------------

@@ -1,0 +1,8 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 02:17:03
+Transcript: punta tayo sa dalgat po bating.
+Diction Score: 69.99%
+Semantic Match: Ilocano (71%)
+Structural Status: Verified
+------------------------------------------
+Politeness Markers: po

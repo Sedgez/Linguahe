@@ -1,0 +1,12 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 01:31:00
+Transcript: puno inday kaayo balay puno
+Diction Score: 64.02%
+Semantic Match: Ilocano (71%)
+Structural Status: Verified
+------------------------------------------
+Detailed Linguistic Analysis:
+✓ Marker: 'balay' (Noun)— Marker: Visayan/Ilocano for "house" (Tagalog: bahay).
+✓ Marker: 'kaayo' (Adverb)— Marker: Cebuano intensive for "very" (Tagalog: talaga).
+✓ Marker: 'inday' (Noun)— Visayan term of endearment for a young woman.
+⚠️ Risk: 'puno' (Noun)— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."

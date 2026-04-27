@@ -1,0 +1,9 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 01:27:19
+Transcript: puno indai puno
+Diction Score: 58.5%
+Semantic Match: Ilocano (70%)
+Structural Status: Verified
+------------------------------------------
+Detailed Linguistic Analysis:
+⚠️ Risk: 'puno' (Noun)— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."

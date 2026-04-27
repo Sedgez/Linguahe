@@ -1,0 +1,10 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-11 00:58:00
+Transcript: o o po dalgat puno.
+Diction Score: 50.12%
+Semantic Match: Ilocano (65%)
+Structural Status: Verified
+------------------------------------------
+Politeness Markers: po
+Detailed Linguistic Analysis:
+⚠️ Risk: 'puno' (Noun)— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."

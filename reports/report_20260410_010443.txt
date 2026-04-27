@@ -1,0 +1,6 @@
+LINGUAHE DIAGNOSTIC - 2026-04-10 01:04:43.364841
+Transcript: magandong umaga po, hasdom.
+Diction Score: 73.65%
+Semantic Match: Ilocano (80%)
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+<p style='color: #94a3b8; font-style: italic;'>No specific regional markers or ambiguous homonyms detected in this sample.

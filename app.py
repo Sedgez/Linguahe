@@ -1,65 +1,59 @@
 from flask import Flask, render_template, request, jsonify
 import whisper
 import os
-from sentence_transformers import SentenceTransformer, util
+from transformers import pipeline
 import pandas as pd
 import torch
 import re
 import noisereduce as nr
 import librosa
 import soundfile as sf
-import json
+import numpy as np
 from datetime import datetime
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
 REPORTS_FOLDER = "reports"
 
-# Ensure directories exist
 for folder in [UPLOAD_FOLDER, REPORTS_FOLDER]:
-    if not os.path.exists(folder): 
+    if not os.path.exists(folder):
         os.makedirs(folder)
 
-# Load AI Models
-print("--- Loading Linguahe Diagnostic Engine ---")
-model = whisper.load_model("base")
-sbert_model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+# --- Load AI Models ---
+print("--- Loading AI Engines ---")
+try:
+    # Speech Engine (Using "tiny" for demo speed)
+    whisper_model = whisper.load_model("base") 
+except Exception as e:
+    print(f"Model Load Error: {e}")
+    whisper_model = None
 
-# CULTURAL INDICATOR DATABASE
-POLITE_MARKERS = ['po', 'opo', 'ho', 'oho', 'paki', 'palihug', 'unta', 'maki', 'tabi']
-INDIRECT_MARKERS = ['baka', 'basin', 'parang', 'siguro', 'tingali', 'marahil', 'kaypala']
+# --- Analysis Modules ---
 
-def load_markers():
-    path = 'regional_markers.csv'
-    if os.path.exists(path):
-        try:
-            df = pd.read_csv(path).fillna("")
-            df.columns = df.columns.str.strip().str.lower()
-            return df
-        except Exception as e:
-            print(f"Marker Load Error: {e}")
-    return pd.DataFrame()
+def analyze_intonation(audio_path):
+    try:
+        # sr=16000 prevents the "PySoundFile failed" warning in most cases
+        y, sr = librosa.load(audio_path, sr=16000)
+        pitches, magnitudes = librosa.piptrack(y=y, sr=sr)
+        pitch_values = pitches[magnitudes > np.median(magnitudes)]
+        pitch_values = pitch_values[pitch_values > 0] 
 
-markers_df = load_markers()
+        if len(pitch_values) < 5:
+            return "Flat / Neutral"
 
-def load_sentence_references():
-    path = 'sentences.csv'
-    if os.path.exists(path):
-        try:
-            print("--- Initializing Neural Clusters ---")
-            df = pd.read_csv(path)
-            lang_map = {"Tagalog": "fil", "Cebuano": "ceb", "Ilocano": "ilo"}
-            vectors = {}
-            for display_name, iso_code in lang_map.items():
-                subset = df[df['iso_639_3'] == iso_code]['text'].tolist()
-                if subset:
-                    vectors[display_name] = sbert_model.encode(subset, convert_to_tensor=True)
-            return vectors
-        except Exception as e:
-            print(f"Data Load Error: {e}")
-    return None
+        pitch_std = np.std(pitch_values)
+        if pitch_std > 45: return "Highly Expressive"
+        elif pitch_std > 25: return "Moderate Variation"
+        else: return "Flat / Formal Tone"
+    except:
+        return "Analysis Unavailable"
 
-language_vectors = load_sentence_references()
+def detect_batangas(text):
+    # Added common Batangas markers for better detection
+    markers = ["ala eh", "ga", "ba ga", "dine", "nakain", "naulan", "mabanas", "liban"]
+    return any(m in text.lower() for m in markers)
+
+# --- Routes ---
 
 @app.route("/")
 def home():
@@ -67,126 +61,77 @@ def home():
 
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
-    audio_path = os.path.abspath(os.path.join(UPLOAD_FOLDER, "raw_audio.wav"))
+    audio_path = os.path.abspath(os.path.join(UPLOAD_FOLDER, "audio.wav"))
     if 'audio' not in request.files:
-        return jsonify({"error": "No audio file"}), 400
+        return jsonify({"error": "No audio"}), 400
 
     audio = request.files["audio"]
-    use_noise_reduction = request.form.get("noise_suppression") == "true"
+    use_noise = request.form.get("noise_suppression") == "true"
 
     try:
         audio.save(audio_path)
-        if use_noise_reduction:
+        if use_noise:
             y, sr = librosa.load(audio_path, sr=None)
-            reduced_y = nr.reduce_noise(y=y, sr=sr, prop_decrease=0.6)
-            sf.write(audio_path, reduced_y, sr)
+            reduced = nr.reduce_noise(y=y, sr=sr)
+            sf.write(audio_path, reduced, sr)
 
-        result = model.transcribe(audio_path, fp16=False, language="tl")
-        original_text = result["text"].strip()
+        result = whisper_model.transcribe(audio_path, fp16=False, language="tl")
+        text = result["text"].strip()
 
-        segments = result.get('segments', [])
-        diction_val = round(max(0, min(100, 100 + (sum([s.get('avg_logprob', 0) for s in segments]) / len(segments) * 50))), 2) if segments else 0.0
-
-        highlighted_text = original_text
-        if not markers_df.empty and original_text:
-            sorted_markers = markers_df.assign(len=markers_df['token'].str.len()).sort_values('len', ascending=False)
-            for _, row in sorted_markers.iterrows():
-                token = str(row['token']).strip()
-                pattern = re.compile(rf'\b({re.escape(token)})\b', re.IGNORECASE)
-                css_class = "linguistic-risk" if row.get('is_ambiguous') else "marker-hit"
-                highlighted_text = pattern.sub(f'<mark class="{css_class}" title="{row.get("explanation", "")}">\\1</mark>', highlighted_text)
+        # Acoustic extraction for punto
+        intonation = analyze_intonation(audio_path)
 
         return jsonify({
-            "original_text": original_text,
-            "highlighted_text": highlighted_text,
-            "diction_score": f"{diction_val}%"
+            "original_text": text,
+            "intonation": intonation
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
-        if os.path.exists(audio_path): os.remove(audio_path)
+        # Keep file temporarily for analysis if needed, but usually safe to clean
+        pass
 
 @app.route("/analyze", methods=["POST"])
 def analyze():
     data = request.get_json()
     text = data.get("conversation", "").lower()
-    diction = data.get("diction_score", "N/A")
+    intonation = data.get("intonation", "Unknown")
 
     if not text:
-        return jsonify({"explanation": "No speech detected.", "primary_dialect": "None"})
+        return jsonify({"explanation": "No speech detected."})
 
-    # 1. SEMANTIC ANALYSIS
-    user_vec = sbert_model.encode(text, convert_to_tensor=True)
-    highest_sim = 0
-    detected_dialect = "General"
-    if language_vectors:
-        for lang, ref_vecs in language_vectors.items():
-            sim_scores = util.pytorch_cos_sim(user_vec, ref_vecs)
-            max_score = torch.max(sim_scores).item()
-            if max_score > highest_sim:
-                highest_sim = max_score
-                detected_dialect = lang
+    # 1. Dialect Identification
+    dialect = "Laguna Tagalog"
+    if detect_batangas(text):
+        dialect = "Batangas Dialect Detected"
+
+    # 2. Misunderstood Words Logic (Cross-Cultural Focus)
+    risk_map = {
+        "nakain": "Southern Tagalog: 'Eating' | Manila: 'Being eaten'.",
+        "liban": "Regional: 'To cross' | Standard: 'To be absent'.",
+        "ga": "Regional question marker; changes sentence intent.",
+        "mabanas": "Regional term for 'hot/humid'; often misunderstood as 'irritated'.",
+        "dine": "Regional for 'here'; confusing for non-native speakers."
+    }
     
-    # 2. CULTURAL ANALYSIS
-    tokens = text.split()
-    polite_hits = [w for w in tokens if w in POLITE_MARKERS]
-    indirect_hits = [w for w in tokens if w in INDIRECT_MARKERS]
+    found_risks = [f"<strong>{word}</strong>: {desc}" for word, desc in risk_map.items() if word in text]
 
-    # Build HTML for UI
-    report_lines = [
-        f"<strong>Diction Score:</strong> {diction}",
-        f"<strong>Semantic Match:</strong> {detected_dialect} ({round(highest_sim*100)}%)",
-        "<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>"
+    # 3. Build Simplified Report
+    report = [
+        f"<div><strong>Tone / Diction:</strong> {intonation}</div>",
+        f"<div><strong>Detected Dialect:</strong> {dialect}</div>",
+        "<hr>"
     ]
 
-    if polite_hits:
-        report_lines.append(f"✓ <strong>Cultural Encoding:</strong> Politeness detected ({', '.join(polite_hits)})")
-    if indirect_hits:
-        report_lines.append(f"✓ <strong>Cultural Encoding:</strong> Indirectness detected ({', '.join(indirect_hits)})")
+    if found_risks:
+        report.append("<div><strong>Possible Misunderstood Words:</strong></div>")
+        for risk in found_risks:
+            report.append(f"<div style='color: #ef4444; font-size: 0.85rem; margin-top: 5px;'>• {risk}</div>")
+    else:
+        report.append("<div style='color: #6b7280; font-style: italic;'>No high-risk regional markers detected.</div>")
 
-    # 3. REGIONAL MARKERS
-    found_markers = []
-    if not markers_df.empty:
-        for _, row in markers_df.iterrows():
-            token = str(row['token']).lower().strip()
-            if token in text:
-                prefix = "⚠️ <strong>Risk</strong>" if row.get('is_ambiguous') else "✓ <strong>Marker</strong>"
-                marker_html = f"{prefix}: '{token}' ({row.get('category', 'General')})<br><small>— {row.get('explanation', '')}</small>"
-                found_markers.append(marker_html)
-    
-    if found_markers:
-        report_lines.append("<strong>Detailed Linguistic Analysis:</strong>")
-        report_lines.extend(found_markers[:10])
-
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filepath = os.path.join(REPORTS_FOLDER, f"report_{timestamp}.txt")
-
-    clean_text = (
-        f"LINGUAHE DIAGNOSTIC REPORT\n"
-        f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-        f"Transcript: {text}\n"
-        f"Diction Score: {diction}\n"
-        f"Semantic Match: {detected_dialect} ({round(highest_sim*100)}%)\n"
-        f"Structural Status: Verified\n"
-        "------------------------------------------\n"
-    )
-    if polite_hits: clean_text += f"Politeness Markers: {', '.join(polite_hits)}\n"
-    if indirect_hits: clean_text += f"Indirectness Markers: {', '.join(indirect_hits)}\n"
-    
-    if found_markers:
-        clean_text += "Detailed Linguistic Analysis:\n"
-        for m in found_markers:
-            # This Regex strips all HTML tags like <strong> and <small>
-            clean_m = re.sub(r'<[^>]+>', '', m).replace('&nbsp;', ' ')
-            clean_text += f"{clean_m.strip()}\n"
-
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write(clean_text)
-
-    return jsonify({
-        "explanation": "".join([f"<div>{line}</div>" for line in report_lines]),
-        "primary_dialect": detected_dialect
-    })
+    return jsonify({"explanation": "".join(report)})
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Use port 8080 as per your previous setup
+    app.run(debug=False, port=8080)
