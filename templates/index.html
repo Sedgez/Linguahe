@@ -17,7 +17,7 @@
         <div class="flex flex-col md:flex-row gap-8 mb-12">
           <div class="card-box w-full md:w-1/2">
             <div class="flex justify-between items-center mb-4">
-              <p class="text-sm font-bold text-sky-600 uppercase">Transcript</p>
+              <p class="text-sm font-bold text-sky-600 uppercase">Text</p>
             </div>
 
             <div class="transcript-container">
@@ -39,7 +39,7 @@
 
           <div class="card-box w-full md:w-1/2">
             <p class="text-sm font-bold text-sky-600 mb-4 uppercase">
-              Diagnostic Analysis
+              Analysis
             </p>
             <div class="explanation-box" id="explanationBox">
               <p class="text-gray-400 italic">
@@ -52,7 +52,7 @@
         <div class="flex flex-col items-center justify-center gap-4 w-full py-6 bg-gray-50/80 backdrop-blur-sm border-t border-gray-200 sticky bottom-0 z-50">
           <button id="micBtn" class="mic-button">🎤</button>
           <p class="text-sm text-gray-500 font-bold" id="statusText">
-            Tap to Record (5s)
+            Tap to Record (15s)
           </p>
 
           <div class="flex gap-4 items-center mt-2">
@@ -96,7 +96,7 @@
           recorder.onstop = async () => {
             micBtn.innerHTML = "🎤";
             micBtn.classList.remove("recording");
-            statusText.innerText = "Analyzing linguistic markers...";
+            statusText.innerText = "Analyzing...";
 
             const blob = new Blob(audioChunks, { type: "audio/wav" });
             const formData = new FormData();
@@ -125,7 +125,7 @@
                 });
                 const aData = await aResp.json();
                 document.getElementById("explanationBox").innerHTML = aData.explanation;
-                statusText.innerText = "Diagnostic Analysis Complete!";
+                statusText.innerText = "Analysis Complete!";
               } else {
                 statusText.innerText = "No clear speech detected. Try again.";
               }
@@ -137,10 +137,10 @@
 
           recorder.start();
           
-          // Auto-stop after 5 seconds
+          // Auto-stop after 15 seconds
           setTimeout(() => {
             if (recorder && recorder.state === "recording") recorder.stop();
-          }, 5000);
+          }, 15000);
 
         } catch (err) {
           alert("Microphone access denied. Please check browser permissions.");
