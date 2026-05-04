@@ -32,7 +32,7 @@ Minimun System Requirements(Host Server):
 
 ## 👥 The Linguahe Team
 * **Lead Developer:** [Sedgez](https://github.com/Sedgez)
-* **Co-developers:** Barnes, Khyziah, and Sheena
+* **Co-developers:** Barnes, [Khyziah](https://github.com/khyzdlmnt), and Sheena
 
 ---
 &copy; 2026 Linguahe Team
