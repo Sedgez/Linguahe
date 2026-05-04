@@ -1,6 +1,6 @@
 # Linguahe: Cultural Communication Analyzer
 
-**Linguahe** is a research-driven web application designed to identify cultural communication risks in Philippine dialects. By utilizing AI-powered speech-to-text and semantic analysis, the system detects nuances in **Tagalog, Ilocano, and Bisaya**.
+**Linguahe** is a research-driven web application designed to identify cultural miscommunication in different Tagalog dialects. By utilizing AI-powered speech-to-text, semantic analysis, Artificial Neural Networks and Rule-Based Alogorithm**.
 
 ---
 
