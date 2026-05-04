@@ -1,6 +1,6 @@
-# Linguahe: Cultural Communication Analyzer
+# Linguahe
 
-**Linguahe** is a research-driven web application designed to identify cultural communication risks in Philippine dialects. By utilizing AI-powered speech-to-text and semantic analysis, the system detects nuances in **Tagalog, Ilocano, and Bisaya**.
+**Linguahe** is a research-driven web application designed to identify miscommunication in different Tagalog dialects. By utilizing AI-powered speech-to-text, semantic analysis, Artificial Neural Networks and Rule-Based Alogorithm**.
 
 ---
 
@@ -20,9 +20,19 @@ Locate the file named `Run_Linguahe.bat` in the project folder and **double-clic
 
 ---
 
+Minimun System Requirements(Host Server):
+
+- CPU: Intel Core i5 9th gen or AMD Ryzen 5 5000 series
+
+- RAM: 8GB (with dedicated GPU) or 12GB (without dedicated GPU/integrated)
+
+- GPU: Any model with 8GB of VRAM
+
+---
+
 ## 👥 The Linguahe Team
-* **Lead Developer:** Sedgez
-* **Co-developers:** Barnes, Khyziah, and Sheena
+* **Lead Developer:** [Sedgez](https://github.com/Sedgez)
+* **Co-developers:** Barnes, [Khyziah](https://github.com/khyzdlmnt), and Sheena
 
 ---
 &copy; 2026 Linguahe Team
