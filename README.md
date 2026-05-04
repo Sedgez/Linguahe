@@ -20,11 +20,11 @@ Locate the file named `Run_Linguahe.bat` in the project folder and **double-clic
 
 ---
 
-Minimun System Requirements:
+Minimun System Requirements(Host Server):
 
 - CPU: Intel Core i5 9th gen or AMD Ryzen 5 5000 series
 
-- RAM: 8GB (with dedicated GPU) or 12GB (without dedicated GPU)
+- RAM: 8GB (with dedicated GPU) or 12GB (without dedicated GPU/integrated)
 
 - GPU: Any model with 8GB of VRAM
 
