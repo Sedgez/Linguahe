@@ -21,11 +21,12 @@ Locate the file named `Run_Linguahe.bat` in the project folder and **double-clic
 ---
 
 Minimun System Requirements:
-CPU: Intel Core i5 9th gen or AMD Ryzen 5 5000 series
 
-RAM: 8GB (with dedicated GPU) or 12GB (without dedicated GPU)
+- CPU: Intel Core i5 9th gen or AMD Ryzen 5 5000 series
 
-GPU: Any model with 8GB of VRAM
+- RAM: 8GB (with dedicated GPU) or 12GB (without dedicated GPU)
+
+- GPU: Any model with 8GB of VRAM
 
 ---
 
