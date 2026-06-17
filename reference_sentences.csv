@@ -1,51 +1,675 @@
 sentence,dialect
-Ala eh kumain ka na ba?,Batangas
-Ala eh ang init ngayon ah,Batangas
-Saan ka ga pupunta?,Batangas
-Dine ka muna umupo,Batangas
-Ang sarap naman ng luto mo ala eh,Batangas
-Ba ga hindi ka sasama?,Batangas
-Ala eh parang uulan,Batangas
-Dine na tayo mag-usap,Batangas
-Nakain ka na ba?,Batangas
-Mabanas ngayon ala eh,Batangas
-Liban tayo doon,Batangas
-Ala eh bakit ganyan,Batangas
-Sige ga tara na,Batangas
-Dine muna tayo,Batangas
-Ala eh ang bagal mo,Batangas
-Ba ga hindi mo alam?,Batangas
-Ala eh ang saya dito,Batangas
-Dine ka lang,Batangas
-Nakain ka na ba kanina?,Batangas
-Mabanas talaga,Batangas
-Ala eh ang lakas ng ulan,Batangas
-Ba ga hindi ka natatakot?,Batangas
-Saan ka ga galing?,Batangas
-Ala eh ang dami tao,Batangas
-Dine tayo kumain,Batangas
-Kumain ka na ba?,Laguna
-Saan ka pupunta?,Laguna
-Dito ka muna umupo,Laguna
-Ang init ngayon,Laguna
-Parang uulan,Laguna
-Tara na,Laguna
-Dito tayo mag-usap,Laguna
-Kumain ka na ba kanina?,Laguna
-Mainit ngayon,Laguna
-Doon tayo pumunta,Laguna
-Bakit ganyan?,Laguna
-Sige tara na,Laguna
-Dito lang ako,Laguna
-Ang bagal mo,Laguna
-Hindi mo alam?,Laguna
-Ang saya dito,Laguna
-Dito ka lang,Laguna
-Kumain ka na ba?,Laguna
-Mainit talaga,Laguna
-Malakas ang ulan,Laguna
-Hindi ka natatakot?,Laguna
-Saan ka galing?,Laguna
-Ang daming tao,Laguna
-Dito tayo kumain,Laguna
-Pwede ba kita samahan?,Laguna
+Ala eh baka gabihin tayo sa daan nito. ,batangas
+Saan ga banda rito ang terminal ng dyip? ,batangas
+Dine muna kayo habang wala pa sila. ,batangas
+Mabanas pala sa palengke kapag ganitong tanghali. ,batangas
+Nakain mo na ba ang merienda na iniwan ko? ,batangas
+Liban muna tayo sa maingay na lugar na iyan. ,batangas
+Ala eh parang traffic na naman sa bayan ngayon. ,batangas
+Sige ga umalis na tayo habang maaga pa. ,batangas
+Dine muna ang payong mo at baka mawala. ,batangas
+Mabanas sa loob ng jeep kapag siksikan talaga. ,batangas
+Parine ka muna at may sasabihin ako sa iyo. ,batangas
+Saan ga tayo kakain ng lomi mamaya? ,batangas
+Ala eh ang ganda naman ng gising mo ngayon. ,batangas
+Dine muna tayo habang naghihintay sa kanilang pagdating. ,batangas
+Nakain na ba ng bata ang kanyang almusal? ,batangas
+Ala eh naiiyak ako sa sobrang tuwa sa balita! ,batangas
+Ba ga hindi mo man lang naisip ang mararamdaman ko? ,batangas
+Nabanasan ako at napuno na ang salop ko sa galit! ,batangas
+Ala eh napakasakit naman ng binitawan mong salita dine. ,batangas
+Bakit ga laging ako na lang ang nakikita mong nagkakamali? ,batangas
+Nalulungkot ako dahil umalis ga sila nang walang paalam. ,batangas
+Ala eh parang guguho ang mondo ko sa nangyari. ,batangas
+Ba ga ayaw mo na talaga akong paniwalaan dine? ,batangas
+Naiinis ako kapag pinagbubuntunan mo ako ng galit mo! ,batangas
+Ala eh huwag mo naman akong tiisin nang ganito. ,batangas
+Naliligalig ang loob ko habang naulan nang malakas. ,batangas
+Ba ga hindi ka pa nakokontento sa ginawa mo? ,batangas
+Ala eh. ,batangas
+Saan ga? ,batangas
+Dine lang. ,batangas
+Mabanas eh. ,batangas
+Nakain na. ,batangas
+Liban muna. ,batangas
+Parine ka. ,batangas
+Ba ga? ,batangas
+Naulan na. ,batangas
+Namasada ga? ,batangas
+Nasulat na. ,batangas
+Ala eh napakahaba na naman ng pila sa lilihan sa may gitna ng bayan kaya siguradong maiipit tayo sa matinding trapik. ,batangas
+Saan ga tayo makakakuha ng libreng kuryente at tubig dine sa bagong lipat na pasilidad ng aming unibersidad? ,batangas
+Dine ka na matulog sa kwarto ni kuya dahil gabi na at masama ang panahon dahil sa lakas ng ulan. ,batangas
+Mabanas kapag siksikan ang mga pasahero sa loob ng dyip tapos ay nakasara pa ang lahat ng mga bintana rito. ,batangas
+Nakain ka na ba ga ng mainit na suman magat pagkatapos mong uminom ng barakong kape kaninang madaling araw? ,batangas
+Liban muna tayo sa pamamasyal ngayong katapusan ng linggo dahil kailangan nating mag-aral para sa darating na mahabang pagsusulit. ,batangas
+Parine ka bilis at baka ka maiwan ng huling biyahe ng sasakyan patungong lipa ngayong hapon. ,batangas
+Magkano ga ang pamasahe papuntang bayan kapag may kasamang dalawang malalaking kahon ng mga sariwang gulay dine? ,batangas
+Namasada ga ang tiyuhin mo ngayong araw kahit na may nararamdaman siyang masama sa kanyang katawan kanina? ,batangas
+Nasunod ga kayo sa mga alituntunin na ipinatupad ng pamunuan ng ating barangay para sa kaligtasan ng lahat? ,batangas
+Nagawa ga kayo ng proyekto ninyo sa kompyuter kahit na walang kuryente sa buong barangay kagabi? ,batangas
+Ala eh napakabait naman ng batang iyan kaya naman madaming nagmamahal sa kanya dine sa amin. ,batangas
+Ala eh aba! ,batangas
+"Ay, ba ga! ",batangas
+Anak ng tinapa naman eh! ,batangas
+"Aba, dine pala! ",batangas
+Hala ga! ,batangas
+"Ay, mabanas! ",batangas
+Aba eh ewan! ,batangas
+"Ay, nakain na! ",batangas
+Hala eh bakit? ,batangas
+"Aba, parine ka! ",batangas
+"Ay, nasunog ga! ",batangas
+"Aba, liban muna! ",batangas
+Parine ka at tulungan mo akong magbuhat ng mga kahon dine. ,batangas
+Liban muna kayo sa usapan na iyan habang wala pa si kapitan. ,batangas
+Iwan mo dine ang bisikleta mo sa tapat ng tindahan. ,batangas
+Itaas mo ga ang kamay mo para makita ka niya. ,batangas
+Isulat mo dine ang pangalan ng lahat ng dumating ngayon. ,batangas
+Bilisan mo ga ang paglakad at baka tayo mapag-iwanan. ,batangas
+Dalhin mo parine ang mga basong nabasag sa kusina. ,batangas
+Tingnan mo ga kung may natira pang lomi sa palayok. ,batangas
+Isara mo dine ang pinto para hindi pumasok ang lamok. ,batangas
+Ikuha mo ga ng mainit na tubig ang lolo mo. ,batangas
+Pakinggan mo ga ang sinasabi ng iyong mga magulang. ,batangas
+Iligpit mo dine ang mga kalat pagkatapos mong kumain. ,batangas
+Namasada ang aking tiyuhin kaninang umaga at nakita niya ang prusisyon na dumaan sa may tulay ng bayan habang naulan. ,batangas
+Noong bata pa ako ay madalas kaming maligo sa ilog kapag nakatapos na kaming mag-aral ng aming mga aralin. ,batangas
+Naligaw sila kagabi dahil hindi nila alam kung saan ga dadaan ang tamang sakayan patungong lipa. ,batangas
+Nagising ako nang napakaaga dahil nabanasan ako sa loob ng aking silid dahil nawalan pala ng kuryente. ,batangas
+Pumunta kami sa bayan para bumili ng mga sariwang sangkap para sa lulutuing ulam ni nanay ngayong gabi. ,batangas
+Nakita ko silang nag-uusap dine sa tapat ng aming pintuan tungkol sa nawawalang pitaka ng kapitan. ,batangas
+Gumawa kami ng malaking proyekto para sa paaralan gamit ang mga lumang materyales na nakuha namin sa bodega. ,batangas
+Dumaan ang tsuper ng dyip sa shortcut para makaiwas sa mahabang trapik na dulot ng ginagawang kalsada. ,batangas
+Nakinig kami sa balita sa radyo habang kumakain ng masarap na suman kasama ang buong pamilya. ,batangas
+Natapos din namin ang pag-aayos ng mga halaman sa hardin bago pa man magsimulang umulan nang malakas. ,batangas
+Naabutan namin silang nagtatawanan sa may terminal habang naghihintay ng susunod na biyahe. ,batangas
+Iniwan niya ang kanyang mga tsinelas dine sa may baitang ng hagdanan bago siya pumasok sa kwarto. ,batangas
+Sino ga ang kasama mong umuwi kagabi mula sa paaralan? ,batangas
+Bakit ga hindi sila sumasagot sa mga tawag natin ngayon? ,batangas
+Magkano ga ang bayad dine sa dyip kapag mag-aaral? ,batangas
+Narinig mo ba ga ang malakas na hiyaw sa labas? ,batangas
+Saan ga dadaan ang sasakyan ninyo mamayang gabi? ,batangas
+Nabili ka na ba ga ng bagong damit para sa pista? ,batangas
+Anong oras ga tayo aalis patungong palengke ng bayan? ,batangas
+Nasabi mo na ga kay kapitan ang tungkol sa problema? ,batangas
+Nakitang ga ninyo ang aking itim na pitaka sa mesa? ,batangas
+Bakit ga parang galit ka na naman sa akin ngayon? ,batangas
+Nasubukan mo na ba ga ang sumakay sa mailap na kabayo? ,batangas
+Saan ga tayo makakahanap ng masarap na lomi dine? ,batangas
+"Huwag ka ngang mag-inarte diyan, buwaya naman ang pwesto mo. ",batangas
+Natuka na naman ng kamalasan ang tropa natin kagabi ah. ,batangas
+Tubong-lugaw ang kita nila sa pagbebenta ng lomi ngayon. ,batangas
+"Huwag mo akong ma-bola, kilala ko ang galaw mo dine. ",batangas
+Sawsaw na naman siya sa usapan kahit hindi naman kausap. ,batangas
+Naka-jackpot ang tsuper dahil madami ang pasahero kanina. ,batangas
+Huwag kang pabebe riyan at kumain ka na dine. ,batangas
+Sablay ang banat niya kaya natawa ang mga tao. ,batangas
+Naka-iskor na naman ng libreng merienda ang katabi ko. ,batangas
+Huwag mong dadaanin sa tsamba ang pagsusulit mo bukas. ,batangas
+Gatasan na naman ng pera ang proyektong iyan kung ituloy. ,batangas
+Naloka ako sa presyo ng mga bilihin sa bayan. ,batangas
+"Ala eh, ang totoo niyan, hindi ko naman talaga alam. ",batangas
+"Bali, dine muna tayo magpalipas ng oras habang naghihintay. ",batangas
+" bale, anong oras ga talaga ang tamang alis natin? ",batangas
+"Ano, parang mabanas ang panahon kaya masarap mag-ice cream. ",batangas
+"ale, parang pamilyar sa akin ang mukha ng kasama mo. ",batangas
+" bali, liban muna ako sa klase dahil masama ang pakiramdam. ",batangas
+"Ano, saan ga tayo kukuha ng karagdagang pondo ngayon? ",batangas
+ baka naman pwedeng dine mo na lang iwan iyan. ,batangas
+" bale, nasulat ka na ga ng iyong ulat ngayon? ",batangas
+ parang masama ang panahon kaya huwag na umalis. ,batangas
+" bale, nagawa ga kayo ng takdang-aralin ninyo kagabi? ",batangas
+ parang nahihirapan akong magbuhat nitong kahon dine. ,batangas
+Mag-log in ka muna sa system bago ka mag-encode dine. ,batangas
+I-check mo ga kung online na si ma'am sa chat. ,batangas
+Naka-receive ako ng text mula sa opisina ng dean kanina. ,batangas
+I-print mo dine ang hard copy ng ating research abstract. ,batangas
+Naka-save ba ga sa flash drive ang presentation mo? ,batangas
+Mag-download ka muna ng file bago ka mag-update dine. ,batangas
+Naka-block ang website kapag ginamit mo ang wifi rito. ,batangas
+I-forward mo ga sa email ko ang soft copy ng report. ,batangas
+Naka-schedule ang exam natin sa thursday ayon kay ma'am. ,batangas
+I-cancel mo ga ang booking natin dahil naulan nang malakas. ,batangas
+Naka-post sa facebook group ang mga kailangan nating dalhin. ,batangas
+I-verify mo muna dine sa app kung pumasok ang payment. ,batangas
+Dito muna ako maghihintay sa tapat ng plasa. ,laguna
+Saan ba kayo galing kaninang madaling araw? ,laguna
+Kumain ka na ba ng tanghalian sa karinderya? ,laguna
+Parang mahaba ang pila ng sasakyan ngayon sa highway. ,laguna
+Hintayin muna natin si ate bago tayo umalis. ,laguna
+Masarap ang simoy ng hangin dito sa may tabing-lawa. ,laguna
+Dito tayo sa may lilim ng puno mag-usap. ,laguna
+Ang dami palang tao rito tuwing sumasapit ang hapon. ,laguna
+Parang mahuhuli tayo sa byahe kapag hindi tayo nagmadali. ,laguna
+Mag-ingat kayo sa daan pabalik sa inyong bahay. ,laguna
+Tara muna sa tindahan para bumili ng malamig na inumin. ,laguna
+Ang init pala sa labas ngayon kaya masarap magpalamig. ,laguna
+Hintayin mo ako sandali at may kukunin lang ako. ,laguna
+Masarap ang pagkain dito sa bagong bukas na kainan. ,laguna
+Dito muna tayo bago umalis patungong unibersidad. ,laguna
+Nalulungkot talaga ako dahil hindi ko naabutan si nanay sa bahay kanina. ,laguna
+Sobra ang kaba ko habang naghihintay ng resulta ng aking pagsusulit. ,laguna
+Naiiyak ako sa tuwa dahil natapos din natin ang mahirap na proyekto. ,laguna
+Natatakot ako kapag gabi na at wala pa ring masakyang dyip sa kanto. ,laguna
+Napakasakit isipin na hindi nila pinahalagahan ang tulong na ibinigay natin. ,laguna
+Nagalit si tatay dahil nakalimutan kong painumin ng gamot ang lolo. ,laguna
+Nanghihinayang ako sa pagkakataon na makasama kayo sa pamamasyal kagabi. ,laguna
+Natutuwa ako dahil naging matagumpay ang programa ng ating pamunuan. ,laguna
+Naiinis ako kapag matagal akong naghihintay sa initan dito sa labas. ,laguna
+Napakasaya ng buong pamilya noong dumating ang mga pasalubong mula sa malayo. ,laguna
+Nalilito ako kung aling kurso ang dapat kong piliin para sa aking kinabukasan. ,laguna
+Nangangamba ako na baka bahain na naman ang daan papunta sa amin. ,laguna
+Dito muna. ,laguna
+Saan ba? ,laguna
+Kumain na. ,laguna
+Mahaba pila. ,laguna
+Hintayin sila. ,laguna
+Masarap hangin. ,laguna
+Dito tayo. ,laguna
+Maraming tao. ,laguna
+Huli na. ,laguna
+Mag-ingat kayo. ,laguna
+Tara muna. ,laguna
+Mainit ngayon. ,laguna
+Dito raw tayo magkikita sa tapat ng plasa para sabay-sabay na tayong sumakay papunta sa aming unibersidad. ,laguna
+Saan ba pwedeng bumili ng masarap at bagong lutong buko pie na pwedeng dalhing pasalubong sa aking pamilya? ,laguna
+Kumain ka na ba bago ka bumiyahe pabalik dito sa bayan para hindi ka gutumin sa daan mamaya? ,laguna
+Parang lumalaki ang tubig sa lawa ngayon dahil sa walang tigil na pagbuhos ng malakas na ulan kagabi. ,laguna
+Hintayin muna natin ang hudyat ng pamunuan bago natin simulan ang pamamahagi ng mga tulong sa mga residente. ,laguna
+Masarap mamasyal sa Nuvali kapag hapon dahil hindi na masyadong matindi ang sikat ng araw at presko ang hangin. ,laguna
+Dito na natin hintayin ang mga kasama natin para hindi na tayo magkahiwa-hiwalay pa pagpasok sa loob ng mall. ,laguna
+Ang init naman sa loob ng terminal na ito kaya naman madami sa mga pasahero ang lumalabas muna. ,laguna
+Parang may bagyong darating batay sa mga huling balita na narinig ko sa radyo kaninang madaling araw. ,laguna
+Hintayin mo na lang ako sa may paradahan ng mga traysikel sa tapat ng lumang palengke ng bayan. ,laguna
+Dito na natin simulan ang pagpupulong natin para matapos tayo nang maaga at makauwi na ang lahat sa bahay. ,laguna
+Saan ba banda ang opisina ng munisipyo rito para maituro ko sa aking mga kasama ang tamang daan? ,laguna
+"Aba, dito pala! ",laguna
+"Hala, uulan yata! ",laguna
+"Ay, sarado na! ",laguna
+"Naku, ang trapik! ",laguna
+"Wow, ang ganda! ",laguna
+"Ay, salamat naman! ",laguna
+"Hala, nawawala yata! ",laguna
+Naku naman o! ,laguna
+"Aba, maaga ngayon! ",laguna
+"Ay, nabasag pala! ",laguna
+"Hala, bilisan mo! ",laguna
+"Wow, sarap nito! ",laguna
+Hintayin mo na lang ako sa may paradahan ng sasakyan mamaya. ,laguna
+Dito mo ilagay ang mga pinamili nating prutas mula sa palengke. ,laguna
+Saan ba pwedeng mag-park ng sasakyan kaya maghanap ka ng pwesto. ,laguna
+Kumain ka na ng hapunan bago ka magsimula mag-aral ng leksyon. ,laguna
+Mag-ingat kayo sa pagtawid sa riles ng tren tuwing gabi. ,laguna
+Tara muna sa may karinderya sa kanto para kumain ng meryenda. ,laguna
+Ipaling mo ang sasakyan sa kanang bahagi ng kalsada para makadaan sila. ,laguna
+Tawagan mo si nanay para malaman kung nasaan na siya ngayon. ,laguna
+Ihanda mo ang mga papeles na kailangan para sa pag-asikaso bukas. ,laguna
+Isara mo ang bintana dahil pumasok ang singaw ng init sa labas. ,laguna
+Ilista mo ang pangalan ng mga dumalo sa seminar ngayong hapon. ,laguna
+Iwan mo ang susi sa tapat ng pintuan bago ka umalis. ,laguna
+Pumunta kami sa Liliw noong nakaraang linggo para bumili ng mga murang sapatos na gagamitin ko sa aking pagpasok sa paaralan. ,laguna
+Nakita ko ang paglaki ng tubig sa lawa habang kami ay sumasakay sa bangka patungong kabilang bayan kaninang umaga. ,laguna
+Nagtipon-tipon ang mga mag-aaral sa covered court para sa gaganaping patimpalak sa darating na buwan ng wika. ,laguna
+Dinala ni tatay ang sasakyan sa talyer dahil may kakaibang tunog kaming naririnig tuwing dadaan sa bako-bakong daan. ,laguna
+Bumili si nanay ng sariwang isda sa palengke ng Sta Rosa para sa aming hapunan kasama ang buong pamilya. ,laguna
+Naglakad kami sa may pilapil habang pinapanood ang magandang sikat ng araw na sumisikat sa likod ng mga kabundukan. ,laguna
+Natapos namin ang pag-aayos ng mga dokumento sa munisipyo pagkatapos ng ilang oras na paghihintay sa mahabang pila. ,laguna
+Dumaan ang traysikel sa gilid ng riles para makaiwas sa matinding trapik na dulot ng aksidente sa main highway. ,laguna
+Uminom si lolo ng kanyang gamot pagkatapos kumain ng masarap na almusal na inihanda ng aking bunsong kapatid. ,laguna
+Nagkita-kita ang magkakaibigan sa tapat ng simbahan bago sila tuluyang pumunta sa falls para magpalamig ngayong weekend. ,laguna
+Nakinig ang lahat sa paliwanag ng manager tungkol sa mga bagong patakaran na ipatutupad sa loob ng opisina. ,laguna
+Iniwan niya ang kanyang payong sa may lobby ng gusali dahil nakalimutan niya itong kunin pagkatapos ng ulan. ,laguna
+Saan ba banda rito ang terminal ng bus papuntang Maynila? ,laguna
+Kumain ka na ba ng meryenda bago ka pumasok sa klase? ,laguna
+Saan ba makakahanap ng murang paupahan na malapit sa unibersidad? ,laguna
+Kumusta ang byahe mo mula sa probinsya patungo dito sa bayan? ,laguna
+Parang uulan ba nang malakas mamaya batay sa kulay ng ulap? ,laguna
+Saan ba ang sakayan ng traysikel papunta sa munisipyo? ,laguna
+Kumain na ba si tatay ng kanyang gamot para sa alta-presyon? ,laguna
+Saan ba pwede mag-park ng sasakyan na ligtas at walang bayad? ,laguna
+Kumain na ba ang mga bisita sa itaas ng bahay natin? ,laguna
+Saan ba ang bagsakan ng mga sariwang gulay dito sa palengke? ,laguna
+Kumain na ba ang lahat bago tayo magsimula sa ating paglalakbay? ,laguna
+Saan ba banda ang opisina ng kapitan dito sa inyong barangay? ,laguna
+"Huwag kang pampam sa harap ng mga bisita, nakakahiya naman. ",laguna
+Naka-tsamba na naman siya sa huling tanong sa pagsusulit kanina. ,laguna
+"Huwag mo akong ma-drama rito, alam ko ang totoong nangyari. ",laguna
+Naka-iskor kami ng murang sapatos doon sa may tindahan sa kanto. ,laguna
+Huwag kang jologs kung pumorma kapag pupunta sa pormal na okasyon. ,laguna
+Naka-jackpot ang tindera dahil naubos agad ang kanyang mga paninda. ,laguna
+"Huwag kang praning diyan, ligtas naman ang lugar na ito tuwing gabi. ",laguna
+Naka-benta sila ng madaming buko pie dahil sa dami ng turista. ,laguna
+Huwag mo akong ma-bwisit ngayon dahil madami akong ginagawa rito. ,laguna
+Naka-score ng mataas na marka ang aking kaklase sa mahirap na exam. ,laguna
+Huwag kang umasta na parang boss kung bago ka pa lang dito. ,laguna
+Naka-freebie kami ng masarap na tsokolate galing doon sa may ari. ,laguna
+" bale, dito muna tayo maghihintay sa tapat ng plasa. ",laguna
+ parang mahaba ang pila ng mga sasakyan ngayon sa daan. ,laguna
+" ano, saan ba talaga ang tamang daan patungo sa inyo? ",laguna
+" kumbaga, hintayin muna natin si kuya bago tayo magdesisyon. ",laguna
+ parang uulan na naman nang malakas mamayang hapon. ,laguna
+" kumbaga, dito na natin simulan ang pag-aayos ng mga gamit. ",laguna
+" bale, kumain na ba ang lahat bago tayo tuluyang umalis? ",laguna
+ parang matatagalan tayo rito sa loob ng munisipyo ngayon. ,laguna
+" ano, hintayin na lang natin ang susunod na abiso mula sa kanila. ",laguna
+" kumbaga, masarap ang timpla ng kape rito sa may karinderya. ",laguna
+" bale, saan ba banda ang sakayan papuntang SM Sta Rosa? ",laguna
+ parang masikip ang daan papunta roon sa may lumang tulay. ,laguna
+Mag-log in ka muna sa portal ng unibersidad para makita mo ang grades. ,laguna
+I-check mo kung available pa ang schedule ng bus papuntang Lucena. ,laguna
+Naka-receive ako ng email mula sa HR tungkol sa aking application. ,laguna
+I-print mo ang soft copy ng ating research paper para sa validation. ,laguna
+Naka-save ba sa Google Drive ang lahat ng mga files natin? ,laguna
+Mag-download ka muna ng application form bago ka pumunta sa opisina. ,laguna
+Naka-block ang signal ng wifi kapag nandoon ka sa may basement. ,laguna
+I-forward mo sa messenger ko ang screenshot ng resibo ng bayad. ,laguna
+Naka-schedule ang meeting natin sa Friday kasama ang buong team. ,laguna
+I-cancel mo ang order natin dahil matatagalan daw ang delivery nito. ,laguna
+Naka-post sa bulletin board ang mga pangalan ng mga nakapasa. ,laguna
+I-verify mo muna sa system kung pumasok na ang bayad ng customer. ,laguna
+Tsibog na tayo mga tol habang mainit pa ang ulam. ,cavite
+Pre ang lupet ng laban sa basketball kanina sa court. ,cavite
+Sandale lang at magbibihis lang ako ng mabilis. ,cavite
+Astig ng bagong kotse na binili ng kapitbahay natin. ,cavite
+Tara na at baka ma-late tayo sa unang klase bukas. ,cavite
+Ang ingay sa highway ngayon dahil sa mga dumadaang motor. ,cavite
+Chibog muna bago bumiyahe patungong malayong probinsya. ,cavite
+Pre saan tayo tambay mamaya pagkatapos ng ating klase? ,cavite
+Sandale lang at tatawag lang ako kay kuya saglit. ,cavite
+Astig ng bagong motor niya na kulay itim. ,cavite
+Ang lupet ng tugtog kagabi doon sa may discohan. ,cavite
+Tara tsibog pagkatapos ng klase natin sa hapon. ,cavite
+Pre sobrang traffic kanina sa may aguinaldo highway. ,cavite
+Sandale lang at kukunin ko lang ang aking mga gamit. ,cavite
+Astig ng view dito sa may overlooking sa Tagaytay. ,cavite
+"Naiiyak ako sa lupet ng kanta, parang tagos sa puso ko talaga pre. ",cavite
+Sobrang bwisit ko kanina dahil na-late ako sa klase dahil sa traffic! ,cavite
+"Natatakot ako tol, baka hindi ko maipasa itong mahirap na subject. ",cavite
+Napakasakit sa damdamin na makitang biglang nasira ang pinaghirapan nating proyekto. ,cavite
+"Nagalit si kapitan pre, sobrang ingay daw kasi ng tambay sa labas. ",cavite
+Natutuwa ako tol dahil sa wakas ay nakuha ko na ang aking allowance. ,cavite
+"Nanghihinayang ako sa natirang tsibog kagabi, nasira lang sa mesa. ",cavite
+Nalilito ako pre kung paano ko sisimulan itong report ko sa computer. ,cavite
+Napakasaya ng buong tropa noong manalo tayo sa liga kaninang umaga. ,cavite
+Naiinis ako tol kapag hindi sumasagot sa text ang kagrupo natin. ,cavite
+Nangangamba ako na baka hindi tayo umabot sa takdang oras ng pasahan. ,cavite
+"Sobrang gulo ng isip ko ngayon pre, dami kong iniisip na problema. ",cavite
+Tsibog na. ,cavite
+"Pre, saan? ",cavite
+Sandale lang. ,cavite
+Astig tol! ,cavite
+Lupet niyan! ,cavite
+Tara na. ,cavite
+Ingay dito. ,cavite
+Chibog muna. ,cavite
+Traffic pre. ,cavite
+Gabi na. ,cavite
+Late na. ,cavite
+Tropa pre. ,cavite
+Pre pabalot naman nung natirang tsibog natin doon sa may sikat na kainan para pwedeng meryendahin mamayang gabi. ,cavite
+Ang lupet talaga ng porma ng sasakyan mo ngayon lalo na at bagong palit ang mga gulong at pintura nito. ,cavite
+"Sandale lang pre, huwag mo muna akong iwan dito sa madilim na eskinita habang hinahanap ko pa ang aking susi. ",cavite
+"Astig ng tugtugan sa disco kagabi ah, madaming tao ang nagsayawan hanggang sa sumapit ang madaling araw sa bayan. ",cavite
+Tara na tol at baka abutan tayo ng malakas na ulan dito sa daan at wala pa naman tayong dalang dalawang payong. ,cavite
+Ang ingay ng mga tricycle sa labas ngayon kaya naman hindi ko marinig nang maayos ang sinasabi ng aking guro sa telepono. ,cavite
+Chibog muna tayo sa tabi-tabi bago umuwi para naman hindi tayo gutumin habang nakatambay sa may terminal mamaya. ,cavite
+Pre malapit na ba mag-umpisa ang palabas sa may covered court para makahanap na tayo ng magandang pwesto sa unahan? ,cavite
+"Sandale lang tol, hinahanap ko pa ang aking itim na pitaka sa loob ng aking napakalaking bag na madaming laman. ",cavite
+"Astig ng sapatos ng katabi ko kanina sa jeep, parang mamahalin ang tatak at napakakintab pa ng pagkakalinis nito. ",cavite
+Ang lupet ng bagsakan ng lyrics sa kanta ng bagong banda na napanood natin sa may plasa noong nakaraang sabado. ,cavite
+Tara tsibog tayo dun sa may bagong kainan sa tabi ng unibersidad dahil balita ko ay napakamura ng kanilang mga pagkain. ,cavite
+"Pre, astig! ",cavite
+"Tol, lupet! ",cavite
+"Ay, chibog na! ",cavite
+"Hala, sandale! ",cavite
+"Naku pre, traffic! ",cavite
+"Wow, astig nito! ",cavite
+"Ay, sablay tol! ",cavite
+"Hala, late na! ",cavite
+"Naku, ang ingay! ",cavite
+"Aba pre, porma ah! ",cavite
+"Ay, pabalot tol! ",cavite
+"Wow, lupet ng kotse! ",cavite
+Bilisan mo ang tsibog at may klase pa tayo mamayang ala-una ng hapon. ,cavite
+Pre pabalot naman nung natirang pagkain natin sa mesa bago tayo umalis. ,cavite
+"Sandale lang tol, tingnan mo muna kung dumarating na ang tsuper ng dyip. ",cavite
+Tara na tol at baka masarhan tayo ng gate ng unibersidad ngayon. ,cavite
+Isara mo ang pinto dahil sobrang ingay ng mga sasakyan sa highway. ,cavite
+Tawagan mo ang tropa para malaman mo kung nasaan silang lahat nakatambay. ,cavite
+Maghangap ka ng daan papunta roon para makaiwas tayo sa mahabang traffic. ,cavite
+Dalhin mo ang jacket mo dahil malamig ang simoy ng hangin sa gabi. ,cavite
+Ihanda mo ang sasakyan natin dahil may bibilhin lang tayo sa imus. ,cavite
+Ilista mo ang mga kailangan nating bilhing sangkap para sa tsibog mamaya. ,cavite
+Huwag mong iiwan ang mga gamit mo sa tabi-tabi at baka mawala. ,cavite
+Bilisan mo ang pag-aayos ng computer para magamit na natin sa laro. ,cavite
+Pumunta kami sa may dasma kagabi para manood ng sikat na banda kasama ang buong tropa ko mula sa paaralan. ,cavite
+Nakita ko ang mahabang pila sa sakayan ng bus kaninang umaga kaya naman napilitan akong mag-traysikel na lang. ,cavite
+Nag-ensayo kami ng sayaw sa covered court para sa gaganaping kompetisyon sa darating na linggo ng wika. ,cavite
+Bumili si kuya ng bagong sapatos sa mall at sobrang astig ng porma nito nang isuot niya kanina. ,cavite
+Nagtsibog kami ng mainit na lugaw sa may kanto dahil biglang bumuhos ang malakas na ulan ngayong hapon. ,cavite
+Dumaan ang sasakyan namin sa shortcut sa aguinaldo highway para hindi kami maabutan ng matinding traffic sa daan. ,cavite
+Natapos din namin ang paggawa ng report sa computer pagkatapos ng ilang oras na pagpupuyat sa kwarto. ,cavite
+Nakinig ang buong tropa sa kwento ng lolo tungkol sa mga lumang bahay na may multo rito sa amin. ,cavite
+Nagkita-kita kami sa may plasa bago kami tuluyang pumunta sa may kainan para mag-celebrate ng birthday niya. ,cavite
+Iniwan niya ang kanyang jacket sa loob ng locker dahil nakalimutan niya itong dalhin pag-uwi kagabi. ,cavite
+Nirestohan namin ang bagong bukas na tambayan sa may tabi ng dagat at napakaganda ng tanawin doon. ,cavite
+Nawalan ng kuryente sa buong barangay kaya naman napilitan kaming lumabas muna ng bahay para magpalamig. ,cavite
+Pre saan ba ang daan papunta sa may sikat na kainan dito sa bayan? ,cavite
+"Sandale lang pre, malapit na ba mag-umpisa ang laro sa court? ",cavite
+Pre malapit na ba tayo sa may dulo ng mahabang pila na ito? ,cavite
+Pre saan ba maganda magpalipas ng oras kasama ang buong tropa natin? ,cavite
+Pre anong oras ang tsibog natin mamaya para makapaghanda na ako rito? ,cavite
+Pre saan ba ang sakayan ng van papuntang imus dito sa may kanto? ,cavite
+Pre saan ba pwedeng mag-ensayo ng sayaw na walang bayad ang pwesto? ,cavite
+Pre saan ba banda rito ang opisina ng munisipyo ng lungsod natin? ,cavite
+Pre bakit ba sobrang traffic na naman ngayon dito sa aguinaldo highway? ,cavite
+Pre napanood mo ba ang huling laban ng koponan natin kaninang umaga? ,cavite
+Pre magkano ba ang pamasahe sa dyip papunta sa dasma ngayon? ,cavite
+Pre narinig mo ba ang bulyaw ng tsuper doon sa may terminal kanina? ,cavite
+"Huwag kang epal sa usapan pre, wala ka namang alam sa nangyari. ",cavite
+Naka-chamba na naman ng libreng tsibog ang tropa natin sa kanto. ,cavite
+"Huwag mo akong ma-lowbatan dito, alam ko ang istilo mo pre. ",cavite
+Naka-jackpot kami sa ukay-ukay dahil madaming magagandang porma ng jacket. ,cavite
+"Huwag kang pabebe riyan tol, bilisan mo ang pag-ayos ng gamit mo. ",cavite
+Naka-iskor ng mataas na puntos si kuya sa huling laro ng basketball. ,cavite
+"Huwag kang praning pre, walang kukuha ng motor mo sa labas ng gate. ",cavite
+Naka-freebie ang tropa ng malamig na inumin galing doon sa may-ari. ,cavite
+"Huwag kang pasikat sa harap ng guro natin, nakakairita ka tol. ",cavite
+Naka-score kami ng murang ticket para sa concert na gaganapin bukas. ,cavite
+Huwag kang umasta na parang astig kung hindi mo naman kaya tol. ,cavite
+Naka-benta sila ng madaming paninda dahil sa ganda ng pwesto nila. ,cavite
+" pre, tsibog na tayo habang mainit pa ang pagkain. ",cavite
+ parang sobrang traffic na naman ngayon dito sa aguinaldo highway. ,cavite
+" ano, saan ba talaga ang tamang tambayan ng tropa mamaya? ",cavite
+" kumbaga, sandale lang at tatapusin ko lang itong ginagawa ko. ",cavite
+" pre, astig talaga ng kulay ng bago mong motor ngayon ah. ",cavite
+ parang male-late na tayo sa klase dahil sa bagal ng dyip. ,cavite
+" kumbaga, chibog muna tayo sa tabi-tabi bago tayo tuluyang umuwi. ",cavite
+" ano, malapit na ba tayo sa may dulo ng mahabang pila? ",cavite
+" pre, bilisan mo ang paglakad at baka isara na ang gate. ",cavite
+ parang ingay ng mga tricycle sa labas ng aming silid-aralan. ,cavite
+" kumbaga, pabalot naman nung natirang pagkain natin kanina sa mesa. ",cavite
+" ano, napanood mo ba ang magandang laro ng koponan natin kahapon? ",cavite
+Mag-log in ka muna sa facebook account mo para makita mo ang post sa group page. ,cavite
+I-check mo pre kung online na si sir sa chat para maitanong natin ang assignment. ,cavite
+Naka-receive ako ng confirmation text tungkol sa application natin kanina sa opisina. ,cavite
+I-print mo tol ang hard copy ng data table para maisama sa files. ,cavite
+Naka-save ba sa flash drive ang presentation na gagamitin natin bukas ng umaga? ,cavite
+Mag-download ka muna ng bagong software bago mo simulan ang pag-update ng system. ,cavite
+Naka-block ang wifi ng unibersidad kapag sinubukan mong mag-open ng gaming sites. ,cavite
+I-forward mo sa email ko ang soft copy ng program outline para ma-review ko. ,cavite
+Naka-schedule ang final defense natin sa next week ayon sa ating adviser. ,cavite
+I-cancel mo ang booking ng sasakyan dahil nagbago ang plano ng buong tropa. ,cavite
+Naka-post sa student portal ang listahan ng mga kailangang dalhin para sa enrollment. ,cavite
+I-verify mo muna sa mobile app kung pumasok na ang bayad ng customer sa account. ,cavite
+Ang presko naman ng hangin dito sa may tabing-bundok. ,rizal
+Tara sa may talon mamaya pagkatapos ng ating klase. ,rizal
+Masarap mag-bike rito sa amin dahil sementado na ang kalsada. ,rizal
+Ang tahimik dito kapag umaga kaya masarap magpahinga. ,rizal
+Dito tayo dumaan sa shortcut para iwas sa trapik sa bayan. ,rizal
+Parang malamig ngayon sa Antipolo lalo na kapag gabi. ,rizal
+Ang daming turista ngayon dahil buwan ng pamamasyal dito. ,rizal
+Masarap tumambay sa overlooking habang umiinom ng mainit na kape. ,rizal
+Tahimik sa probinsya kapag gabi na at wala nang sasakyan. ,rizal
+Dito muna tayo sa may ilalim ng puno sumilong saglit. ,rizal
+Ang ganda ng bundok pagkatapos umulan nang malakas kanina. ,rizal
+Masarap mag-hiking dito kasama ang mga kaibigan tuwing weekend. ,rizal
+Parang mahangin ngayong gabi kaya kailangan kong mag-jacket. ,rizal
+Hintayin muna natin sila rito sa tapat ng arko. ,rizal
+Dito tayo magpahinga sandali bago tayo magpatuloy sa pag-akyat. ,rizal
+Naiiyak ako sa sobrang pagod pero napawi ang lahat nang makita ko ang ganda ng tanawin mula sa tuktok ng bundok. ,rizal
+Sobra ang kaba ko habang binabaybay namin ang matarik na ahon sa may pililla kanina. ,rizal
+Natatakot ako kapag sumasapit ang dilim dito sa daan at wala pa kaming kasamang iba sa pagbibisikleta. ,rizal
+Napakasakit sa pakiramdam na makitang nasira ang mga pananim sa bukid dahil sa bagyo. ,rizal
+Nagalit si nanay dahil gabi na ako nakauwi mula sa pamamasyal sa overlooking. ,rizal
+Natutuwa ako dahil nakarating din sa wakas ang buong pamilya dito sa sikat na simbahan. ,rizal
+Nanghihinayang ako sa pagkakataon na makasama sa hiking dahil sumakit ang aking katawan. ,rizal
+Nalilito ako kung aling daan ang mas ligtas dadaanang shortcut patungo sa bayan. ,rizal
+Napakasaya ng buong grupo noong makita namin ang malinis na tubig sa talon. ,rizal
+Naiinis ako kapag madaming kalat ang iniwan ng mga turista dito sa parke. ,rizal
+Nangangamba ako na baka maabutan tayo ng ulan sa gitna ng daan papunta sa bundok. ,rizal
+Sobrang gulo ng isip ko dahil sa dami ng dinalang gamit para sa camping bukas. ,rizal
+Presko hangin. ,rizal
+Tara talon. ,rizal
+Mag-bike tayo. ,rizal
+Tahimik dito. ,rizal
+Daan shortcut. ,rizal
+Malamig Antipolo. ,rizal
+Madaming turista. ,rizal
+Tambay overlooking. ,rizal
+Gabi probinsya. ,rizal
+Silong muna. ,rizal
+Ganda bundok. ,rizal
+Hiking tayo. ,rizal
+Ang presko talaga ng hangin kapag nasa Antipolo ka lalo na kapag maaga ka nagising para maglakad-lakad sa paligid. ,rizal
+Tara sa may Pililla para makita ang mga malalaking windmill na madalas nating mapanood sa mga post sa internet. ,rizal
+Masarap mag-bike rito dahil maraming hamon ang ahon na siguradong susubok sa tatag ng iyong katawan at bisikleta. ,rizal
+Ang tahimik ng buhay dito sa kabundukan natin malayo sa maingay at magulong buhay sa malalaking lungsod sa Maynila. ,rizal
+Dito tayo dumaan para makaiwas sa trapik sa bayan na dulot ng ginagawang malaking tulay sa kabilang kanto. ,rizal
+Parang lumalamig na ang simoy ng hangin sa gabi dahil papalapit na naman ang buwan ng disyembre dito sa atin. ,rizal
+Ang daming deboto sa simbahan tuwing buwan ng Mayo dahil tradisyon na ang maglakad patungo rito sa amin. ,rizal
+Masarap magkape rito sa may overlooking kapag gabi habang pinapanood mo ang mga ilaw ng mga sasakyan sa ibaba. ,rizal
+Tahimik ang buong barangay kapag sumapit ang madaling-araw dahil natutulog na ang lahat ng mga tao sa bahay. ,rizal
+Dito muna tayo sumilong dahil matindi ang sikat ng araw at baka tayo magkasakit kapag nagpatuloy pa tayo sa paglakad. ,rizal
+Ang ganda ng tanawin kapag Sierra Madre ang kaharap mo lalo na kapag sumisikat ang araw sa likod nito. ,rizal
+Masarap mag-relax dito pagkatapos ng mahabang linggo ng pagtatrabaho sa maingay at maduming lugar sa siyudad. ,rizal
+"Aba, presko ah! ",rizal
+"Hala, matarik ito! ",rizal
+"Ay, ganda ng view! ",rizal
+"Naku, ang taas naman! ",rizal
+"Wow, ang lamig dito! ",rizal
+"Ay, salamat nakarating din! ",rizal
+"Hala, uulan yata sa bundok! ",rizal
+"Naku naman o, flat ang gulong! ",rizal
+"Aba, madaming bikers ngayon! ",rizal
+"Ay, sarado ang hanging bridge! ",rizal
+"Hala, bilisan mo ang pag-akyat! ",rizal
+"Wow, sarap ng kape rito! ",rizal
+Magpahinga muna kayo rito sa ilalim ng kawayan bago magpatuloy. ,rizal
+Dito tayo dumaan sa shortcut para mabilis tayong makarating sa terminal. ,rizal
+Hintayin muna natin ang huling biyahe ng bangka patungong talim island. ,rizal
+Tara muna sa may rizal shrine sa morong para mamasyal. ,rizal
+Iayos mo ang kadena ng bike mo bago tayo magsimulang umakyat ng bundok. ,rizal
+Tingnan mo kung malinis ang tubig sa talon bago ka lumangoy. ,rizal
+Isara mo ang bintana dahil malamig ang hangin mula sa kabundukan. ,rizal
+Ilista mo ang mga pangalan ng kasama natin sa hiking para sa permit. ,rizal
+Huwag kayong lalayo sa grupo kapag nasa loob na tayo ng kagubatan. ,rizal
+Bilisan mo ang pag-pack ng mga gamit sa camping dahil gabi na. ,rizal
+Magdala ka ng makapal na jacket dahil malamig ang panahon sa taas. ,rizal
+Iwan mo ang mabibigat na bag dito sa may tapat ng registration desk. ,rizal
+Pumunta kami sa may Pililla noong nakaraang linggo para tingnan ang mga windmill kasama ang aking pamilya. ,rizal
+Nakita ko ang madaming nagre-register na bikers para sa gaganaping karera sa darating na sabado ng umaga. ,rizal
+Naglakad kami sa may pilapil habang pinapanood ang magandang tanawin ng lawa mula sa aming pwesto. ,rizal
+Bumili si tatay ng mga sariwang prutas sa tabi ng daan para sa aming pasalubong pag-uwi sa bahay. ,rizal
+Nag-camping kami sa bundok kasama ang aking mga katrabaho at napakasaya ng aming kwentuhan sa gabi. ,rizal
+Dumaan ang traysikel sa gilid ng sementeryo para makaiwas sa mahabang pila ng sasakyan sa main road. ,rizal
+Natapos din namin ang pag-aayos ng mga permit para sa pag-akyat sa bundok pagkatapos ng ilang oras. ,rizal
+Nakinig kami sa paliwanag ng guide tungkol sa kasaysayan ng lumang simbahan dito sa aming bayan. ,rizal
+Nagkita-kita ang magkakaibigan sa tapat ng arko bago sila tuluyang magsimula sa their alay lakad. ,rizal
+Iniwan niya ang kanyang bike sa may paradahan dahil sumakit ang kanyang tuhod sa gitna ng biyahe. ,rizal
+Nirestohan namin ang bagong kainan sa may overlooking at napakasarap ng kanilang inihandang pagkain doon. ,rizal
+Nawalan ng signal ang aming mga telepono noong makarating kami sa liblib na bahagi ng kabundukan kagabi. ,rizal
+Saan ba dadaan ang shortcut patungong Antipolo para maiwasan ang trapik? ,rizal
+Masarap ba talaga mag-bike rito kapag sumasapit ang araw ng linggo? ,rizal
+Saan ba makakahanap ng murang kagamitan para sa gaganaping hiking bukas? ,rizal
+Kumusta ang simoy ng hangin sa itaas ng bundok ngayon ayon sa balita? ,rizal
+Parang mahangin ba sa may pililla windmill kapag ganitong buwan ng taon? ,rizal
+Saan ba banda rito ang sakayan ng jeep papunta sa may overlooking? ,rizal
+Ang dami bang turista ang pumupunta sa talon tuwing sasapit ang weekend? ,rizal
+Saan ba pwede mag-park ng bike na ligtas at may nagbabantay rito? ,rizal
+Kumain na ba ang lahat bago tayo magsimulang mag-hiking sa bundok? ,rizal
+Saan ba ang daan patungo sa sikat na suspension bridge dito sa amin? ,rizal
+Tahimik ba talaga ang buhay sa isang maliit na baryo sa kabundukan? ,rizal
+Saan ba banda rito ang opisina ng barangay para sa registration ng bikers? ,rizal
+"Huwag kang pampam sa daan tol, madaming mabilis na bikers sa likod. ",rizal
+Naka-chamba kami ng magandang pwesto sa overlooking kagabi kahit madaming tao. ,rizal
+"Huwag mo akong ma-drama rito, alam ko ang hirap ng ahon sa pililla. ",rizal
+Naka-iskor kami ng murang kape doon sa may tindahan sa gilid ng daan. ,rizal
+"Huwag kang praning tol, ligtas naman mag-camping dito sa taas ng bundok. ",rizal
+Naka-jackpot ang tindera dahil naubos agad ang mga paninda niyang malamig na tubig. ,rizal
+"Huwag kang pabebe riyan, bilisan mo ang pag-akyat at baka tayo magdilim. ",rizal
+Naka-freebie ang grupo ng masarap na suman galing doon sa may-ari ng pwesto. ,rizal
+"Huwag kang pasikat sa pagbaba ng bundok, delikado kapag mabilis ang takbo. ",rizal
+Naka-score ng mataas na marka ang aking kaklase sa report tungkol sa kalikasan. ,rizal
+Huwag kang umasta na parang pro biker kung hindi mo pa kabisado ang daan. ,rizal
+Naka-benta sila ng madaming jacket dahil sa matinding lamig dito sa taas. ,rizal
+ parang presko ang simoy ng hangin ngayon dito sa may tabing-bundok. ,rizal
+" bale, tara sa may talon mamaya pagkatapos ng ating klase sa hapon. ",rizal
+" ano, saan ba talaga ang tamang shortcut patungo sa kabilang bayan? ",rizal
+" kumbaga, masarap mag-bike rito sa amin dahil sementado na ang kalsada. ",rizal
+ parang malamig ngayon sa Antipolo lalo na kapag sumasapit ang gabi. ,rizal
+" kumbaga, dito muna tayo sa may ilalim ng puno sumilong saglit habang mainit. ",rizal
+" bale, ang daming turista ngayon dahil buwan ng pamamasyal dito sa amin. ",rizal
+ parang mahangin yata sa may itaas ng bundok ngayon batay sa ulap. ,rizal
+" ano, hintayin muna natin sila rito sa tapat ng arko bago umalis. ",rizal
+" kumbaga, masarap tumambay sa overlooking habang umiinom ng mainit na kape. ",rizal
+" bale, saan ba banda rito ang terminal ng mga traysikel papuntang plasa? ",rizal
+ parang tahimik ang paligid ngayon dahil wala nang masyadong dumadaang sasakyan. ,rizal
+Mag-log in ka muna sa system para makita mo ang registration form ng mga bikers. ,rizal
+I-check mo kung online na ang page ng turismo para sa update sa talon. ,rizal
+Naka-receive kami ng confirmation email tungkol sa slots natin sa camping site. ,rizal
+I-print mo ang hard copy ng map ng trail para hindi tayo maligaw bukas. ,rizal
+Naka-save ba sa flash drive ang lahat ng mga litrato natin sa overlooking? ,rizal
+Mag-download ka muna ng offline map ng Antipolo bago tayo bumiyahe patungo roon. ,rizal
+Naka-block ang signal ng wifi kapag nandoon ka na sa malalim na bahagi ng bundok. ,rizal
+I-forward mo sa messenger ko ang screenshot ng registration ng ating buong grupo. ,rizal
+Naka-schedule ang clean-up drive natin sa next Saturday kasama ang mga environmentalists. ,rizal
+I-cancel mo ang booking ng van dahil mas gusto ng tropa na mag-commute na lang. ,rizal
+Naka-post sa facebook group ang listahan ng mga kailangang dalhin para sa hiking. ,rizal
+I-verify mo muna sa app kung pumasok na ang payment para sa entrance fee natin. ,rizal
+Ano man oras ang alis natin papunta sa bayan ngayon? ,quezon
+Saan man tayo bibili ng pagkain para sa ating hapunan? ,quezon
+Kain man muna tayo bago tayo tuluyang bumiyahe sa malayo. ,quezon
+Mainit man sa terminal ngayon dahil madami ang naghihintay. ,quezon
+Tara man sa palengke mamaya para bumili ng mga prutas. ,quezon
+Hintay man muna si nanay dahil may tinatapos pa siya sa loob. ,quezon
+Marami man tao sa bayan ngayon dahil papalapit na ang pista. ,quezon
+Ang lakas man ng ulan kagabi kaya nabasa ang mga paninda. ,quezon
+Dito man muna kayo umupo sa may silya habang naghihintay. ,quezon
+Saan man ang sakayan ng dyip papunta sa kabilang barangay? ,quezon
+Kain man tayo ng pancit habhab mamaya kasama ang pamilya. ,quezon
+Tara man at baka mahuli tayo sa huling biyahe ng van. ,quezon
+Mainit man sa loob ng jeep kapag tanghaling tapat sa kalsada. ,quezon
+Hintay man sandali at darating din sila mula sa bukid. ,quezon
+Parang mahaba man ang pila rito sa may tindahan ni Aling Maria. ,quezon
+Naiiyak ako sa lungkot dahil umalis man sila nang hindi man lang nagpaalam sa amin. ,quezon
+Sobra ang kaba ko habang naulan at ang lakas man ng kulog at kidlat kagabi. ,quezon
+Natatakot ako na baka masira man ang lahat ng mga pananim na niyog sa bukid. ,quezon
+Napakasakit sa damdamin na makitang nag-away man ang magkapatid dahil sa pera. ,quezon
+Nagalit si tatay dahil nakalimutan man ninyong isara ang gate ng gilingan kanina. ,quezon
+Natutuwa ako dahil naging matagumpay man ang pagdiriwang ng Pahiyas sa bayan. ,quezon
+Nanghihinayang ako sa natirang pagkain na napanis man dahil nakalimutang itabi sa ref. ,quezon
+Nalilito ako kung saan man tayo kukuha ng karagdagang kawayan para sa bakod. ,quezon
+Napakasaya ng buong pamilya noong dumating man ang mga pasalubong mula sa malayo. ,quezon
+Naiinis ako kapag matagal man akong naghihintay dito sa tapat ng kalan sa initan. ,quezon
+Nangangamba ako na baka hindi man lang sila makarating sa takdang oras bukas. ,quezon
+Sobrang gulo ng isip ko dahil sa dami man ng problema sa aming negosyo ngayon. ,quezon
+Ano man. ,quezon
+Saan man? ,quezon
+Kain man. ,quezon
+Mainit man. ,quezon
+Tara man. ,quezon
+Hintay man. ,quezon
+Marami man. ,quezon
+Lakas man. ,quezon
+Dito man. ,quezon
+Biyahe man. ,quezon
+Suman man. ,quezon
+Pila man. ,quezon
+Saan man tayo makakabili ng pasalubong na Lucban longganisa na bagong gawa para dalhin sa aming mga kamag-anak sa Maynila? ,quezon
+Kain man muna kayo ng kakanin habang bagong luto pa at mainit para naman magkaroon kayo ng lakas sa paglalakbay. ,quezon
+Mainit man ang ulo ng tsuper dahil sa matinding traffic na dulot ng ginagawang kalsada sa may tapat ng munisipyo. ,quezon
+Hintay man muna kayo riyan habang hinahanap ko ang susi ng bodega kung saan nakatago ang mga kagamitan natin. ,quezon
+Ano man the gagawin natin kapag hindi sila dumating sa takdang oras na pinagkasunduan natin noong nakaraang linggo? ,quezon
+Saan man tayo makakahanap ng murang bigas sa bayan para makatipid tayo sa gastusin ng aming pamilya ngayong buwan? ,quezon
+Mainit man ang singaw ng hurno sa pagawaan ng tinapay pero kailangan nilang magtiis para matapos ang mga order. ,quezon
+Tara man sa simbahan para magpasalamat sa lahat ng mga biyaya na natanggap ng ating buong pamilya ngayong taon. ,quezon
+Hintay man muna kayo riyan sa may lilim ng puno para hindi kayo mainitan habang nag-aantay ng masasakyang dyip. ,quezon
+Marami man ang pumupunta sa Lucban tuwing gaganapin ang sikat na kapistahan ng Pahiyas para makakita ng magagandang dekorasyon. ,quezon
+Ang lakas man ng agos ng tubig sa ilog kanina kaya naman pinagbawal muna ng kapitan ang paliligo ng mga bata. ,quezon
+Dito man muna kayo magpahinga habang mainit ang sikat ng araw sa labas at baka kayo ay biglang magkasakit sa daan. ,quezon
+"Aba, marami man! ",quezon
+"Hala, lakas man! ",quezon
+"Ay, mainit man! ",quezon
+"Naku, ano man! ",quezon
+"Wow, sarap man! ",quezon
+"Ay, salamat man! ",quezon
+"Hala, uulan man! ",quezon
+"Naku naman o, sarado man! ",quezon
+"Aba, maaga man! ",quezon
+"Ay, nabasag man! ",quezon
+"Hala, bilisan man! ",quezon
+"Wow, ganda man! ",quezon
+Hintay man muna kay tatay dahil parating na raw siya mula sa malapit na palengke. ,quezon
+Dito man muna kayo magpalipas ng gabi sa aming munting bahay dahil umuulan nang malakas. ,quezon
+Saan man ang sakayan ng dyip patungong Lucena kaya magtanong ka muna doon sa kanto. ,quezon
+Kain man tayo ng suman mamayang meryenda kaya magpakulo ka na ng mainit na tubig. ,quezon
+Tara man at baka maiwan tayo ng huling biyahe ng bus patungong Maynila ngayon. ,quezon
+Isara mo ang bintana dahil malakas man ang pasok ng hangin mula sa dagat pasipiko. ,quezon
+Tawagan mo ang iyong kapatid para malaman kung nasaan man siya nagsuot ngayong hapon. ,quezon
+Ihanda mo ang mga kargang niyog sa trak bago dumating ang mamimili mamayang gabi. ,quezon
+Ilista mo ang lahat ng mga kailangan nating bilhin sa tiangge para sa pista. ,quezon
+Huwag mong iiwan ang mga natirang pagkain sa mesa at baka langgamin man iyan. ,quezon
+Bilisan mo ang paggiling ng niyog para magamit na natin sa pagluluto ng ulam. ,quezon
+Magdala ka ng payong dahil parang uulan man nang malakas batay sa kulay ng langit. ,quezon
+Pumunta kami sa Lucban noong nakaraang buwan para manood ng Pahiyas kasama ang buong pamilya ko. ,quezon
+Nakita ko ang mahabang pila ng mga trak na may kargang niyog doon sa may checkpoint kanina. ,quezon
+Nag-asikaso kami ng mga dokumento sa munisipyo at matagal man kaming naghintay dahil madaming tao. ,quezon
+Bumili si nanay ng masarap na pancit habhab sa bayan para sa aming meryenda ngayong hapon. ,quezon
+Naglakad kami sa tabing-dagat habang malakas man ang hangin na nagbubuhat sa dagat pasipiko kanina. ,quezon
+Dumaan ang sasakyan namin sa shortcut sa bukid para makaiwas sa trapik sa main highway. ,quezon
+Natapos din namin ang pag-aayos ng bakod gamit ang mga kawayan na kinuha namin sa likod-bahay. ,quezon
+Nakinig ang lahat sa abiso ng kapitan tungkol sa gaganaping pagpupulong ng mga magsasaka bukas. ,quezon
+Nagkita-kita kami sa may plasa bago kami tuluyang pumunta sa may gilingan ng niyog kahapon. ,quezon
+Iniwan niya ang kanyang mga tsinelas sa may tapat ng pintuan dahil madumi man ang daan sa labas. ,quezon
+Nirestohan namin ang kainan sa tabi ng simbahan at napakasarap man ng kanilang inihandang pagkain doon. ,quezon
+Nawalan ng kuryente sa buong barangay kaya naman napilitan kaming gumamit muna ng mga gasera kagabi. ,quezon
+Saan man tayo makakabili ng masarap na nilupak dito sa inyong bayan ngayon? ,quezon
+Kailan man ang dating ng mga kamag-anak ninyo mula sa malalayong probinsya? ,quezon
+Saan man ang daan patungo sa sikat na talon ng balagbag dito sa amin? ,quezon
+Mainit man ba sa loob ng opisina kapag walang kuryente sa buong gusali? ,quezon
+Saan man dadaan ang trak na may kargang mga bagong pitas na niyog? ,quezon
+Marami man ba ang naging huli nilang sariwang isda kaninang umaga sa dagat? ,quezon
+Saan man tayo pwedeng sumakay ng van papunta sa Lucena dito sa kanto? ,quezon
+Ano man ang desisyon ng nakararami ay susunod ba kayo nang walang reklamo? ,quezon
+Saan man natin ilalagay ang mga natirang kagamitan pagkatapos ng pagtatrabaho bukas? ,quezon
+Inom man muna ba kayo ng mainit na kape habang nagpapalipas ng oras dito? ,quezon
+Saan man dadaan ang prusisyon mamayang gabi para makaiwas tayo sa daan? ,quezon
+Ano man ang gagawin natin kapag biglang bumuhos ang malakas na ulan mamaya? ,quezon
+"Huwag kang epal sa usapan, wala ka namang alam sa nangyari sa munisipyo. ",quezon
+Naka-chamba man ang tropa ng libreng suman doon sa may tindahan sa kanto. ,quezon
+"Huwag mo akong ma-lowbatan dito, alam ko ang totoong gawa mo sa bukid. ",quezon
+Naka-jackpot kami sa palengke dahil madami ang murang longganisa kaninang umaga. ,quezon
+"Huwag kang pabebe riyan, bilisan mo ang pag-load ng mga niyog sa trak. ",quezon
+Naka-iskor kami ng libreng meryenda galing doon sa may-ari ng gilingan. ,quezon
+"Huwag kang praning, ligtas naman iwan ang sasakyan mo diyan sa tabi ng daan. ",quezon
+Naka-freebie ang buong grupo ng malamig na buko juice dahil sa init ng panahon. ,quezon
+"Huwag kang pasikat sa harap ng mga bisita, nakakahiya naman ang kilos mo. ",quezon
+Naka-score ng mataas na benta ang aking tiyuhin sa pagbebenta ng kopra ngayong buwan. ,quezon
+Huwag kang umasta na parang boss kung bago ka pa lang dito sa pagawaan. ,quezon
+Naka-benta sila ng madaming paninda dahil sa ganda ng dekorasyon sa Pahiyas. ,quezon
+ ano man ang balita sa nawawalang dokumento sa opisina ng kapitan? ,quezon
+ parang mainit man ang panahon ngayon pero masarap mamasyal sa bukid. ,quezon
+" bale, kain man muna kayo ng nilagang kamote riyan sa may mesa. ",quezon
+" kumbaga, hintay man muna kay nanay dahil may binabayaran pa siya sa loob. ",quezon
+ parang malakas man ang hiyawan ng mga tao doon sa may covered court. ,quezon
+" kumbaga, dito man muna kayo maupo habang wala pa ang sasakyan natin. ",quezon
+" bale, saan man ang sakayan ng dyip na dadaan sa may unibersidad? ",quezon
+ parang mahaba man ang pila ng mga sasakyan doon sa may checkpoint kanina. ,quezon
+" ano, tara man sa may gilingan ng niyog mamaya pagkatapos ng meryenda. ",quezon
+" kumbaga, kain man muna tayo ng tanghalian bago magpatuloy sa ating paglalakbay. ",quezon
+" bale, saan man tayo pwedeng magpalipas ng ulan dito sa may tabi ng kalsada? ",quezon
+ parang marami man ang naging ani ng mga magsasaka ngayong taon dito. ,quezon
+Mag-log in ka muna sa government portal para ma-check mo ang status ng permit. ,quezon
+I-check mo kung online na ang page ng munisipyo para sa update sa track schedule. ,quezon
+Naka-receive kami ng text confirmation tungkol sa delivery ng mga kawayan kanina. ,quezon
+I-print mo ang hard copy ng listahan ng mga kalahok para sa Pahiyas event. ,quezon
+Naka-save ba sa flash drive ang records ng benta ng kopra para sa auditor? ,quezon
+Mag-download ka muna ng form sa website bago ka pumunta sa town hall bukas. ,quezon
+Naka-block ang mobile signal kapag nandoon ka na sa liblib na bahagi ng banahaw. ,quezon
+I-forward mo sa email ko ang soft copy ng budget report para sa barangay project. ,quezon
+Naka-schedule ang meeting natin sa next Thursday kasama ang agricultural officers. ,quezon
+I-cancel mo ang booking ng truck dahil hindi pa tapos ang paggiling ng niyog. ,quezon
+Naka-post sa facebook page ng bayan ang mga kailangan para sa business permit. ,quezon
+I-verify mo muna sa online application kung pumasok na ang remittance ng buyer. ,quezon

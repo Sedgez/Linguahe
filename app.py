@@ -12,51 +12,64 @@ from sentence_transformers import SentenceTransformer, util
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
-
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # -----------------------------
-# 1. LOAD WHISPER (TURBO)
+# 1. WHISPER MODEL
 # -----------------------------
-print(f"--- Initializing Whisper Turbo on {device} ---")
+print(f"--- Initializing Whisper on {device} ---")
+
 try:
     whisper_model = whisper.load_model("turbo", device=device)
 except Exception as e:
-    print(f"Turbo failed, using medium: {e}")
+    print(f"Turbo failed: {e}")
     whisper_model = whisper.load_model("medium", device=device)
 
 # -----------------------------
-# 2. LOAD SBERT (MULTILINGUAL)
+# 2. SBERT MODEL
 # -----------------------------
 print("--- Loading SBERT ---")
 sbert_model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
 
 # -----------------------------
-# 3. LOAD SBERT PROTOTYPES
+# 3. PROVINCES (FIXED)
+# -----------------------------
+provinces = ["batangas", "laguna", "cavite", "rizal", "quezon"]
+
+# -----------------------------
+# 4. LOAD PROTOTYPES (sentence, dialect)
 # -----------------------------
 def load_sbert_prototypes():
     path = "reference_sentences.csv"
     if os.path.exists(path):
         df = pd.read_csv(path)
         df.columns = df.columns.str.strip().str.lower()
+        df["dialect"] = df["dialect"].astype(str).str.lower().str.strip()
+        df["sentence"] = df["sentence"].astype(str)
         return df
     return pd.DataFrame()
 
 proto_df = load_sbert_prototypes()
 
-# Split prototypes
-batangas_proto = proto_df[proto_df["dialect"] == "batangas"]["sentence"].tolist()
-laguna_proto = proto_df[proto_df["dialect"] == "laguna"]["sentence"].tolist()
+# Precompute SBERT embeddings per province
+proto_embeddings = {}
 
-# Precompute embeddings (FAST)
-batangas_embeddings = sbert_model.encode(batangas_proto, convert_to_tensor=True) if batangas_proto else None
-laguna_embeddings = sbert_model.encode(laguna_proto, convert_to_tensor=True) if laguna_proto else None
+for prov in provinces:
+    sentences = proto_df[proto_df["dialect"] == prov]["sentence"].tolist()
+
+    if len(sentences) == 0:
+        proto_embeddings[prov] = None
+        continue
+
+    proto_embeddings[prov] = sbert_model.encode(
+        sentences,
+        convert_to_tensor=True
+    )
 
 # -----------------------------
-# 4. LOAD RISK CSV
+# 5. LOAD RISK WORDS
 # -----------------------------
 def load_risk_db():
     path = "risk_words.csv"
@@ -69,7 +82,7 @@ def load_risk_db():
 risk_df = load_risk_db()
 
 # -----------------------------
-# 5. AUDIO CLEANING
+# 6. AUDIO CLEANING
 # -----------------------------
 def clean_audio(audio_path):
     try:
@@ -81,104 +94,122 @@ def clean_audio(audio_path):
         pass
 
 # -----------------------------
-# 6. INTONATION ANALYSIS
+# 7. INTONATION ANALYSIS
 # -----------------------------
 def analyze_intonation(audio_path):
     try:
         y, sr = librosa.load(audio_path, sr=16000)
-        pitches, magnitudes = librosa.piptrack(y=y, sr=sr)
-        pitch_values = pitches[magnitudes > np.median(magnitudes)]
-        pitch_values = pitch_values[pitch_values > 0]
+        pitches, mags = librosa.piptrack(y=y, sr=sr)
 
-        if len(pitch_values) < 5:
+        pitch_vals = pitches[mags > np.median(mags)]
+        pitch_vals = pitch_vals[pitch_vals > 0]
+
+        if len(pitch_vals) < 5:
             return "Flat / Neutral"
 
-        pitch_std = np.std(pitch_values)
+        std = np.std(pitch_vals)
 
-        if pitch_std > 45:
+        if std > 45:
             return "Highly Expressive"
-        elif pitch_std > 25:
+        elif std > 25:
             return "Moderate Variation"
-        else:
-            return "Flat / Formal Tone"
+        return "Flat / Formal Tone"
+
     except:
         return "Analysis Unavailable"
 
 # -----------------------------
-# 7. SBERT SIMILARITY (MULTI)
+# 8. TOKENIZATION (SAFE)
+# -----------------------------
+def tokenize(text):
+    return re.findall(r"[a-zA-ZÀ-ÿ']+", text.lower())
+
+# -----------------------------
+# 9. SBERT SCORING (MULTI-CLASS FIXED)
 # -----------------------------
 def sbert_similarity(text):
-    if batangas_embeddings is None or laguna_embeddings is None:
-        return 0.5, 0.5
+    if not proto_embeddings:
+        return {p: 1 / len(provinces) for p in provinces}
 
     emb_input = sbert_model.encode(text, convert_to_tensor=True)
 
-    sim_batangas = util.cos_sim(emb_input, batangas_embeddings).mean().item()
-    sim_laguna = util.cos_sim(emb_input, laguna_embeddings).mean().item()
+    scores = {}
 
-    total = sim_batangas + sim_laguna
+    for prov in provinces:
+        if proto_embeddings[prov] is None:
+            scores[prov] = 0.0
+            continue
+
+        # IMPORTANT FIX: use MAX similarity (not mean)
+        scores[prov] = util.cos_sim(
+            emb_input,
+            proto_embeddings[prov]
+        ).max().item()
+
+    total = sum(scores.values())
+
     if total == 0:
-        return 0.5, 0.5
+        return {p: 1 / len(provinces) for p in provinces}
 
-    return sim_batangas / total, sim_laguna / total
+    return {k: v / total for k, v in scores.items()}
 
 # -----------------------------
-# 8. RULE + SBERT FUSION
+# 10. RULE ENGINE (MULTI-PROVINCE SAFE)
 # -----------------------------
-def process_text_analysis(text):
-    batangas_score = 0
-    laguna_score = 0
-    detected_markers = []
+def rule_engine(text):
+    tokens = tokenize(text)
+
+    scores = {p: 0 for p in provinces}
+    detected = []
     risks = []
 
     if risk_df.empty:
-        return "Unknown", 0, [], []
+        return scores, detected, risks
 
     for _, row in risk_df.iterrows():
-        token = str(row['token']).lower().strip()
-        dialect_tag = str(row.get('dialect_tag', '')).lower()
+        token = str(row["token"]).lower().strip()
+        tag = str(row.get("dialect_tag", "")).lower()
 
-        if re.search(rf'\b{token}\b', text.lower()):
-            detected_markers.append(token)
+        if token in tokens:
+            detected.append(token)
 
-            if dialect_tag == "batangas":
-                batangas_score += 1
-            elif dialect_tag == "laguna":
-                laguna_score += 1
+            if tag in scores:
+                scores[tag] += 1
 
             risks.append({
                 "word": token,
                 "category": row.get("category", ""),
-                "batangas": row.get("meaning_batangas", ""),
-                "laguna": row.get("meaning_laguna", ""),
-                "tag": dialect_tag
+                "meaning": row.get("meaning", ""),
+                "tag": tag
             })
 
-    # Normalize rule score
-    total_rule = batangas_score + laguna_score
-    if total_rule == 0:
-        rule_batangas = 0.5
-        rule_laguna = 0.5
-    else:
-        rule_batangas = batangas_score / total_rule
-        rule_laguna = laguna_score / total_rule
+    return scores, detected, risks
 
-    # SBERT score
-    sbert_batangas, sbert_laguna = sbert_similarity(text)
+# -----------------------------
+# 11. FUSION ENGINE
+# -----------------------------
+def process_text_analysis(text):
 
-    #
-    final_batangas = (rule_batangas * 0.6) + (sbert_batangas * 0.4)
-    final_laguna = (rule_laguna * 0.6) + (sbert_laguna * 0.4)
+    rule_scores, markers, risks = rule_engine(text)
+    sbert_scores = sbert_similarity(text)
 
-    # Final decision
-    if final_batangas > final_laguna:
-        dialect = "Batangas Dialect"
-        confidence = final_batangas * 100
-    else:
-        dialect = "Laguna Dialect"
-        confidence = final_laguna * 100
+    final_scores = {}
 
-    return dialect, round(confidence, 2), detected_markers, risks
+    for p in provinces:
+        final_scores[p] = (
+            rule_scores[p] * 0.6 +
+            sbert_scores[p] * 0.4
+        )
+
+    best = max(final_scores, key=final_scores.get)
+    confidence = final_scores[best] * 100
+
+    return (
+        f"{best.capitalize()} Dialect",
+        round(confidence, 2),
+        markers,
+        risks
+    )
 
 # -----------------------------
 # ROUTES
@@ -189,7 +220,8 @@ def home():
 
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
-    audio_path = os.path.abspath(os.path.join(UPLOAD_FOLDER, "audio.wav"))
+
+    audio_path = os.path.join(UPLOAD_FOLDER, "audio.wav")
     audio = request.files.get("audio")
     use_noise = request.form.get("noise_suppression") == "true"
 
@@ -205,7 +237,7 @@ def transcribe():
         result = whisper_model.transcribe(
             audio_path,
             fp16=(device == "cuda"),
-            language="tl",
+            language=None,
             beam_size=5
         )
 
@@ -226,6 +258,7 @@ def transcribe():
 
 @app.route("/analyze", methods=["POST"])
 def analyze():
+
     data = request.get_json()
     text = data.get("conversation", "")
     intonation = data.get("intonation", "Unknown")
@@ -237,19 +270,18 @@ def analyze():
 
     report = [
         f"<div><strong>Sentence:</strong> {text}</div>",
-        f"<div><strong>Speech Delivery:</strong> {intonation}</div>",
-        f"<div><strong>Detected Dialect:</strong> <span style='color:#27ae60;'>{dialect}</span></div>",
+        f"<div><strong>Speech:</strong> {intonation}</div>",
+        f"<div><strong>Detected:</strong> <span style='color:green'>{dialect}</span></div>",
         f"<div><strong>Confidence:</strong> {confidence:.2f}%</div>",
         "<hr>"
     ]
 
     if risks:
-        report.append("<div><strong>Linguistic Evidence:</strong></div>")
+        report.append("<div><strong>Evidence:</strong></div>")
         for r in risks:
             report.append(
-                f"<div style='margin-bottom:10px; padding:5px; border-left:3px solid #3498db;'>"
-                f"• <strong>{r['word'].upper()}</strong> ({r['category']})<br>"
-                f"<small>Batangas: {r['batangas']} | Laguna: {r['laguna']}</small>"
+                f"<div style='margin-bottom:8px;border-left:3px solid #3498db;padding-left:6px;'>"
+                f"<b>{r['word']}</b> ({r['category']}) [{r['tag']}]"
                 f"</div>"
             )
     else:
