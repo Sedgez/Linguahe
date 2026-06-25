@@ -17,7 +17,7 @@
         <div class="flex flex-col md:flex-row gap-8 mb-12">
           <div class="card-box w-full md:w-1/2">
             <div class="flex justify-between items-center mb-4">
-              <p class="text-sm font-bold text-sky-600 uppercase">Text</p>
+              <p class="text-sm font-bold text-sky-600 uppercase">Text Input Workspace</p>
             </div>
 
             <div class="transcript-container">
@@ -25,7 +25,7 @@
               <textarea
                 id="inputText"
                 class="textarea-main"
-                placeholder="Record audio to see transcript..."
+                placeholder="Record audio or type Tagalog text here to begin analysis..."
               ></textarea>
             </div>
 
@@ -39,11 +39,11 @@
 
           <div class="card-box w-full md:w-1/2">
             <p class="text-sm font-bold text-sky-600 mb-4 uppercase">
-              Analysis
+              Outputs
             </p>
             <div class="explanation-box" id="explanationBox">
               <p class="text-gray-400 italic">
-                Analysis will appear here after recording...
+                Analysis insights will appear here following a voice recording or manual text input...
               </p>
             </div>
           </div>
@@ -52,7 +52,7 @@
         <div class="flex flex-col items-center justify-center gap-4 w-full py-6 bg-gray-50/80 backdrop-blur-sm border-t border-gray-200 sticky bottom-0 z-50">
           <button id="micBtn" class="mic-button">🎤</button>
           <p class="text-sm text-gray-500 font-bold" id="statusText">
-            Tap to Record (15s)
+            Tap to Record (15s Max Limit)
           </p>
 
           <div class="flex gap-4 items-center mt-2">
@@ -80,6 +80,37 @@
       let audioChunks = [];
       const micBtn = document.getElementById("micBtn");
       const statusText = document.getElementById("statusText");
+      const inputArea = document.getElementById("inputText");
+      const highlightArea = document.getElementById("highlightLayer");
+      const explanationBox = document.getElementById("explanationBox");
+
+      // Core analysis execution function mapping directly to updated PyTorch backend endpoints
+      async function executeFeatureLevelAnalysis(text, acousticProfile = "Unknown / Text Input") {
+        if (!text || text.trim() === "") return;
+        
+        statusText.innerText = "Processing...";
+        
+        try {
+          const response = await fetch("/analyze", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              conversation: text,
+              intonation: acousticProfile
+            }),
+          });
+          
+          const resultData = await response.json();
+          
+          // Inject the processed HTML report string straight into the UI container
+          explanationBox.innerHTML = resultData.explanation;
+          highlightArea.innerHTML = text; 
+          statusText.innerText = "Process Complete!";
+        } catch (error) {
+          console.error("Backend Fusion Engine Error:", error);
+          statusText.innerText = "Error pulling analysis vectors from the server.";
+        }
+      }
 
       async function startRecording() {
         try {
@@ -89,113 +120,104 @@
 
           micBtn.innerHTML = "⏹️";
           micBtn.classList.add("recording");
-          statusText.innerText = "Listening to audio input...";
+          statusText.innerText = "Listening to verbal audio streams...";
 
           recorder.ondataavailable = (e) => audioChunks.push(e.data);
 
           recorder.onstop = async () => {
             micBtn.innerHTML = "🎤";
             micBtn.classList.remove("recording");
-            statusText.innerText = "Analyzing...";
+            statusText.innerText = "Transcribing...";
 
             const blob = new Blob(audioChunks, { type: "audio/wav" });
             const formData = new FormData();
             formData.append("audio", blob);
-            formData.append("language", "tl"); // Hardcoded for demo stability
             formData.append("noise_suppression", document.getElementById("noiseToggle").checked);
 
             try {
-              // Step 1: Transcription
+              // Execution Pipeline Phase 1: Call Transformer Transcription Engine
               const tResp = await fetch("/transcribe", { method: "POST", body: formData });
               const tData = await tResp.json();
 
               if (tData.original_text && tData.original_text.trim() !== "") {
-                document.getElementById("inputText").value = tData.original_text;
-                document.getElementById("highlightLayer").innerHTML = tData.highlighted_text || tData.original_text;
-
-                // Step 2: Analysis
-                const aResp = await fetch("/analyze", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    conversation: tData.original_text,
-                    diction_score: tData.diction_score,
-                    intonation: tData.intonation
-                  }),
-                });
-                const aData = await aResp.json();
-                document.getElementById("explanationBox").innerHTML = aData.explanation;
-                statusText.innerText = "Analysis Complete!";
+                inputArea.value = tData.original_text;
+                
+                // Execution Pipeline Phase 2: Compute Embeddings, Rule Weights, and Neural Layer Probabilities
+                await executeFeatureLevelAnalysis(tData.original_text, tData.intonation);
               } else {
-                statusText.innerText = "No clear speech detected. Try again.";
+                statusText.innerText = "Audio too faint. Please speak clearly.";
               }
             } catch (e) {
-              console.error("Pipeline Error:", e);
-              statusText.innerText = "Connection error. Please check server.";
+              console.error("Transcription Failure:", e);
+              statusText.innerText = "Connection lost. Verify local server execution states.";
             }
           };
 
           recorder.start();
           
-          // Auto-stop after 15 seconds
+          // Implements the document's strictly designed 15-second tracking ceiling
           setTimeout(() => {
             if (recorder && recorder.state === "recording") recorder.stop();
           }, 15000);
 
         } catch (err) {
-          alert("Microphone access denied. Please check browser permissions.");
+          alert("Audio capturing devices blocked. Verify local operating system recording authorizations.");
         }
       }
 
+      // Voice capture interface controllers
       micBtn.addEventListener("click", () => {
         if (recorder && recorder.state === "recording") recorder.stop();
         else startRecording();
       });
 
-      document.getElementById("clearBtn").addEventListener("click", () => {
-        if (confirm("Clear current session?")) location.reload();
+      // Enables manual validation testing of field data sets directly inside the browser window
+      inputArea.addEventListener("change", () => {
+        executeFeatureLevelAnalysis(inputArea.value, "Manual Text Input Matrix");
       });
 
-      // Local browser download
+      // System Workspace Initialization Restets
+      document.getElementById("clearBtn").addEventListener("click", () => {
+        if (confirm("Reset execution history and clean current workspace vectors?")) location.reload();
+      });
+
+      // Local Document Diagnostic Text Exporter
       document.getElementById("downloadBtn").addEventListener("click", () => {
-        const transcript = document.getElementById("inputText").value;
-        const analysisBox = document.getElementById("explanationBox");
+        const transcript = inputArea.value;
 
         if (!transcript || transcript.trim() === "") {
-          alert("No data available to download.");
+          alert("Workspace clear. Generate system output before printing logs.");
           return;
         }
 
         const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = analysisBox.innerHTML;
+        tempDiv.innerHTML = explanationBox.innerHTML;
 
+        // Strip structural web tags out to preserve clear printable text format blocks
         const hrs = tempDiv.querySelectorAll("hr");
         hrs.forEach(hr => hr.outerHTML = "\n------------------------------------------\n");
-
         const brs = tempDiv.querySelectorAll("br");
         brs.forEach(br => br.outerHTML = "\n");
 
         const reportContent =
           `LINGUAHE LINGUISTIC DIAGNOSTIC REPORT\n` +
-          `Generated: ${new Date().toLocaleString()}\n` +
+          `Generated Workspace Log: ${new Date().toLocaleString()}\n` +
           `------------------------------------------\n\n` +
-          `TRANSCRIPT:\n"${transcript}"\n\n` +
-          `DIAGNOSTIC FINDINGS:\n${tempDiv.innerText}\n\n` +
+          `VERBAL DIALECT TRANSCRIPT:\n"${transcript}"\n\n` +
+          `NEURAL CLASSIFICTION ARCHITECTURE OUTCOMES:\n${tempDiv.innerText}\n\n` +
           `------------------------------------------\n` +
-          `System: Linguahe Engine v1.0\n`;
+          `Engine Configuration: RA-SBERT + ANN Core Pipeline Subsystem\n`;
 
         const blob = new Blob([reportContent], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `Linguahe_Report_${new Date().getTime()}.txt`;
+        a.download = `Linguahe_AnalyticalLog_${new Date().getTime()}.txt`;
         a.click();
         URL.revokeObjectURL(url);
       });
 
-      // Scroll Sync
-      const inputArea = document.getElementById("inputText");
-      const highlightArea = document.getElementById("highlightLayer");
+      // Workspace Mirror Layer Viewport Scroll Synchronization Loops
       inputArea.addEventListener("scroll", () => {
         highlightArea.scrollTop = inputArea.scrollTop;
       });

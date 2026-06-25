@@ -8,157 +8,339 @@ import numpy as np
 import noisereduce as nr
 import pandas as pd
 import torch
+import uuid
 from sentence_transformers import SentenceTransformer, util
 
 app = Flask(__name__)
+
+# -----------------------------
+# DIRECTORY SETUP
+# -----------------------------
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+# -----------------------------
+# DEVICE INITIALIZATION
+# -----------------------------
 device = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"\n=== SYSTEM DEVICE: {device.upper()} ===")
 
 # -----------------------------
-# 1. WHISPER MODEL
+# WHISPER MODEL INITIALIZATION
 # -----------------------------
-print(f"--- Initializing Whisper on {device} ---")
+print("--- Initializing Whisper Model ---")
 
 try:
     whisper_model = whisper.load_model("turbo", device=device)
+    print("Loaded Whisper Turbo Model")
 except Exception as e:
-    print(f"Turbo failed: {e}")
+    print(f"Turbo unavailable -> fallback to medium: {e}")
     whisper_model = whisper.load_model("medium", device=device)
 
 # -----------------------------
-# 2. SBERT MODEL
+# SBERT MODEL INITIALIZATION
 # -----------------------------
-print("--- Loading SBERT ---")
-sbert_model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
+print("--- Loading Multilingual SBERT Model ---")
+
+sbert_model = SentenceTransformer(
+    "paraphrase-multilingual-MiniLM-L12-v2",
+    device=device
+)
 
 # -----------------------------
-# 3. PROVINCES (FIXED)
+# TARGET RESEARCH PROVINCES
 # -----------------------------
-provinces = ["batangas", "laguna", "cavite", "rizal", "quezon"]
+provinces = [
+    "batangas",
+    "laguna",
+    "cavite",
+    "rizal",
+    "quezon"
+]
 
 # -----------------------------
-# 4. LOAD PROTOTYPES (sentence, dialect)
+# SAFE CSV LOADER
 # -----------------------------
-def load_sbert_prototypes():
-    path = "reference_sentences.csv"
-    if os.path.exists(path):
-        df = pd.read_csv(path)
-        df.columns = df.columns.str.strip().str.lower()
-        df["dialect"] = df["dialect"].astype(str).str.lower().str.strip()
-        df["sentence"] = df["sentence"].astype(str)
-        return df
+def safe_read_csv(path):
+    encodings = ["utf-8", "cp1252", "latin-1"]
+
+    for enc in encodings:
+        try:
+            return pd.read_csv(path, encoding=enc)
+        except:
+            continue
+
     return pd.DataFrame()
 
-proto_df = load_sbert_prototypes()
+# -----------------------------
+# LOAD SBERT PROTOTYPE DATABASE
+# -----------------------------
+def load_reference_sentences():
+    path = "reference_sentences.csv"
 
-# Precompute SBERT embeddings per province
+    if not os.path.exists(path):
+        print("reference_sentences.csv not found")
+        return pd.DataFrame()
+
+    df = safe_read_csv(path)
+
+    if df.empty:
+        return df
+
+    df.columns = df.columns.str.strip().str.lower()
+
+    required_cols = ["dialect", "sentence"]
+
+    for col in required_cols:
+        if col not in df.columns:
+            raise Exception(f"Missing required column: {col}")
+
+    df["dialect"] = (
+        df["dialect"]
+        .astype(str)
+        .str.lower()
+        .str.strip()
+    )
+
+    df["sentence"] = (
+        df["sentence"]
+        .astype(str)
+        .str.strip()
+    )
+
+    return df
+
+proto_df = load_reference_sentences()
+
+# -----------------------------
+# PRECOMPUTE SBERT EMBEDDINGS
+# -----------------------------
+print("--- Building Province Embeddings ---")
+
 proto_embeddings = {}
 
-for prov in provinces:
-    sentences = proto_df[proto_df["dialect"] == prov]["sentence"].tolist()
+if not proto_df.empty:
 
-    if len(sentences) == 0:
-        proto_embeddings[prov] = None
-        continue
+    for prov in provinces:
 
-    proto_embeddings[prov] = sbert_model.encode(
-        sentences,
-        convert_to_tensor=True
+        sentences = proto_df[
+            proto_df["dialect"] == prov
+        ]["sentence"].tolist()
+
+        if len(sentences) == 0:
+            proto_embeddings[prov] = None
+            continue
+
+        embeddings = sbert_model.encode(
+            sentences,
+            convert_to_tensor=True,
+            device=device
+        )
+
+        proto_embeddings[prov] = embeddings
+
+print("Province embeddings complete")
+
+# -----------------------------
+# LOAD RISK WORD DATABASE
+# -----------------------------
+def load_risk_words():
+
+    path = "risk_words.csv"
+
+    if not os.path.exists(path):
+        print("risk_words.csv not found")
+        return pd.DataFrame()
+
+    df = safe_read_csv(path)
+
+    if df.empty:
+        return df
+
+    df.columns = df.columns.str.strip().str.lower()
+
+    # Header auto-fixes
+    if "dielect_tag" in df.columns and "dialect_tag" not in df.columns:
+        df = df.rename(columns={
+            "dielect_tag": "dialect_tag"
+        })
+
+    if "context_meaning" in df.columns and "meaning" not in df.columns:
+        df = df.rename(columns={
+            "context_meaning": "meaning"
+        })
+
+    required = ["token"]
+
+    for col in required:
+        if col not in df.columns:
+            raise Exception(f"Missing required column: {col}")
+
+    return df.fillna("")
+
+risk_df = load_risk_words()
+
+# Sanity check so a header typo fails loudly instead of silently
+# zero-scoring the rule engine for every request.
+if not risk_df.empty and "dialect_tag" not in risk_df.columns:
+    print(
+        "WARNING: risk_words.csv loaded but no 'dialect_tag' column was "
+        "found after header auto-fix. Rule engine scores will always be "
+        "zero. Check your CSV header spelling."
     )
 
 # -----------------------------
-# 5. LOAD RISK WORDS
-# -----------------------------
-def load_risk_db():
-    path = "risk_words.csv"
-    if os.path.exists(path):
-        df = pd.read_csv(path)
-        df.columns = df.columns.str.strip().str.lower()
-        return df.fillna("")
-    return pd.DataFrame()
-
-risk_df = load_risk_db()
-
-# -----------------------------
-# 6. AUDIO CLEANING
+# AUDIO CLEANING PIPELINE
 # -----------------------------
 def clean_audio(audio_path):
+
     try:
         y, sr = librosa.load(audio_path, sr=16000)
+
+        # Normalize
         y = librosa.util.normalize(y)
-        y = nr.reduce_noise(y=y, sr=sr, prop_decrease=0.7)
+
+        # Noise reduction
+        y = nr.reduce_noise(
+            y=y,
+            sr=sr,
+            prop_decrease=0.7
+        )
+
+        # Trim silence
+        y, _ = librosa.effects.trim(
+            y,
+            top_db=20
+        )
+
         sf.write(audio_path, y, sr)
-    except:
-        pass
+
+    except Exception as e:
+        print(f"Audio cleaning error: {e}")
 
 # -----------------------------
-# 7. INTONATION ANALYSIS
+# SPEECH FEATURE EXTRACTION
 # -----------------------------
-def analyze_intonation(audio_path):
+def analyze_audio_features(audio_path):
+
     try:
         y, sr = librosa.load(audio_path, sr=16000)
-        pitches, mags = librosa.piptrack(y=y, sr=sr)
 
-        pitch_vals = pitches[mags > np.median(mags)]
-        pitch_vals = pitch_vals[pitch_vals > 0]
+        duration = librosa.get_duration(y=y, sr=sr)
 
-        if len(pitch_vals) < 5:
-            return "Flat / Neutral"
+        # Pitch extraction
+        pitches, magnitudes = librosa.piptrack(
+            y=y,
+            sr=sr
+        )
 
-        std = np.std(pitch_vals)
+        pitch_values = pitches[
+            magnitudes > np.median(magnitudes)
+        ]
 
-        if std > 45:
-            return "Highly Expressive"
-        elif std > 25:
-            return "Moderate Variation"
-        return "Flat / Formal Tone"
+        pitch_values = pitch_values[pitch_values > 0]
 
-    except:
-        return "Analysis Unavailable"
+        # Speech rate estimation
+        onset_frames = librosa.onset.onset_detect(
+            y=y,
+            sr=sr
+        )
+
+        speech_rate = len(onset_frames) / max(duration, 1)
+
+        # Intonation classification
+        if len(pitch_values) < 5:
+            intonation = "Flat / Neutral"
+            pitch_std = 0
+        else:
+            pitch_std = np.std(pitch_values)
+
+            if pitch_std > 45:
+                intonation = "Highly Expressive"
+            elif pitch_std > 25:
+                intonation = "Moderate Variation"
+            else:
+                intonation = "Flat / Formal Tone"
+
+        return {
+            "duration": round(duration, 2),
+            "speech_rate": round(speech_rate, 2),
+            "intonation": intonation,
+            "pitch_variation": round(float(pitch_std), 2)
+        }
+
+    except Exception as e:
+        print(f"Feature extraction error: {e}")
+
+        return {
+            "duration": 0,
+            "speech_rate": 0,
+            "intonation": "Analysis Unavailable",
+            "pitch_variation": 0
+        }
 
 # -----------------------------
-# 8. TOKENIZATION (SAFE)
+# TOKENIZATION
 # -----------------------------
 def tokenize(text):
-    return re.findall(r"[a-zA-ZÀ-ÿ']+", text.lower())
+
+    return re.findall(
+        r"[a-zA-ZÀ-ÿ']+",
+        text.lower()
+    )
 
 # -----------------------------
-# 9. SBERT SCORING (MULTI-CLASS FIXED)
+# SBERT SIMILARITY ENGINE
 # -----------------------------
 def sbert_similarity(text):
-    if not proto_embeddings:
-        return {p: 1 / len(provinces) for p in provinces}
 
-    emb_input = sbert_model.encode(text, convert_to_tensor=True)
+    if not proto_embeddings:
+        return {
+            p: 1 / len(provinces)
+            for p in provinces
+        }
+
+    emb_input = sbert_model.encode(
+        text,
+        convert_to_tensor=True,
+        device=device
+    )
 
     scores = {}
 
     for prov in provinces:
-        if proto_embeddings[prov] is None:
+
+        emb = proto_embeddings.get(prov)
+
+        if emb is None:
             scores[prov] = 0.0
             continue
 
-        # IMPORTANT FIX: use MAX similarity (not mean)
-        scores[prov] = util.cos_sim(
+        similarity = util.cos_sim(
             emb_input,
-            proto_embeddings[prov]
-        ).max().item()
+            emb
+        )
+
+        scores[prov] = similarity.max().item()
 
     total = sum(scores.values())
 
     if total == 0:
-        return {p: 1 / len(provinces) for p in provinces}
+        return {
+            p: 1 / len(provinces)
+            for p in provinces
+        }
 
-    return {k: v / total for k, v in scores.items()}
+    return {
+        k: v / total
+        for k, v in scores.items()
+    }
 
 # -----------------------------
-# 10. RULE ENGINE (MULTI-PROVINCE SAFE)
+# RULE-BASED DIALECT ENGINE (FIXED: word-boundary matching)
 # -----------------------------
 def rule_engine(text):
-    tokens = tokenize(text)
-
+    text_lower = text.lower().strip()
     scores = {p: 0 for p in provinces}
     detected = []
     risks = []
@@ -166,69 +348,122 @@ def rule_engine(text):
     if risk_df.empty:
         return scores, detected, risks
 
-    for _, row in risk_df.iterrows():
-        token = str(row["token"]).lower().strip()
-        tag = str(row.get("dialect_tag", "")).lower()
+    # 1. Identify all unique risk tokens and sort by length (descending)
+    #    so multi-word phrases are checked before
+    #    shorter single-word tokens.
+    risk_tokens = sorted(risk_df["token"].unique(), key=len, reverse=True)
 
-        if token in tokens:
+    # 2. Search for markers using WORD-BOUNDARY regex instead of plain
+    #    substring matching. Plain substring matching (the original
+    #    `if token in working_text`) caused false positives
+    #    \b anchors the match to whole-word boundaries, eliminating
+    #    these false hits while still matching genuine standalone usage
+    #    and multi-word phrases.
+    working_text = text_lower
+    for token in risk_tokens:
+        pattern = r"\b" + re.escape(token) + r"\b"
+
+        if re.search(pattern, working_text):
+            # Found a genuine whole-word match
             detected.append(token)
 
-            if tag in scores:
-                scores[tag] += 1
+            # Extract all metadata for this token from the risk_df
+            matches = risk_df[risk_df["token"] == token]
+            for _, row in matches.iterrows():
+                dialect_tag = str(row.get("dialect_tag", "")).lower().strip()
+                if dialect_tag in scores:
+                    scores[dialect_tag] += 1
 
-            risks.append({
-                "word": token,
-                "category": row.get("category", ""),
-                "meaning": row.get("meaning", ""),
-                "tag": tag
-            })
+                risks.append({
+                    "word": token,
+                    "category": row.get("category", ""),
+                    "meaning": row.get("meaning", ""),
+                    "tag": dialect_tag
+                })
+
+            # Replace only the matched whole word with spaces (not a
+            # blind substring replace) to prevent overlapping/duplicate
+            # matches while not corrupting other words that merely
+            # contain this token as a substring.
+            working_text = re.sub(pattern, " ", working_text)
 
     return scores, detected, risks
 
 # -----------------------------
-# 11. FUSION ENGINE
+# HYBRID ANALYSIS ENGINE (NORMALIZED)
 # -----------------------------
 def process_text_analysis(text):
-
     rule_scores, markers, risks = rule_engine(text)
     sbert_scores = sbert_similarity(text)
 
     final_scores = {}
 
-    for p in provinces:
-        final_scores[p] = (
-            rule_scores[p] * 0.6 +
-            sbert_scores[p] * 0.4
+    # 1. Calculate raw weighted scores (60/40 Split)
+    for province in provinces:
+        final_scores[province] = (
+            (rule_scores[province] * 0.6) +
+            (sbert_scores[province] * 0.4)
         )
 
-    best = max(final_scores, key=final_scores.get)
-    confidence = final_scores[best] * 100
+    # 2. Normalize so that total sum equals 1.0 (100%)
+    total_sum = sum(final_scores.values())
+    if total_sum > 0:
+        for province in final_scores:
+            final_scores[province] = final_scores[province] / total_sum
+    else:
+        # Fallback for empty/zero scenarios
+        final_scores = {p: 1.0 / len(provinces) for p in provinces}
 
-    return (
-        f"{best.capitalize()} Dialect",
-        round(confidence, 2),
-        markers,
-        risks
-    )
+    best_match = max(final_scores, key=final_scores.get)
+    confidence = final_scores[best_match] * 100
+
+    normalized_scores = {
+        k: round(v * 100, 2)
+        for k, v in final_scores.items()
+    }
+
+    return {
+        "dialect": f"{best_match.capitalize()} Dialect",
+        "confidence": round(confidence, 2),
+        "markers": markers,
+        "risks": risks,
+        "scores": normalized_scores
+    }
 
 # -----------------------------
-# ROUTES
+# ROOT ROUTE
 # -----------------------------
 @app.route("/")
 def home():
     return render_template("index.html")
 
+# -----------------------------
+# AUDIO TRANSCRIPTION ROUTE
+# -----------------------------
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
 
-    audio_path = os.path.join(UPLOAD_FOLDER, "audio.wav")
     audio = request.files.get("audio")
-    use_noise = request.form.get("noise_suppression") == "true"
+
+    use_noise = (
+        request.form.get("noise_suppression")
+        == "true"
+    )
 
     if not audio:
-        return jsonify({"error": "No audio"}), 400
+        return jsonify({
+            "error": "No audio uploaded"
+        }), 400
+
+    unique_name = f"{uuid.uuid4()}.wav"
+
+    audio_path = os.path.join(
+        UPLOAD_FOLDER,
+        unique_name
+    )
 
     try:
+
         audio.save(audio_path)
 
         if use_noise:
@@ -237,58 +472,185 @@ def transcribe():
         result = whisper_model.transcribe(
             audio_path,
             fp16=(device == "cuda"),
-            language=None,
-            beam_size=5
+            beam_size=5,
+            language="tl"
         )
 
         text = result["text"].strip()
-        intonation = analyze_intonation(audio_path)
+
+        features = analyze_audio_features(audio_path)
 
         return jsonify({
             "original_text": text,
-            "intonation": intonation
+            "duration_seconds": features["duration"],
+            "speech_rate": features["speech_rate"],
+            "intonation": features["intonation"],
+            "pitch_variation": features["pitch_variation"]
         })
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+
+        return jsonify({
+            "error": str(e)
+        }), 500
 
     finally:
+
         if os.path.exists(audio_path):
             os.remove(audio_path)
 
+# -----------------------------
+# DIALECT ANALYSIS ROUTE
+# -----------------------------
 @app.route("/analyze", methods=["POST"])
 def analyze():
 
     data = request.get_json()
-    text = data.get("conversation", "")
-    intonation = data.get("intonation", "Unknown")
+
+    text = data.get("conversation", "").strip()
 
     if not text:
-        return jsonify({"explanation": "Empty text."})
 
-    dialect, confidence, markers, risks = process_text_analysis(text)
+        return jsonify({
+            "explanation":
+            "<div style='color:#64748b;'>No text received.</div>"
+        })
+
+    result = process_text_analysis(text)
+
+    dialect = result["dialect"]
+    confidence = result["confidence"]
+    risks = result["risks"]
+    scores = result["scores"]
+
+    # Province ranking display
+    ranking_html = ""
+
+    sorted_scores = sorted(
+        scores.items(),
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    for province, score in sorted_scores:
+
+        ranking_html += (
+            f"<div style='margin-bottom:6px;'>"
+            f"{province.capitalize()}: "
+            f"<strong>{score:.2f}%</strong>"
+            f"</div>"
+        )
 
     report = [
-        f"<div><strong>Sentence:</strong> {text}</div>",
-        f"<div><strong>Speech:</strong> {intonation}</div>",
-        f"<div><strong>Detected:</strong> <span style='color:green'>{dialect}</span></div>",
-        f"<div><strong>Confidence:</strong> {confidence:.2f}%</div>",
-        "<hr>"
+
+        f"""
+        <div style='margin-bottom:12px;'>
+            <strong>Closest Province/Region:</strong>
+            <span style='color:#0284c7;font-weight:bold;'>
+                {dialect}
+            </span>
+        </div>
+        """,
+
+        f"""
+        <div style='margin-bottom:16px;'>
+            <strong>System Confidence Level:</strong>
+            <span style='font-weight:bold;'>
+                {confidence:.2f}%
+            </span>
+        </div>
+        """,
+
+        """
+        <div style='margin-bottom:12px;'>
+            <strong>Province Similarity Ranking</strong>
+        </div>
+        """,
+
+        ranking_html,
+
+        "<hr style='border:0;border-top:1px solid #e2e8f0;margin:16px 0;'>"
     ]
 
+    # Risk word rendering
     if risks:
-        report.append("<div><strong>Evidence:</strong></div>")
-        for r in risks:
-            report.append(
-                f"<div style='margin-bottom:8px;border-left:3px solid #3498db;padding-left:6px;'>"
-                f"<b>{r['word']}</b> ({r['category']}) [{r['tag']}]"
-                f"</div>"
-            )
-    else:
-        report.append("<div>No markers detected.</div>")
 
-    return jsonify({"explanation": "".join(report)})
+        report.append(
+            """
+            <div style='font-weight:bold;
+                        margin-bottom:10px;
+                        color:#e11d48;'>
+                Flagged Regional Risk Words
+            </div>
+            """
+        )
+
+        for risk in risks:
+
+            word = risk.get("word", "unknown")
+            category = risk.get(
+                "category",
+                "Uncategorized"
+            )
+
+            meaning = risk.get(
+                "meaning",
+                "No meaning metadata"
+            )
+
+            tag = risk.get(
+                "tag",
+                "UNK"
+            ).upper()
+
+            report.append(
+                f"""
+                <div style='
+                    margin-bottom:10px;
+                    border-left:4px solid #e11d48;
+                    padding:8px;
+                    background:#fff1f2;
+                    border-radius:6px;
+                '>
+
+                    • <strong>{word}</strong>
+                    ({category})<br>
+
+                    <small style='color:#475569;'>
+                        Meaning:
+                        {meaning}
+                        [{tag}]
+                    </small>
+
+                </div>
+                """
+            )
+
+    else:
+
+        report.append(
+            """
+            <div style='
+                color:#64748b;
+                font-style:italic;
+            '>
+                No regional misunderstanding or
+                dialect-sensitive terms detected.
+            </div>
+            """
+        )
+
+    return jsonify({
+        "explanation": "".join(report)
+    })
 
 # -----------------------------
+# APPLICATION ENTRY
+# -----------------------------
 if __name__ == "__main__":
-    app.run(debug=False, port=8080)
+
+    app.run(
+        debug=False,
+        host="0.0.0.0",
+        port=8080
+    )

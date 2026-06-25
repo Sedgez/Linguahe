@@ -1,24 +1,38 @@
-token,category,meaning_batangas,meaning_laguna,dialect_tag
-ga,particle,Question marker,ba,batangas
-dine,location,here,dito,batangas
-ala eh,expression,emphasis,none,batangas
-nakain,verb,eating,eaten,batangas
-mabanas,adjective,humid,irritated,batangas
-po,politeness,formal,respect,laguna
-opo,politeness,formal,respect,laguna
-dito,location,here,standard,laguna
-ganire,verb,like this,ganito,batangas
-asbag,adjective,arrogant / boastful,(uncommon word),batangas
-liban,verb,to cross the street,to be absent,batangas
-urong,verb,to wash dishes,to move backward,batangas
-bangaw,noun,wild/rabid dog,crazy person,batangas
-pantay,verb,to lie down / sleep,even / equal,batangas
-pumarine,verb,to come here,pumarito,batangas
-huntahan,noun,chatting / storytelling,kwentuhan,batangas
-ganito,verb,ganire in batangas,like this,laguna
-laang,n/a,n/a,n/a,batangas
-walse,verb,broom,walis,batangas
-pispise,n/a,n/a,n/a,batangas
-pispiseh,n/a,n/a,n/a,batangas
-garne,verb,like this,ganito,batangas
-eh,expression,emphasis,none,batangas
+token,category,meaning,dialect_tag
+ala eh,exclamatory,Batangas exclamation,batangas
+dine,directional,Dito (Here),batangas
+laang,quantifier,Lamang (Only/Just),batangas
+baga,particle,Pang-diin o pang-tanong (Emphasis),batangas
+bukse,verb,Buksan (Open it),batangas
+kakaunin,verb,Susunduin (To fetch someone),batangas
+tubal,noun,Maduming damit (Dirty laundry),batangas
+hiso,noun,Sipilyo (Toothbrush),batangas
+sampiga,verb,Sampal (Slap),batangas
+gawa,particle,Dahil sa (Because/Since),batangas
+mismo,particle,Talaga (Indeed/Very),batangas
+iray,directional,Nandoon (Over there),batangas
+huni,noun,Tunog (Sound/Noise),batangas
+dag-im,noun,Maitim na ulap (Dark clouds),batangas
+baliskad,particle,Baligtad (Reversed/Inverted),laguna
+hibo,noun,Putik o madulas na dumi sa daan,laguna
+liban,verb,Tumawid (To cross a road or river),laguna
+atungal,verb,Malakas na ingay ng makina o sigaw,laguna
+alapaap,noun,Langit (Sky/Clouds),laguna
+palaot,verb,Pumunta sa gitna ng lawa,laguna
+suba,noun,Ilog o daluyan ng tubig,laguna
+tumpok,noun,Bunton ng gamit (Pile),laguna
+urong,verb,Pumunta sa kusina o bandang likod,laguna
+kula,particle,Dahil sa (Because of),cavite
+manan,particle,Muna (Wait for a moment/First),cavite
+walat,verb,Wasak o lubhang nasira,cavite
+purnada,verb,Nabigo o hindi natuloy ang lakad,cavite
+singgaw,noun,Pagsingaw ng init mula sa lupa,cavite
+ayawan,verb,Pagtanggi sa alok,cavite
+kalat,verb,Pagkalat ng impormasyon,cavite
+boka,slang,Pagkukuwento (Chismis/Talk),cavite
+sigal,noun,Alitan (Conflict),cavite
+kangkang,verb,Pagbukas ng hita nang malapad,cavite
+man,particle,Nga (Intensifier for statements),quezon
+manay,noun,Pagtawag sa nakatatandang babae,quezon
+daannoun,noun,Pansamantalang pagtigil sa paglalakbay,quezon
+gora,noun,Sumbrero (Hat),rizal
