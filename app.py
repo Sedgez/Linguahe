@@ -62,6 +62,7 @@ provinces = [
 # SAFE CSV LOADER
 # -----------------------------
 def safe_read_csv(path):
+
     encodings = ["utf-8", "cp1252", "latin-1"]
 
     for enc in encodings:
@@ -76,6 +77,7 @@ def safe_read_csv(path):
 # LOAD SBERT PROTOTYPE DATABASE
 # -----------------------------
 def load_reference_sentences():
+
     path = "reference_sentences.csv"
 
     if not os.path.exists(path):
@@ -180,15 +182,6 @@ def load_risk_words():
 
 risk_df = load_risk_words()
 
-# Sanity check so a header typo fails loudly instead of silently
-# zero-scoring the rule engine for every request.
-if not risk_df.empty and "dialect_tag" not in risk_df.columns:
-    print(
-        "WARNING: risk_words.csv loaded but no 'dialect_tag' column was "
-        "found after header auto-fix. Rule engine scores will always be "
-        "zero. Check your CSV header spelling."
-    )
-
 # -----------------------------
 # AUDIO CLEANING PIPELINE
 # -----------------------------
@@ -197,17 +190,14 @@ def clean_audio(audio_path):
     try:
         y, sr = librosa.load(audio_path, sr=16000)
 
-        # Normalize
         y = librosa.util.normalize(y)
 
-        # Noise reduction
         y = nr.reduce_noise(
             y=y,
             sr=sr,
             prop_decrease=0.7
         )
 
-        # Trim silence
         y, _ = librosa.effects.trim(
             y,
             top_db=20
@@ -219,7 +209,7 @@ def clean_audio(audio_path):
         print(f"Audio cleaning error: {e}")
 
 # -----------------------------
-# SPEECH FEATURE EXTRACTION
+# AUDIO FEATURE EXTRACTION
 # -----------------------------
 def analyze_audio_features(audio_path):
 
@@ -240,7 +230,7 @@ def analyze_audio_features(audio_path):
 
         pitch_values = pitch_values[pitch_values > 0]
 
-        # Speech rate estimation
+        # Speech rate
         onset_frames = librosa.onset.onset_detect(
             y=y,
             sr=sr
@@ -248,10 +238,10 @@ def analyze_audio_features(audio_path):
 
         speech_rate = len(onset_frames) / max(duration, 1)
 
-        # Intonation classification
+        # Pitch variation
         if len(pitch_values) < 5:
-            intonation = "Flat / Neutral"
             pitch_std = 0
+            intonation = "Flat / Neutral"
         else:
             pitch_std = np.std(pitch_values)
 
@@ -262,21 +252,32 @@ def analyze_audio_features(audio_path):
             else:
                 intonation = "Flat / Formal Tone"
 
+        # Emotion approximation
+        if speech_rate > 4 and pitch_std > 40:
+            emotion = "Excited / Energetic"
+        elif pitch_std < 15:
+            emotion = "Serious / Calm"
+        else:
+            emotion = "Neutral Conversational"
+
         return {
             "duration": round(duration, 2),
             "speech_rate": round(speech_rate, 2),
             "intonation": intonation,
-            "pitch_variation": round(float(pitch_std), 2)
+            "pitch_variation": round(float(pitch_std), 2),
+            "emotion": emotion
         }
 
     except Exception as e:
+
         print(f"Feature extraction error: {e}")
 
         return {
             "duration": 0,
             "speech_rate": 0,
             "intonation": "Analysis Unavailable",
-            "pitch_variation": 0
+            "pitch_variation": 0,
+            "emotion": "Unknown"
         }
 
 # -----------------------------
@@ -337,40 +338,47 @@ def sbert_similarity(text):
     }
 
 # -----------------------------
-# RULE-BASED DIALECT ENGINE (FIXED: word-boundary matching)
+# RULE ENGINE
 # -----------------------------
 def rule_engine(text):
+
     text_lower = text.lower().strip()
+
     scores = {p: 0 for p in provinces}
+
     detected = []
+
     risks = []
 
     if risk_df.empty:
         return scores, detected, risks
 
-    # 1. Identify all unique risk tokens and sort by length (descending)
-    #    so multi-word phrases are checked before
-    #    shorter single-word tokens.
-    risk_tokens = sorted(risk_df["token"].unique(), key=len, reverse=True)
+    risk_tokens = sorted(
+        risk_df["token"].unique(),
+        key=len,
+        reverse=True
+    )
 
-    # 2. Search for markers using WORD-BOUNDARY regex instead of plain
-    #    substring matching. Plain substring matching (the original
-    #    `if token in working_text`) caused false positives
-    #    \b anchors the match to whole-word boundaries, eliminating
-    #    these false hits while still matching genuine standalone usage
-    #    and multi-word phrases.
     working_text = text_lower
+
     for token in risk_tokens:
+
         pattern = r"\b" + re.escape(token) + r"\b"
 
         if re.search(pattern, working_text):
-            # Found a genuine whole-word match
+
             detected.append(token)
 
-            # Extract all metadata for this token from the risk_df
-            matches = risk_df[risk_df["token"] == token]
+            matches = risk_df[
+                risk_df["token"] == token
+            ]
+
             for _, row in matches.iterrows():
-                dialect_tag = str(row.get("dialect_tag", "")).lower().strip()
+
+                dialect_tag = str(
+                    row.get("dialect_tag", "")
+                ).lower().strip()
+
                 if dialect_tag in scores:
                     scores[dialect_tag] += 1
 
@@ -381,41 +389,51 @@ def rule_engine(text):
                     "tag": dialect_tag
                 })
 
-            # Replace only the matched whole word with spaces (not a
-            # blind substring replace) to prevent overlapping/duplicate
-            # matches while not corrupting other words that merely
-            # contain this token as a substring.
-            working_text = re.sub(pattern, " ", working_text)
+            working_text = re.sub(
+                pattern,
+                " ",
+                working_text
+            )
 
     return scores, detected, risks
 
 # -----------------------------
-# HYBRID ANALYSIS ENGINE (NORMALIZED)
+# HYBRID ANALYSIS ENGINE
 # -----------------------------
 def process_text_analysis(text):
+
     rule_scores, markers, risks = rule_engine(text)
+
     sbert_scores = sbert_similarity(text)
 
     final_scores = {}
 
-    # 1. Calculate raw weighted scores (60/40 Split)
     for province in provinces:
+
         final_scores[province] = (
             (rule_scores[province] * 0.6) +
             (sbert_scores[province] * 0.4)
         )
 
-    # 2. Normalize so that total sum equals 1.0 (100%)
     total_sum = sum(final_scores.values())
+
     if total_sum > 0:
         for province in final_scores:
-            final_scores[province] = final_scores[province] / total_sum
+            final_scores[province] /= total_sum
     else:
-        # Fallback for empty/zero scenarios
-        final_scores = {p: 1.0 / len(provinces) for p in provinces}
+        final_scores = {
+            p: 1 / len(provinces)
+            for p in provinces
+        }
 
-    best_match = max(final_scores, key=final_scores.get)
-    confidence = final_scores[best_match] * 100
+    best_match = max(
+        final_scores,
+        key=final_scores.get
+    )
+
+    confidence = (
+        final_scores[best_match] * 100
+    )
 
     normalized_scores = {
         k: round(v * 100, 2)
@@ -438,7 +456,7 @@ def home():
     return render_template("index.html")
 
 # -----------------------------
-# AUDIO TRANSCRIPTION ROUTE
+# TRANSCRIBE ROUTE
 # -----------------------------
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
@@ -485,7 +503,8 @@ def transcribe():
             "duration_seconds": features["duration"],
             "speech_rate": features["speech_rate"],
             "intonation": features["intonation"],
-            "pitch_variation": features["pitch_variation"]
+            "pitch_variation": features["pitch_variation"],
+            "emotion": features["emotion"]
         })
 
     except Exception as e:
@@ -500,7 +519,7 @@ def transcribe():
             os.remove(audio_path)
 
 # -----------------------------
-# DIALECT ANALYSIS ROUTE
+# ANALYZE ROUTE
 # -----------------------------
 @app.route("/analyze", methods=["POST"])
 def analyze():
@@ -508,6 +527,21 @@ def analyze():
     data = request.get_json()
 
     text = data.get("conversation", "").strip()
+
+    intonation_input = data.get(
+        "intonation",
+        "Unknown"
+    )
+
+    emotion_input = data.get(
+        "emotion",
+        "Unknown"
+    )
+
+    speech_rate = data.get(
+        "speech_rate",
+        0
+    )
 
     if not text:
 
@@ -519,11 +553,173 @@ def analyze():
     result = process_text_analysis(text)
 
     dialect = result["dialect"]
+
     confidence = result["confidence"]
+
     risks = result["risks"]
+
     scores = result["scores"]
 
-    # Province ranking display
+    markers = result["markers"]
+
+    # -----------------------------
+    # DICTION PATTERN ANALYSIS
+    # -----------------------------
+    word_count = len(text.split())
+
+    if word_count > 18:
+        verbal_style = "Formal / Structured"
+    else:
+        verbal_style = "Casual Conversational"
+
+    diction_html = f"""
+    <div style='
+        margin-bottom:16px;
+        background:#eff6ff;
+        border-left:5px solid #0284c7;
+        padding:12px;
+        border-radius:8px;
+    '>
+
+        <div style='
+            font-weight:bold;
+            color:#0369a1;
+            margin-bottom:6px;
+        '>
+            Diction Patterns in Verbal Communication
+        </div>
+
+        <div style='font-size:14px;color:#334155;'>
+
+            • Lexical Density:
+            <strong>{word_count}</strong>
+            words detected
+            <br>
+
+            • Regional Marker Count:
+            <strong>{len(markers)}</strong>
+            dialect-sensitive expressions
+            <br>
+
+            • Verbal Style:
+            <strong>{verbal_style}</strong>
+
+        </div>
+
+    </div>
+    """
+
+    # -----------------------------
+    # SENTENCE FINAL PARTICLES
+    # -----------------------------
+    particles_found = []
+
+    sentence_particles = [
+        "ba",
+        "naman",
+        "eh",
+        "nga",
+        "po",
+        "ho",
+        "diba",
+        "kasi"
+    ]
+
+    tokens = text.lower().split()
+
+    for particle in sentence_particles:
+
+        if particle in tokens:
+            particles_found.append(particle)
+
+    particle_display = (
+        ", ".join(particles_found)
+        if particles_found
+        else "No major particles detected"
+    )
+
+    # -----------------------------
+    # PROSODIC ANALYSIS
+    # -----------------------------
+    prosody_html = f"""
+    <div style='
+        margin-bottom:16px;
+        background:#fefce8;
+        border-left:5px solid #ca8a04;
+        padding:12px;
+        border-radius:8px;
+    '>
+
+        <div style='
+            font-weight:bold;
+            color:#a16207;
+            margin-bottom:6px;
+        '>
+            Intonation Markers and Prosodic Signals
+        </div>
+
+        <div style='font-size:14px;color:#334155;'>
+
+            • Sentence-Final Particles:
+            <strong>{particle_display}</strong>
+            <br>
+
+            • Prosodic Signal:
+            <strong>{intonation_input}</strong>
+            <br>
+
+            • Speech Rhythm:
+            <strong>{speech_rate}</strong>
+            rhythm units/sec
+            <br>
+
+            • Pitch Interpretation:
+            <strong>
+                {
+                    "Dynamic Speech Flow"
+                    if "Highly" in intonation_input
+                    else "Moderate Conversational Rhythm"
+                }
+            </strong>
+
+        </div>
+
+    </div>
+    """
+
+    # -----------------------------
+    # EMOTIONAL EXPRESSION PANEL
+    # -----------------------------
+    emotion_html = f"""
+    <div style='
+        margin-bottom:16px;
+        background:#fdf2f8;
+        border-left:5px solid #db2777;
+        padding:12px;
+        border-radius:8px;
+    '>
+
+        <div style='
+            font-weight:bold;
+            color:#be185d;
+            margin-bottom:6px;
+        '>
+            Emotional Expression in Spoken Interaction
+        </div>
+
+        <div style='font-size:14px;color:#334155;'>
+
+            • Detected Emotional Delivery:
+            <strong>{emotion_input}</strong>
+
+        </div>
+
+    </div>
+    """
+
+    # -----------------------------
+    # PROVINCE RANKINGS
+    # -----------------------------
     ranking_html = ""
 
     sorted_scores = sorted(
@@ -541,23 +737,41 @@ def analyze():
             f"</div>"
         )
 
+    # -----------------------------
+    # MAIN REPORT
+    # -----------------------------
     report = [
+
+        diction_html,
+
+        prosody_html,
+
+        emotion_html,
 
         f"""
         <div style='margin-bottom:12px;'>
+
             <strong>Closest Province/Region:</strong>
-            <span style='color:#0284c7;font-weight:bold;'>
+
+            <span style='
+                color:#0284c7;
+                font-weight:bold;
+            '>
                 {dialect}
             </span>
+
         </div>
         """,
 
         f"""
         <div style='margin-bottom:16px;'>
+
             <strong>System Confidence Level:</strong>
+
             <span style='font-weight:bold;'>
                 {confidence:.2f}%
             </span>
+
         </div>
         """,
 
@@ -572,22 +786,32 @@ def analyze():
         "<hr style='border:0;border-top:1px solid #e2e8f0;margin:16px 0;'>"
     ]
 
-    # Risk word rendering
+    # -----------------------------
+    # RISK WORDS
+    # -----------------------------
     if risks:
 
         report.append(
             """
-            <div style='font-weight:bold;
-                        margin-bottom:10px;
-                        color:#e11d48;'>
+            <div style='
+                font-weight:bold;
+                margin-bottom:10px;
+                color:#e11d48;
+            '>
+
                 Flagged Regional Risk Words
+
             </div>
             """
         )
 
         for risk in risks:
 
-            word = risk.get("word", "unknown")
+            word = risk.get(
+                "word",
+                "unknown"
+            )
+
             category = risk.get(
                 "category",
                 "Uncategorized"
@@ -617,9 +841,11 @@ def analyze():
                     ({category})<br>
 
                     <small style='color:#475569;'>
+
                         Meaning:
                         {meaning}
                         [{tag}]
+
                     </small>
 
                 </div>
@@ -634,8 +860,10 @@ def analyze():
                 color:#64748b;
                 font-style:italic;
             '>
+
                 No regional misunderstanding or
                 dialect-sensitive terms detected.
+
             </div>
             """
         )

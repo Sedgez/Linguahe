@@ -1,226 +1,457 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Linguahe - Linguistic Analyzer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon.png') }}" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <title>Linguahe - Linguistic Analyzer</title>
 
-  <body>
-    <div class="main-content">
-      <header class="header-bar">Linguahe</header>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-      <div class="container mx-auto">
-        <div class="flex flex-col md:flex-row gap-8 mb-12">
-          <div class="card-box w-full md:w-1/2">
-            <div class="flex justify-between items-center mb-4">
-              <p class="text-sm font-bold text-sky-600 uppercase">Text Input Workspace</p>
-            </div>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-            <div class="transcript-container">
-              <div id="highlightLayer" class="textarea-main"></div>
-              <textarea
-                id="inputText"
-                class="textarea-main"
-                placeholder="Record audio or type Tagalog text here to begin analysis..."
-              ></textarea>
-            </div>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+  />
 
-            <div class="mt-4 flex items-center gap-2">
-              <input type="checkbox" id="noiseToggle" class="w-4 h-4" />
-              <label for="noiseToggle" class="text-xs font-semibold text-gray-600">
-                Noise Suppression
-              </label>
-            </div>
-          </div>
+  <link
+    rel="icon"
+    type="image/png"
+    href="{{ url_for('static', filename='icon.png') }}"
+  />
+</head>
 
-          <div class="card-box w-full md:w-1/2">
-            <p class="text-sm font-bold text-sky-600 mb-4 uppercase">
-              Outputs
-            </p>
-            <div class="explanation-box" id="explanationBox">
-              <p class="text-gray-400 italic">
-                Analysis insights will appear here following a voice recording or manual text input...
-              </p>
-            </div>
-          </div>
-        </div>
+<body class="bg-slate-100">
 
-        <div class="flex flex-col items-center justify-center gap-4 w-full py-6 bg-gray-50/80 backdrop-blur-sm border-t border-gray-200 sticky bottom-0 z-50">
-          <button id="micBtn" class="mic-button">🎤</button>
-          <p class="text-sm text-gray-500 font-bold" id="statusText">
-            Tap to Record (15s Max Limit)
+<div class="main-content">
+
+  <!-- HEADER -->
+  <header class="header-bar">
+    Linguahe
+  </header>
+
+  <div class="container mx-auto px-4 py-6">
+
+    <!-- MAIN GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      <!-- INPUT SECTION -->
+      <div class="card-box">
+
+        <div class="flex justify-between items-center mb-4">
+          <p class="text-sm font-bold text-sky-600 uppercase">
+            Speech / Text Input
           </p>
-
-          <div class="flex gap-4 items-center mt-2">
-            <button
-              id="downloadBtn"
-              class="bg-sky-100 text-sky-700 px-6 py-2 rounded-lg text-sm font-bold hover:bg-sky-200 transition"
-            >
-              Download Report
-            </button>
-            <button
-              id="clearBtn"
-              class="text-gray-400 hover:text-red-500 text-sm font-bold"
-            >
-              Clear All
-            </button>
-          </div>
         </div>
+
+        <div class="transcript-container">
+          <textarea
+            id="inputText"
+            class="textarea-main"
+            placeholder="Record audio or enter Tagalog speech here..."
+          ></textarea>
+        </div>
+
+        <div class="mt-4 flex items-center gap-2">
+          <input
+            type="checkbox"
+            id="noiseToggle"
+            class="w-4 h-4"
+          />
+
+          <label
+            for="noiseToggle"
+            class="text-xs font-semibold text-gray-600"
+          >
+            Enable Noise Suppression
+          </label>
+        </div>
+
       </div>
+
+      <!-- OUTPUT SECTION -->
+      <div class="card-box">
+
+        <p class="text-sm font-bold text-sky-600 mb-4 uppercase">
+          Linguistic Analysis Results
+        </p>
+
+        <div
+          id="explanationBox"
+          class="explanation-box"
+        >
+          <p class="text-gray-400 italic">
+            Awaiting speech input...
+          </p>
+        </div>
+
+      </div>
+
     </div>
 
-    <footer class="footer-bar pb-20 md:pb-6">&copy; 2026 Linguahe Team</footer>
+    <!-- CONTROL PANEL -->
+    <div class="flex flex-col items-center gap-4 mt-10">
 
-    <script>
-      let recorder;
-      let audioChunks = [];
-      const micBtn = document.getElementById("micBtn");
-      const statusText = document.getElementById("statusText");
-      const inputArea = document.getElementById("inputText");
-      const highlightArea = document.getElementById("highlightLayer");
-      const explanationBox = document.getElementById("explanationBox");
+      <button
+        id="micBtn"
+        class="mic-button"
+      >
+        🎤
+      </button>
 
-      // Core analysis execution function mapping directly to updated PyTorch backend endpoints
-      async function executeFeatureLevelAnalysis(text, acousticProfile = "Unknown / Text Input") {
-        if (!text || text.trim() === "") return;
-        
-        statusText.innerText = "Processing...";
-        
-        try {
-          const response = await fetch("/analyze", {
+      <p
+        id="statusText"
+        class="text-sm text-gray-500 font-bold"
+      >
+        Tap to Record (15 Seconds Max)
+      </p>
+
+      <div class="flex gap-4 mt-2">
+
+        <button
+          id="downloadBtn"
+          class="bg-sky-100 text-sky-700 px-6 py-2 rounded-lg text-sm font-bold hover:bg-sky-200 transition"
+        >
+          Download Report
+        </button>
+
+        <button
+          id="clearBtn"
+          class="text-gray-400 hover:text-red-500 text-sm font-bold"
+        >
+          Clear
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer-bar pb-10">
+  © 2026 Linguahe Team
+</footer>
+
+<script>
+
+let recorder;
+let audioChunks = [];
+
+const micBtn = document.getElementById("micBtn");
+const statusText = document.getElementById("statusText");
+
+const inputArea = document.getElementById("inputText");
+const explanationBox = document.getElementById("explanationBox");
+
+
+// ======================================================
+// MAIN ANALYSIS EXECUTION
+// ======================================================
+
+async function executeAnalysis(
+  text,
+  audioFeatures = {}
+) {
+
+  if (!text || text.trim() === "") {
+    return;
+  }
+
+  statusText.innerText = "Analyzing linguistic features...";
+
+  try {
+
+    const response = await fetch("/analyze", {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+
+        conversation: text,
+
+        audio_features: audioFeatures
+
+      })
+
+    });
+
+    const data = await response.json();
+
+    explanationBox.innerHTML = data.explanation;
+
+    statusText.innerText = "Analysis Complete";
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    statusText.innerText =
+      "Analysis engine failure.";
+
+  }
+
+}
+
+
+// ======================================================
+// AUDIO RECORDING
+// ======================================================
+
+async function startRecording() {
+
+  try {
+
+    const stream =
+      await navigator.mediaDevices.getUserMedia({
+        audio: true
+      });
+
+    recorder = new MediaRecorder(stream);
+
+    audioChunks = [];
+
+    micBtn.innerHTML = "⏹️";
+
+    micBtn.classList.add("recording");
+
+    statusText.innerText =
+      "Recording speech...";
+
+    recorder.ondataavailable = (event) => {
+
+      audioChunks.push(event.data);
+
+    };
+
+    recorder.onstop = async () => {
+
+      micBtn.innerHTML = "🎤";
+
+      micBtn.classList.remove("recording");
+
+      statusText.innerText =
+        "Transcribing audio...";
+
+      const blob = new Blob(audioChunks, {
+        type: "audio/wav"
+      });
+
+      const formData = new FormData();
+
+      formData.append("audio", blob);
+
+      formData.append(
+        "noise_suppression",
+        document.getElementById("noiseToggle").checked
+      );
+
+      try {
+
+        const response =
+          await fetch("/transcribe", {
+
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              conversation: text,
-              intonation: acousticProfile
-            }),
+
+            body: formData
+
           });
-          
-          const resultData = await response.json();
-          
-          // Inject the processed HTML report string straight into the UI container
-          explanationBox.innerHTML = resultData.explanation;
-          highlightArea.innerHTML = text; 
-          statusText.innerText = "Process Complete!";
-        } catch (error) {
-          console.error("Backend Fusion Engine Error:", error);
-          statusText.innerText = "Error pulling analysis vectors from the server.";
+
+        const result =
+          await response.json();
+
+        if (
+          result.original_text &&
+          result.original_text.trim() !== ""
+        ) {
+
+          inputArea.value =
+            result.original_text;
+
+          await executeAnalysis(
+            result.original_text,
+            result
+          );
+
         }
+
+        else {
+
+          statusText.innerText =
+            "Speech not detected.";
+
+        }
+
       }
 
-      async function startRecording() {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          recorder = new MediaRecorder(stream);
-          audioChunks = [];
+      catch (error) {
 
-          micBtn.innerHTML = "⏹️";
-          micBtn.classList.add("recording");
-          statusText.innerText = "Listening to verbal audio streams...";
+        console.error(error);
 
-          recorder.ondataavailable = (e) => audioChunks.push(e.data);
+        statusText.innerText =
+          "Transcription failure.";
 
-          recorder.onstop = async () => {
-            micBtn.innerHTML = "🎤";
-            micBtn.classList.remove("recording");
-            statusText.innerText = "Transcribing...";
-
-            const blob = new Blob(audioChunks, { type: "audio/wav" });
-            const formData = new FormData();
-            formData.append("audio", blob);
-            formData.append("noise_suppression", document.getElementById("noiseToggle").checked);
-
-            try {
-              // Execution Pipeline Phase 1: Call Transformer Transcription Engine
-              const tResp = await fetch("/transcribe", { method: "POST", body: formData });
-              const tData = await tResp.json();
-
-              if (tData.original_text && tData.original_text.trim() !== "") {
-                inputArea.value = tData.original_text;
-                
-                // Execution Pipeline Phase 2: Compute Embeddings, Rule Weights, and Neural Layer Probabilities
-                await executeFeatureLevelAnalysis(tData.original_text, tData.intonation);
-              } else {
-                statusText.innerText = "Audio too faint. Please speak clearly.";
-              }
-            } catch (e) {
-              console.error("Transcription Failure:", e);
-              statusText.innerText = "Connection lost. Verify local server execution states.";
-            }
-          };
-
-          recorder.start();
-          
-          // Implements the document's strictly designed 15-second tracking ceiling
-          setTimeout(() => {
-            if (recorder && recorder.state === "recording") recorder.stop();
-          }, 15000);
-
-        } catch (err) {
-          alert("Audio capturing devices blocked. Verify local operating system recording authorizations.");
-        }
       }
 
-      // Voice capture interface controllers
-      micBtn.addEventListener("click", () => {
-        if (recorder && recorder.state === "recording") recorder.stop();
-        else startRecording();
-      });
+    };
 
-      // Enables manual validation testing of field data sets directly inside the browser window
-      inputArea.addEventListener("change", () => {
-        executeFeatureLevelAnalysis(inputArea.value, "Manual Text Input Matrix");
-      });
+    recorder.start();
 
-      // System Workspace Initialization Restets
-      document.getElementById("clearBtn").addEventListener("click", () => {
-        if (confirm("Reset execution history and clean current workspace vectors?")) location.reload();
-      });
+    // AUTO STOP AFTER 15 SECONDS
+    setTimeout(() => {
 
-      // Local Document Diagnostic Text Exporter
-      document.getElementById("downloadBtn").addEventListener("click", () => {
-        const transcript = inputArea.value;
+      if (
+        recorder &&
+        recorder.state === "recording"
+      ) {
 
-        if (!transcript || transcript.trim() === "") {
-          alert("Workspace clear. Generate system output before printing logs.");
-          return;
-        }
+        recorder.stop();
 
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = explanationBox.innerHTML;
+      }
 
-        // Strip structural web tags out to preserve clear printable text format blocks
-        const hrs = tempDiv.querySelectorAll("hr");
-        hrs.forEach(hr => hr.outerHTML = "\n------------------------------------------\n");
-        const brs = tempDiv.querySelectorAll("br");
-        brs.forEach(br => br.outerHTML = "\n");
+    }, 15000);
 
-        const reportContent =
-          `LINGUAHE LINGUISTIC DIAGNOSTIC REPORT\n` +
-          `Generated Workspace Log: ${new Date().toLocaleString()}\n` +
-          `------------------------------------------\n\n` +
-          `VERBAL DIALECT TRANSCRIPT:\n"${transcript}"\n\n` +
-          `NEURAL CLASSIFICTION ARCHITECTURE OUTCOMES:\n${tempDiv.innerText}\n\n` +
-          `------------------------------------------\n` +
-          `Engine Configuration: RA-SBERT + ANN Core Pipeline Subsystem\n`;
+  }
 
-        const blob = new Blob([reportContent], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `Linguahe_AnalyticalLog_${new Date().getTime()}.txt`;
-        a.click();
-        URL.revokeObjectURL(url);
-      });
+  catch (error) {
 
-      // Workspace Mirror Layer Viewport Scroll Synchronization Loops
-      inputArea.addEventListener("scroll", () => {
-        highlightArea.scrollTop = inputArea.scrollTop;
-      });
-    </script>
-  </body>
+    alert(
+      "Microphone permission denied."
+    );
+
+  }
+
+}
+
+
+// ======================================================
+// MIC BUTTON
+// ======================================================
+
+micBtn.addEventListener("click", () => {
+
+  if (
+    recorder &&
+    recorder.state === "recording"
+  ) {
+
+    recorder.stop();
+
+  }
+
+  else {
+
+    startRecording();
+
+  }
+
+});
+
+
+// ======================================================
+// MANUAL TEXT INPUT
+// ======================================================
+
+inputArea.addEventListener("change", () => {
+
+  executeAnalysis(
+    inputArea.value,
+    {}
+  );
+
+});
+
+
+// ======================================================
+// CLEAR BUTTON
+// ======================================================
+
+document.getElementById("clearBtn")
+.addEventListener("click", () => {
+
+  location.reload();
+
+});
+
+
+// ======================================================
+// DOWNLOAD REPORT
+// ======================================================
+
+document.getElementById("downloadBtn")
+.addEventListener("click", () => {
+
+  const transcript = inputArea.value;
+
+  if (!transcript) {
+
+    alert("No transcript available.");
+
+    return;
+
+  }
+
+  const reportText =
+    explanationBox.innerText;
+
+  const finalReport =
+
+`LINGUAHE SPEECH ANALYSIS REPORT
+
+Generated:
+${new Date().toLocaleString()}
+
+======================================
+
+TRANSCRIPT
+
+${transcript}
+
+======================================
+
+LINGUISTIC ANALYSIS
+
+${reportText}
+
+======================================
+
+System:
+ANN + SBERT Hybrid Linguistic Engine
+`;
+
+  const blob = new Blob(
+    [finalReport],
+    { type: "text/plain" }
+  );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    `Linguahe_Report_${Date.now()}.txt`;
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+});
+
+</script>
+
+</body>
 </html>
