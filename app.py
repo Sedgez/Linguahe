@@ -9,9 +9,27 @@ import noisereduce as nr
 import pandas as pd
 import torch
 import uuid
+import joblib
+from tensorflow.keras.models import load_model
 from sentence_transformers import SentenceTransformer, util
 
 app = Flask(__name__)
+
+# -----------------------------
+# ACCENT ANN
+# -----------------------------
+
+accent_model = load_model("accent_ai/models/accent_ann.keras")
+
+accent_scaler = joblib.load(
+    "accent_ai/models/scaler.pkl"
+)
+
+accent_encoder = joblib.load(
+    "accent_ai/models/label_encoder.pkl"
+)
+
+print("Accent ANN Loaded Successfully")
 
 # -----------------------------
 # DIRECTORY SETUP
@@ -207,6 +225,89 @@ def clean_audio(audio_path):
 
     except Exception as e:
         print(f"Audio cleaning error: {e}")
+
+# -----------------------------
+# Accent ANN Prediction
+# -----------------------------
+
+def predict_accent(audio_path):
+
+    y, sr = librosa.load(audio_path, sr=22050)
+
+    mfcc = librosa.feature.mfcc(
+        y=y,
+        sr=sr,
+        n_mfcc=13
+    )
+
+    mfcc = np.mean(mfcc.T, axis=0)
+
+    zcr = np.mean(
+        librosa.feature.zero_crossing_rate(y)
+    )
+
+    rms = np.mean(
+        librosa.feature.rms(y=y)
+    )
+
+    centroid = np.mean(
+        librosa.feature.spectral_centroid(
+            y=y,
+            sr=sr
+        )
+    )
+
+    bandwidth = np.mean(
+        librosa.feature.spectral_bandwidth(
+            y=y,
+            sr=sr
+        )
+    )
+
+    rolloff = np.mean(
+        librosa.feature.spectral_rolloff(
+            y=y,
+            sr=sr
+        )
+    )
+
+    features = np.concatenate([
+
+        mfcc,
+
+        [zcr],
+
+        [rms],
+
+        [centroid],
+
+        [bandwidth],
+
+        [rolloff]
+
+    ])
+
+    features = features.reshape(1, -1)
+
+    features = accent_scaler.transform(features)
+
+    prediction = accent_model.predict(features)
+
+    predicted_class = np.argmax(prediction)
+
+    confidence = float(np.max(prediction) * 100)
+
+    accent = accent_encoder.inverse_transform(
+        [predicted_class]
+    )[0]
+
+    print("=" * 50)
+    print("Accent Prediction")
+    print("Accent:", accent)
+    print("Confidence:", confidence)
+    print("=" * 50)
+
+    return accent, confidence
 
 # -----------------------------
 # AUDIO FEATURE EXTRACTION
@@ -496,10 +597,13 @@ def transcribe():
 
         text = result["text"].strip()
 
+        accent, accent_confidence = predict_accent(audio_path)
         features = analyze_audio_features(audio_path)
 
         return jsonify({
             "original_text": text,
+            "accent": accent,
+            "accent_confidence": round(accent_confidence,2),
             "duration_seconds": features["duration"],
             "speech_rate": features["speech_rate"],
             "intonation": features["intonation"],
