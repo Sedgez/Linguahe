@@ -194,6 +194,10 @@ def predict_accent_in_memory(y_16k, sr_16k):
 
     return accent, confidence
 
+#----------------------------
+# Intonation and emotion
+#----------------------------
+
 def analyze_audio_features_in_memory(y, sr):
     if len(y) == 0:
         return {
