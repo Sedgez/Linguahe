@@ -50,7 +50,7 @@
           <textarea
             id="inputText"
             class="textarea-main"
-            placeholder="Record audio or enter Tagalog speech here..."
+            placeholder="Record audio here..."
           ></textarea>
         </div>
 
@@ -111,6 +111,13 @@
       <div class="flex gap-4 mt-2">
 
         <button
+          id="speakBtn"
+          class="bg-emerald-100 text-emerald-700 px-6 py-2 rounded-lg text-sm font-bold hover:bg-emerald-200 transition"
+        >
+          🔊 Listen to Text
+        </button>
+
+        <button
           id="downloadBtn"
           class="bg-sky-100 text-sky-700 px-6 py-2 rounded-lg text-sm font-bold hover:bg-sky-200 transition"
         >
@@ -143,6 +150,7 @@ let recorder;
 let audioChunks = [];
 
 const micBtn = document.getElementById("micBtn");
+const speakBtn = document.getElementById("speakBtn");
 const statusText = document.getElementById("statusText");
 
 const inputArea = document.getElementById("inputText");
@@ -355,6 +363,52 @@ micBtn.addEventListener("click", () => {
 
   }
 
+});
+
+
+// ======================================================
+// GOOGLE TTS SPEECH SYNTHESIS EXECUTION
+// ======================================================
+
+speakBtn.addEventListener("click", async () => {
+  const textToSpeak = inputArea.value.trim();
+
+  if (!textToSpeak) {
+    alert("Walang text na babasahin. Please enter or record some text first.");
+    return;
+  }
+
+  statusText.innerText = "Synthesizing Tagalog voice output...";
+
+  try {
+    const response = await fetch("/tts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ text: textToSpeak })
+    });
+
+    if (!response.ok) {
+      throw new Error("Network error during TTS generation.");
+    }
+
+    const audioBlob = await response.blob();
+    const audioUrl = URL.createObjectURL(audioBlob);
+    const audioPlayback = new Audio(audioUrl);
+
+    statusText.innerText = "Playing audio...";
+    
+    audioPlayback.onended = () => {
+      statusText.innerText = "Audio playback complete";
+    };
+
+    await audioPlayback.play();
+  }
+  catch (error) {
+    console.error(error);
+    statusText.innerText = "TTS Failure. Ensure you are connected to the internet.";
+  }
 });
 
 
