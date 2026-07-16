@@ -42,6 +42,16 @@ except Exception as e:
     print(f"Warning: Failed to load Accent ANN models: {e}")
     accent_model, accent_scaler, accent_encoder = None, None, None
 
+print("--- Loading Emotion ANN Models ---")
+try:
+    emotion_model = load_model("emotion_ai/models/emotion_ann.keras")
+    emotion_scaler = joblib.load("emotion_ai/models/scaler.pkl")
+    emotion_encoder = joblib.load("emotion_ai/models/label_encoder.pkl")
+    print("Emotion ANN Loaded Successfully")
+except Exception as e:
+    print(f"Warning: Failed to load Emotion ANN models: {e}")
+    emotion_model, emotion_scaler, emotion_encoder = None, None, None
+
 print("--- Initializing Whisper Model ---")
 try:
     whisper_model = whisper.load_model("turbo", device=device)
@@ -194,6 +204,61 @@ def predict_accent_in_memory(y_16k, sr_16k):
 
     return accent, confidence
 
+def predict_emotion_in_memory(y_16k, sr_16k):
+
+    if emotion_model is None:
+        return "Model Unavailable", 0.0
+
+    if len(y_16k) == 0:
+        return "Unknown", 0.0
+
+    y = librosa.resample(
+        y_16k,
+        orig_sr=sr_16k,
+        target_sr=22050
+    )
+
+    sr = 22050
+
+    mfcc = np.mean(
+        librosa.feature.mfcc(
+            y=y,
+            sr=sr,
+            n_mfcc=13
+        ).T,
+        axis=0
+    )
+
+    zcr = np.mean(librosa.feature.zero_crossing_rate(y))
+    rms = np.mean(librosa.feature.rms(y=y))
+    centroid = np.mean(librosa.feature.spectral_centroid(y=y, sr=sr))
+    bandwidth = np.mean(librosa.feature.spectral_bandwidth(y=y, sr=sr))
+    rolloff = np.mean(librosa.feature.spectral_rolloff(y=y, sr=sr))
+
+    features = np.concatenate([
+        mfcc,
+        [zcr],
+        [rms],
+        [centroid],
+        [bandwidth],
+        [rolloff]
+    ]).reshape(1, -1)
+
+    features = emotion_scaler.transform(features)
+
+    prediction = emotion_model.predict(
+        features,
+        verbose=0
+    )
+
+    predicted = np.argmax(prediction)
+
+    confidence = float(np.max(prediction) * 100)
+
+    emotion = emotion_encoder.inverse_transform([predicted])[0]
+
+    return emotion, confidence
+
 #----------------------------
 # Intonation and emotion
 #----------------------------
@@ -229,13 +294,6 @@ def analyze_audio_features_in_memory(y, sr):
                 intonation = "Moderate Variation"
             else:
                 intonation = "Flat / Formal Tone"
-
-        if speech_rate > 4 and pitch_std > 40:
-            emotion = "Excited / Energetic"
-        elif pitch_std < 15:
-            emotion = "Serious / Calm"
-        else:
-            emotion = "Neutral Conversational"
 
         return {
             "duration": round(duration, 2),
@@ -371,6 +429,7 @@ def transcribe():
 
         # Execute subsequent downstream models entirely from RAM cache
         accent, accent_confidence = predict_accent_in_memory(y_cached, sr_cached)
+        emotion, emotion_confidence = predict_emotion_in_memory(y_cached, sr_cached)
         features = analyze_audio_features_in_memory(y_cached, sr_cached)
 
         return jsonify({
@@ -381,7 +440,8 @@ def transcribe():
             "speech_rate": features["speech_rate"],
             "intonation": features["intonation"],
             "pitch_variation": features["pitch_variation"],
-            "emotion": features["emotion"]
+            "emotion": emotion,
+            "emotion_confidence": round(emotion_confidence, 2)
         })
 
     except Exception as e:
