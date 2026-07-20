@@ -186,7 +186,11 @@ async function executeAnalysis(
 
         conversation: text,
 
-        audio_features: audioFeatures
+        intonation: audioFeatures.intonation,
+
+        speech_rate: audioFeatures.speech_rate,
+
+        emotion: audioFeatures.emotion
 
       })
 

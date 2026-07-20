@@ -152,17 +152,16 @@ if not proto_df.empty:
 print("Province embeddings complete")
 
 # -----------------------------
-# AUDIO PROCESSING PIPELINE (OPTIMIZED)
+# AUDIO PROCESSING PIPELINE
 # -----------------------------
 def process_audio_pipeline(audio_path, use_noise=False):
-
     y, sr = librosa.load(audio_path, sr=16000)
     if len(y) == 0:
         return y, sr
 
     y = librosa.util.normalize(y)
 
-    if use_noise and len(y) > sr * 0.5:  # Run only if audio is longer than 0.5s
+    if use_noise and len(y) > sr * 0.5:
         try:
             y = nr.reduce_noise(y=y, sr=sr, prop_decrease=0.7)
         except Exception as e:
@@ -183,7 +182,6 @@ def predict_accent_in_memory(y_16k, sr_16k):
     if len(y_16k) == 0:
         return "Unknown (Empty Audio)", 0.0
 
-    # Resample in-memory from 16kHz to 22050Hz to match standard trained features
     y = librosa.resample(y_16k, orig_sr=sr_16k, target_sr=22050)
     sr = 22050
 
@@ -205,108 +203,93 @@ def predict_accent_in_memory(y_16k, sr_16k):
     return accent, confidence
 
 def predict_emotion_in_memory(y_16k, sr_16k):
-
     if emotion_model is None:
         return "Model Unavailable", 0.0
 
     if len(y_16k) == 0:
         return "Unknown", 0.0
 
-    y = librosa.resample(
-        y_16k,
-        orig_sr=sr_16k,
-        target_sr=22050
-    )
-
+    y = librosa.resample(y_16k, orig_sr=sr_16k, target_sr=22050)
     sr = 22050
 
-    mfcc = np.mean(
-        librosa.feature.mfcc(
-            y=y,
-            sr=sr,
-            n_mfcc=13
-        ).T,
-        axis=0
-    )
-
+    mfcc = np.mean(librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13).T, axis=0)
     zcr = np.mean(librosa.feature.zero_crossing_rate(y))
     rms = np.mean(librosa.feature.rms(y=y))
     centroid = np.mean(librosa.feature.spectral_centroid(y=y, sr=sr))
     bandwidth = np.mean(librosa.feature.spectral_bandwidth(y=y, sr=sr))
     rolloff = np.mean(librosa.feature.spectral_rolloff(y=y, sr=sr))
 
-    features = np.concatenate([
-        mfcc,
-        [zcr],
-        [rms],
-        [centroid],
-        [bandwidth],
-        [rolloff]
-    ]).reshape(1, -1)
-
+    features = np.concatenate([mfcc, [zcr], [rms], [centroid], [bandwidth], [rolloff]]).reshape(1, -1)
     features = emotion_scaler.transform(features)
 
-    prediction = emotion_model.predict(
-        features,
-        verbose=0
-    )
-
+    prediction = emotion_model.predict(features, verbose=0)
     predicted = np.argmax(prediction)
-
     confidence = float(np.max(prediction) * 100)
-
     emotion = emotion_encoder.inverse_transform([predicted])[0]
 
     return emotion, confidence
-
-#----------------------------
-# Intonation and emotion
-#----------------------------
 
 def analyze_audio_features_in_memory(y, sr):
     if len(y) == 0:
         return {
             "duration": 0, "speech_rate": 0, "intonation": "Analysis Unavailable",
-            "pitch_variation": 0, "emotion": "Unknown"
+            "pitch_variation": 0
         }
 
     try:
         duration = librosa.get_duration(y=y, sr=sr)
-        pitches, magnitudes = librosa.piptrack(y=y, sr=sr)
-        
-        if magnitudes.size > 0 and np.max(magnitudes) > 0:
-            pitch_values = pitches[magnitudes > np.median(magnitudes)]
-            pitch_values = pitch_values[pitch_values > 0]
-        else:
-            pitch_values = np.array([])
+        pitch_values = librosa.yin(
+            y,
+            fmin=75,
+            fmax=300,
+            sr=sr
+        )
+
+        pitch_values = pitch_values[np.isfinite(pitch_values)]
 
         onset_frames = librosa.onset.onset_detect(y=y, sr=sr)
         speech_rate = len(onset_frames) / max(duration, 1)
 
-        if len(pitch_values) < 5:
+        # Speech Rate
+        onset_frames = librosa.onset.onset_detect(y=y, sr=sr)
+        speech_rate = len(onset_frames) / max(duration, 1)
+
+        # Intonation Analysis
+        if len(pitch_values) < 10:
             pitch_std = 0
-            intonation = "Flat / Neutral"
+            intonation = "Undetermined"
         else:
             pitch_std = np.std(pitch_values)
-            if pitch_std > 45:
-                intonation = "Highly Expressive"
-            elif pitch_std > 25:
-                intonation = "Moderate Variation"
+
+            # Analyze only the last 30% of the utterance
+            start_index = int(len(pitch_values) * 0.7)
+            f0 = pitch_values[start_index:]
+
+            # Need enough samples
+            if len(f0) < 5:
+                intonation = "Level"
             else:
-                intonation = "Flat / Formal Tone"
+                x = np.arange(len(f0))
+                slope = np.polyfit(x, f0, 1)[0]
+
+                if slope > 0.2:
+                    intonation = "Rising Intonation"
+                elif slope < -0.2:
+                    intonation = "Falling Intonation"
+                else:
+                    intonation = "Level Intonation"
 
         return {
             "duration": round(duration, 2),
             "speech_rate": round(speech_rate, 2),
             "intonation": intonation,
-            "pitch_variation": round(float(pitch_std), 2),
-            "emotion": emotion
+            "pitch_variation": round(float(pitch_std), 2)
         }
     except Exception as e:
         print(f"Feature extraction error: {e}")
         return {
             "duration": 0, "speech_rate": 0, "intonation": "Analysis Error",
-            "pitch_variation": 0, "emotion": "Unknown"
+            "pitch_variation": 0
         }
 
 # -----------------------------
@@ -322,7 +305,7 @@ def sbert_similarity(text):
 
         for prov in provinces:
             emb = proto_embeddings.get(prov)
-            if Play := (emb is None):
+            if emb is None:
                 scores[prov] = 0.0
                 continue
             similarity = util.cos_sim(emb_input, emb)
@@ -414,10 +397,10 @@ def transcribe():
     try:
         audio.save(audio_path)
 
-        # Process, normalize and trim the audio once in disk and cache array in RAM
+        # Process audio pipeline
         y_cached, sr_cached = process_audio_pipeline(audio_path, use_noise=use_noise)
 
-        # Run model transcriptions under thread safe evaluation configurations
+        # Transcribe audio
         with torch.no_grad():
             result = whisper_model.transcribe(
                 audio_path,
@@ -427,7 +410,7 @@ def transcribe():
             )
         text = result["text"].strip()
 
-        # Execute subsequent downstream models entirely from RAM cache
+        # Run feature predictions
         accent, accent_confidence = predict_accent_in_memory(y_cached, sr_cached)
         emotion, emotion_confidence = predict_emotion_in_memory(y_cached, sr_cached)
         features = analyze_audio_features_in_memory(y_cached, sr_cached)
@@ -455,8 +438,12 @@ def analyze():
     data = request.get_json() or {}
     text = data.get("conversation", "").strip()
     intonation_input = data.get("intonation", "Unknown")
-    emotion_input = data.get("Emotional", "Normal")
-    speech_rate = data.get("speech_rate", 0)
+    emotion_input = data.get("emotion", "Normal")
+    
+    try:
+        speech_rate = float(data.get("speech_rate", 0))
+    except (ValueError, TypeError):
+        speech_rate = 0.0
 
     if not text:
         return jsonify({"explanation": "<div style='color:#64748b;'>No text received.</div>"})
@@ -468,41 +455,89 @@ def analyze():
     scores = result["scores"]
     markers = result["markers"]
 
-    word_count = len(text.split())
-    verbal_style = "Formal / Structured" if word_count > 18 else "Casual Conversational"
+    # -----------------------------
+    # DICTION PATTERN ANALYSIS
+    # -----------------------------
+    tokens = re.findall(r"\b[\w']+\b", text.lower())
+    word_count = len(tokens)
 
-    # --- Structured String Building for UI Report Component ---
+    # Honorifics
+    honorifics = ["po", "opo", "ho", "oho"]
+    honorific_found = []
+
+    for token in tokens:
+        if token in honorifics and token not in honorific_found:
+            honorific_found.append(token)
+
+    honorific_display = ", ".join(honorific_found) if honorific_found else "None"
+
+    if honorific_found:
+        verbal_style = "Polite"
+    else:
+        verbal_style = "Plain"
+
     diction_html = f"""
     <div style='margin-bottom:16px; background:#eff6ff; border-left:5px solid #0284c7; padding:12px; border-radius:8px;'>
-        <div style='font-weight:bold; color:#0369a1; margin-bottom:6px;'>Diction Patterns</div>
+        <div style='font-weight:bold; color:#0369a1; margin-bottom:6px;'>
+            Diction Patterns
+        </div>
         <div style='font-size:14px; color:#334155;'>
-            • Words count: <strong>{word_count}</strong> words detected<br>
-            • Regional Marker Count: <strong>{len(markers)}</strong> dialect-sensitive expressions<br>
-            • Verbal Style: <strong>{verbal_style}</strong>
+            • Total Words: <strong>{word_count}</strong><br>
+            • Regional Marker Count: <strong>{len(markers)}</strong><br>
+            • Honorific Usage: <strong>{honorific_display}</strong><br>
+            • Speech Register: <strong>{verbal_style}</strong>
         </div>
     </div>
     """
 
-    sentence_particles = ["ba", "naman", "eh", "nga", "po", "ho", "diba", "kasi"]
-    tokens = text.lower().split()
-    particles_found = [p for p in sentence_particles if p in tokens]
-    particle_display = ", ".join(particles_found) if particles_found else "No particles detected"
+    sentence_particles = [
+        "ba", "nga", "po", "ho", "naman", "eh", "kasi", 
+        "diba", "pala", "na", "pa", "lang", "din", "rin"
+    ]
+
+    sentence_particles = [
+    "ba", "nga", "po", "ho", "naman",
+    "eh", "kasi", "diba", "pala",
+    "na", "pa", "lang", "din", "rin"
+]
+
+    sentences = re.split(r"[.!?]+", text.lower())
+
+    particles_found = []
+
+    for sentence in sentences:
+        words = re.findall(r"\b[\w']+\b", sentence)
+
+        if not words:
+            continue
+
+        last_word = words[-1]
+
+        if last_word in sentence_particles and last_word not in particles_found:
+            particles_found.append(last_word)
+
+    particle_display = ", ".join(particles_found) if particles_found else "None"
 
     prosody_html = f"""
     <div style='margin-bottom:16px; background:#fefce8; border-left:5px solid #ca8a04; padding:12px; border-radius:8px;'>
-        <div style='font-weight:bold; color:#a16207; margin-bottom:6px;'>Intonation Markers and Prosodic Signals</div>
+        <div style='font-weight:bold; color:#a16207; margin-bottom:6px;'>
+            Intonation Markers and Prosodic Signals
+        </div>
         <div style='font-size:14px; color:#334155;'>
-            • Sentence-Final Particles: <strong>{particle_display}</strong><br>
-            • Prosodic Signal: <strong>{intonation_input}</strong><br>
+            • Sentence-final Particles: <strong>{particle_display}</strong><br>
+            • Intonation Pattern: <strong>{intonation_input}</strong><br>
+            • Speech Rate: <strong>{speech_rate:.2f} units/sec</strong>
         </div>
     </div>
     """
 
     emotion_html = f"""
     <div style='margin-bottom:16px; background:#fdf2f8; border-left:5px solid #db2777; padding:12px; border-radius:8px;'>
-        <div style='font-weight:bold; color:#be185d; margin-bottom:6px;'>Emotional Expression</div>
+        <div style='font-weight:bold; color:#be185d; margin-bottom:6px;'>
+            Emotional Context
+        </div>
         <div style='font-size:14px; color:#334155;'>
-            • Detected Emotional Delivery: <strong>{emotion_input}</strong>
+            • Predicted Emotion: <strong>{emotion_input}</strong>
         </div>
     </div>
     """
@@ -556,7 +591,6 @@ def text_to_speech():
         return jsonify({"error": "No text provided"}), 400
         
     try:
-        # Generate speech and stream it back directly via an in-memory byte buffer
         fp = io.BytesIO()
         tts = gTTS(text=text, lang="tl")
         tts.write_to_fp(fp)
