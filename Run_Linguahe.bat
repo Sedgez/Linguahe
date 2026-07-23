@@ -39,7 +39,7 @@ cls
 echo ======================================================
 echo           LINGUAHE SYSTEM IS ACTIVE
 echo ======================================================
-echo  LOCAL URL:  http://localhost:5000
+echo  LOCAL URL:  http://127.0.0.1:8080/
 echo  MOBILE URL: http://%IP%:5000
 echo ======================================================
 echo  (Press Ctrl+C to shut down the server safely)
