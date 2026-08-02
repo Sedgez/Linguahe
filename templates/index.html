@@ -108,7 +108,7 @@
         Tap to Record (15 Seconds Max)
       </p>
 
-      <div class="flex gap-4 mt-2">
+      <div class="flex flex-wrap justify-center gap-4 mt-2">
 
         <button
           id="speakBtn"
@@ -133,6 +133,15 @@
 
       </div>
 
+      <!-- About Button -->
+      <div class="flex justify-center mt-5">
+
+          <button id="aboutBtn" class="text-black px-8 py-3 rounded-xl font-semibold shadow hover:bg-indigo-700 transition">
+            ℹ️ About Linguahe
+          </button>
+
+      </div>
+
     </div>
 
   </div>
@@ -143,6 +152,104 @@
 <footer class="footer-bar pb-10">
   © 2026 Linguahe Team
 </footer>
+
+<!-- ABOUT MODAL -->
+<div id="aboutModal"
+     class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+
+    <div class="bg-white rounded-xl shadow-2xl w-11/12 max-w-3xl p-8 max-h-[90vh] overflow-y-auto">
+
+        <div class="flex justify-between items-center mb-6">
+
+            <h2 class="text-3xl font-bold text-sky-700">
+                About Linguahe WebApp
+            </h2>
+
+            <button
+                id="closeAbout"
+                class="text-gray-500 hover:text-red-500 text-2xl font-bold">
+                ✕
+            </button>
+
+        </div>
+
+        <p class="text-gray-700 mb-6">
+            <strong>Linguahe</strong> is a web-based linguistic analysis system
+            designed to detect possible cross-cultural communication differences
+            among Tagalog dialects spoken in the CALABARZON Region.
+        </p>
+
+        <div class="border-l-4 border-sky-500 bg-sky-50 p-4 rounded mb-5">
+
+            <h3 class="font-bold text-sky-700 mb-2">
+                Rule-Augmented Algorithm
+            </h3>
+
+            <ul class="list-disc ml-6 text-gray-700 space-y-1">
+                <li>Diction Pattern Analysis</li>
+                <li>Sentence-final Particle Detection</li>
+                <li>Speech Rate Analysis</li>
+                <li>Intonation Detection</li>
+            </ul>
+
+        </div>
+
+        <div class="border-l-4 border-indigo-500 bg-indigo-50 p-4 rounded mb-5">
+
+            <h3 class="font-bold text-indigo-700 mb-2">
+                Sentence-BERT (SBERT)
+            </h3>
+
+            <ul class="list-disc ml-6 text-gray-700 space-y-1">
+                <li>Semantic Similarity Analysis</li>
+                <li>Reference Sentence Comparison</li>
+            </ul>
+
+        </div>
+
+        <div class="border-l-4 border-orange-500 bg-orange-50 p-4 rounded mb-5">
+
+            <h3 class="font-bold text-orange-700 mb-2">
+                Artificial Neural Network (ANN)
+            </h3>
+
+            <ul class="list-disc ml-6 text-gray-700 space-y-1">
+                <li>Accent Classification</li>
+                <li>Emotion Classification</li>
+            </ul>
+
+        </div>
+
+        <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded">
+
+            <h3 class="font-bold text-green-700 mb-3">
+                Speech Processing Pipeline
+            </h3>
+
+         <pre class="text-gray-700">
+Audio Input
+    ↓
+Whisper Speech-to-Text
+    ↓
+Rule-Augmented Algorithm
+    ↓
+Sentence-BERT
+    ↓
+Artificial Neural Network
+    ↓
+Linguistic Analysis Results
+         </pre>
+
+        </div>
+
+        <div class="mt-8 text-center text-sm text-gray-500">
+            Version 1.0<br>
+            Developed by the Linguahe Team
+        </div>
+
+    </div>
+
+</div>
 
 <script>
 
@@ -509,6 +616,32 @@ ANN + SBERT Hybrid Linguistic Engine
 
   URL.revokeObjectURL(url);
 
+});
+
+// ======================================================
+// ABOUT MODAL
+// ======================================================
+
+const aboutBtn = document.getElementById("aboutBtn");
+const aboutModal = document.getElementById("aboutModal");
+const closeAbout = document.getElementById("closeAbout");
+
+aboutBtn.addEventListener("click", () => {
+    aboutModal.classList.remove("hidden");
+    aboutModal.classList.add("flex");
+});
+
+closeAbout.addEventListener("click", () => {
+    aboutModal.classList.add("hidden");
+    aboutModal.classList.remove("flex");
+});
+
+// Close when clicking outside the popup
+aboutModal.addEventListener("click", (e) => {
+    if (e.target === aboutModal) {
+        aboutModal.classList.add("hidden");
+        aboutModal.classList.remove("flex");
+    }
 });
 
 </script>
