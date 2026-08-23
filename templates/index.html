@@ -73,7 +73,7 @@
           <button id="micBtn" class="mic-button">🎤</button>
 
           <p id="statusText" class="text-sm text-gray-500 font-bold">
-            Tap to Record (15 Seconds Max)
+            Tap to Record (20 Seconds Max)
           </p>
 
           <div class="flex flex-wrap justify-center gap-4 mt-2">
@@ -405,7 +405,7 @@ Linguistic Analysis Results
             if (recorder && recorder.state === "recording") {
               recorder.stop();
             }
-          }, 15000);
+          }, 20000);
         } catch (error) {
           alert("Microphone permission denied.");
         }

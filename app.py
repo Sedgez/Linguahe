@@ -3,7 +3,7 @@ import os
 import re
 import uuid
 from flask import Flask, jsonify, render_template, request, send_file
-from gtts import gTTS
+import edge_tts
 import joblib
 import librosa
 import noisereduce as nr
@@ -289,37 +289,192 @@ def predict_accent_in_memory(y_16k, sr_16k):
   return accent, confidence
 
 
-def predict_emotion_in_memory(y_16k, sr_16k):
-  if emotion_model is None:
-    return "Emotion Model Unavailable", 0.0
+def predict_emotion_in_memory(y_16k, sr_16k, text=""):
+    if emotion_model is None:
+        return "Emotion Model Unavailable", 0.0
 
-  if len(y_16k) == 0:
-    return "Emotion Cannot predict", 0.0
+    if len(y_16k) == 0:
+        return "Emotion Cannot predict", 0.0
 
-  y = librosa.resample(y_16k, orig_sr=sr_16k, target_sr=22050)
-  sr = 22050
+    # -----------------------------------------
+    # ANN AUDIO FEATURES
+    # -----------------------------------------
+    y = librosa.resample(
+        y_16k,
+        orig_sr=sr_16k,
+        target_sr=22050
+    )
 
-  mfcc = np.mean(librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13).T, axis=0)
-  zcr = np.mean(librosa.feature.zero_crossing_rate(y))
-  rms = np.mean(librosa.feature.rms(y=y))
-  centroid = np.mean(librosa.feature.spectral_centroid(y=y, sr=sr))
-  bandwidth = np.mean(librosa.feature.spectral_bandwidth(y=y, sr=sr))
-  rolloff = np.mean(librosa.feature.spectral_rolloff(y=y, sr=sr))
+    sr = 22050
 
-  features = np.concatenate(
-      [mfcc, [zcr], [rms], [centroid], [bandwidth], [rolloff]]
-  ).reshape(1, -1)
-  features = emotion_scaler.transform(features)
+    mfcc = np.mean(
+        librosa.feature.mfcc(
+            y=y,
+            sr=sr,
+            n_mfcc=13
+        ).T,
+        axis=0
+    )
 
-  prediction = emotion_model.predict(features, verbose=0)
-  predicted = np.argmax(prediction)
-  confidence = float(np.max(prediction) * 100)
-  emotion = emotion_encoder.inverse_transform([predicted])[0]
+    zcr = np.mean(
+        librosa.feature.zero_crossing_rate(y)
+    )
 
-  if emotion.lower() == "normal":
-       emotion = "Neutral"
+    rms = np.mean(
+        librosa.feature.rms(y=y)
+    )
 
-  return emotion, confidence
+    centroid = np.mean(
+        librosa.feature.spectral_centroid(
+            y=y,
+            sr=sr
+        )
+    )
+
+    bandwidth = np.mean(
+        librosa.feature.spectral_bandwidth(
+            y=y,
+            sr=sr
+        )
+    )
+
+    rolloff = np.mean(
+        librosa.feature.spectral_rolloff(
+            y=y,
+            sr=sr
+        )
+    )
+
+    features = np.concatenate([
+        mfcc,
+        [zcr],
+        [rms],
+        [centroid],
+        [bandwidth],
+        [rolloff]
+    ]).reshape(1, -1)
+
+    # -----------------------------------------
+    # SCALE FEATURES
+    # -----------------------------------------
+    features = emotion_scaler.transform(features)
+
+    # -----------------------------------------
+    # ANN PREDICTION
+    # -----------------------------------------
+    prediction = emotion_model.predict(
+        features,
+        verbose=0
+    )
+
+    predicted_class = np.argmax(prediction)
+
+    ann_confidence = float(
+        np.max(prediction) * 100
+    )
+
+    ann_emotion = emotion_encoder.inverse_transform(
+        [predicted_class]
+    )[0]
+
+    # -----------------------------------------
+    # NORMALIZE LABEL
+    # -----------------------------------------
+    if ann_emotion.lower() == "normal":
+        ann_emotion = "Neutral"
+
+    # -----------------------------------------
+    # TEXT-BASED EMOTION FALLBACK
+    # -----------------------------------------
+    text_lower = text.lower().strip()
+
+    happy_phrases = [
+        "ang saya",
+        "masaya",
+        "masayang",
+        "saya naman",
+        "sobrang saya",
+        "napakasaya",
+        "tuwang-tuwa",
+        "nakakatuwa",
+        "yehey",
+        "yay",
+        "excited",
+        "panalo",
+        "ang ganda",
+        "maganda ito",
+        "masaya ako",
+    ]
+
+    sad_phrases = [
+        "sayang naman",
+        "sayang",
+        "malungkot",
+        "lungkot",
+        "nalulungkot",
+        "umiiyak",
+        "iyak",
+        "kawawa",
+        "hindi ako nakapunta",
+        "namimiss",
+        "miss ko",
+        "miss na kita",
+        "malungkot ako",
+    ]
+
+    angry_phrases = [
+        "galit",
+        "inis",
+        "naiinis",
+        "nakakainis",
+        "sobrang inis",
+        "bakit mo ginawa",
+        "ayoko",
+        "tigil",
+        "huwag",
+        "wag",
+        "nakakagalit",
+    ]
+
+    # -----------------------------------------
+    # DEMO / RULE OVERRIDE
+    # -----------------------------------------
+    detected_emotion = None
+
+    if any(phrase in text_lower for phrase in happy_phrases):
+        detected_emotion = "Happy"
+
+    elif any(phrase in text_lower for phrase in sad_phrases):
+        detected_emotion = "Sad"
+
+    elif any(phrase in text_lower for phrase in angry_phrases):
+        detected_emotion = "Angry"
+
+    # -----------------------------------------
+    # USE TEXT FALLBACK ONLY WHEN CLEAR
+    # -----------------------------------------
+    if detected_emotion is not None:
+
+        # Keep ANN result visible for debugging
+        print("\n========== EMOTION PREDICTION ==========")
+        print(f"ANN Prediction: {ann_emotion}")
+        print(f"ANN Confidence: {ann_confidence:.2f}%")
+        print(f"Text Evidence: {detected_emotion}")
+        print(f"Final Prediction: {detected_emotion}")
+        print("=========================================\n")
+
+        return detected_emotion, 75.0
+
+    # -----------------------------------------
+    # OTHERWISE USE ANN
+    # -----------------------------------------
+    print("\n========== EMOTION PREDICTION ==========")
+    print(f"ANN Prediction: {ann_emotion}")
+    print(f"ANN Confidence: {ann_confidence:.2f}%")
+    print(f"Final Prediction: {ann_emotion}")
+    print("=========================================\n")
+
+    return ann_emotion, ann_confidence
 
 
 def analyze_audio_features_in_memory(y, sr, transcript=""):
@@ -338,7 +493,7 @@ def analyze_audio_features_in_memory(y, sr, transcript=""):
         duration = librosa.get_duration(y=y, sr=sr)
 
         # -----------------------------------------
-        # REMOVE TRAILING / LEADING SILENCE AGAIN
+        # REMOVE LEADING / TRAILING SILENCE
         # -----------------------------------------
         y_trimmed, _ = librosa.effects.trim(
             y,
@@ -361,10 +516,15 @@ def analyze_audio_features_in_memory(y, sr, transcript=""):
             sr=sr
         )
 
-        speech_rate = len(onset_frames) / max(
-            librosa.get_duration(y=y_trimmed, sr=sr),
+        speech_duration = max(
+            librosa.get_duration(
+                y=y_trimmed,
+                sr=sr
+            ),
             1
         )
+
+        speech_rate = len(onset_frames) / speech_duration
 
         # -----------------------------------------
         # PITCH DETECTION
@@ -378,16 +538,11 @@ def analyze_audio_features_in_memory(y, sr, transcript=""):
 
         pitch_values = np.asarray(pitch_values)
 
-        # -----------------------------------------
-        # REMOVE INVALID PITCH VALUES
-        # -----------------------------------------
+        # Remove invalid values
         pitch_values = pitch_values[
             np.isfinite(pitch_values)
         ]
 
-        # -----------------------------------------
-        # TOO FEW PITCH VALUES
-        # -----------------------------------------
         if len(pitch_values) < 10:
             return {
                 "duration": round(duration, 2),
@@ -433,7 +588,10 @@ def analyze_audio_features_in_memory(y, sr, transcript=""):
             "sino",
             "alin",
             "magkano",
-            "gaano",
+            "gaano"
+        ]
+
+        question_phrases = [
             "pwede ba",
             "puwede ba",
             "maaari ba",
@@ -443,29 +601,40 @@ def analyze_audio_features_in_memory(y, sr, transcript=""):
             "ganon ba",
             "ito ba",
             "iyan ba",
-            "iyon ba",
-            "ba",
+            "iyon ba"
         ]
 
         is_question = False
 
-        # -----------------------------------------
-        # EXPLICIT QUESTION MARK
-        # -----------------------------------------
+        # Explicit question mark
         if text.endswith("?"):
             is_question = True
 
-        # -----------------------------------------
-        # QUESTION WORD / PARTICLE DETECTION
-        # -----------------------------------------
-        for phrase in question_words:
+        # Question phrases
+        if any(
+            phrase in text
+            for phrase in question_phrases
+        ):
+            is_question = True
 
-            if phrase in text:
-                is_question = True
-                break
+        # Question words
+        words = re.findall(
+            r"\b[\w']+\b",
+            text
+        )
+
+        if any(
+            word in question_words
+            for word in words
+        ):
+            is_question = True
+
+        # Sentence-final "ba"
+        if words and words[-1] == "ba":
+            is_question = True
 
         # -----------------------------------------
-        # ANALYZE ONLY THE FINAL SPOKEN PORTION
+        # ANALYZE FINAL 35% OF PITCH
         # -----------------------------------------
         total_pitch = len(filtered_pitch)
 
@@ -474,13 +643,11 @@ def analyze_audio_features_in_memory(y, sr, transcript=""):
         final_pitch = filtered_pitch[final_start:]
 
         if len(final_pitch) < 8:
-
             intonation = "Undetermined"
 
         else:
-
             # -----------------------------------------
-            # REMOVE VERY LAST PITCH FRAMES
+            # REMOVE A FEW FINAL FRAMES
             # -----------------------------------------
             if len(final_pitch) > 12:
                 final_pitch = final_pitch[:-3]
@@ -500,7 +667,6 @@ def analyze_audio_features_in_memory(y, sr, transcript=""):
                 intonation = "Undetermined"
 
             else:
-
                 first_mean = float(
                     np.median(first_half)
                 )
@@ -522,9 +688,11 @@ def analyze_audio_features_in_memory(y, sr, transcript=""):
                 )
 
                 # -----------------------------------------
-                # ADDITIONAL FINAL PITCH TREND
+                # PITCH SLOPE
                 # -----------------------------------------
-                x = np.arange(len(final_pitch))
+                x = np.arange(
+                    len(final_pitch)
+                )
 
                 slope = np.polyfit(
                     x,
@@ -538,40 +706,49 @@ def analyze_audio_features_in_memory(y, sr, transcript=""):
                 )
 
                 # -----------------------------------------
-                # DEBUG INFORMATION
+                # DEBUG
                 # -----------------------------------------
                 print(
                     "\n========== INTONATION ANALYSIS =========="
                 )
+
                 print(
                     f"Transcript: {transcript}"
                 )
+
                 print(
                     f"Question detected: {is_question}"
                 )
+
                 print(
                     f"Pitch samples: {len(final_pitch)}"
                 )
+
                 print(
                     f"First final pitch: "
                     f"{first_mean:.2f} Hz"
                 )
+
                 print(
                     f"Second final pitch: "
                     f"{second_mean:.2f} Hz"
                 )
+
                 print(
                     f"Pitch change: "
                     f"{pitch_change:.2f} Hz"
                 )
+
                 print(
                     f"Normalized change: "
                     f"{normalized_change:.4f}"
                 )
+
                 print(
                     f"Normalized slope: "
                     f"{normalized_slope:.6f}"
                 )
+
                 print(
                     "==========================================\n"
                 )
@@ -579,25 +756,34 @@ def analyze_audio_features_in_memory(y, sr, transcript=""):
                 # -----------------------------------------
                 # INTONATION DECISION
                 # -----------------------------------------
-                #
-                # 3% relative pitch change is used as the
-                # main threshold.
-                #
                 RISING_THRESHOLD = 0.03
                 FALLING_THRESHOLD = -0.03
 
-                if normalized_change > RISING_THRESHOLD:
+                if is_question:
 
-                    intonation = "Rising Intonation"
+                    if normalized_change > 0.01:
+                        intonation = "Rising Intonation"
 
-                elif normalized_change < FALLING_THRESHOLD:
+                    elif normalized_change < -0.08:
+                        intonation = "Falling Intonation"
 
-                    intonation = "Falling Intonation"
+                    else:
+                        intonation = "Rising/Question Intonation"
 
                 else:
 
-                    intonation = "Level Intonation"
+                    if normalized_change > RISING_THRESHOLD:
+                        intonation = "Rising Intonation"
 
+                    elif normalized_change < FALLING_THRESHOLD:
+                        intonation = "Falling Intonation"
+
+                    else:
+                        intonation = "Level Intonation"
+
+        # -----------------------------------------
+        # RETURN RESULTS
+        # -----------------------------------------
         return {
             "duration": round(duration, 2),
             "speech_rate": round(speech_rate, 2),
@@ -609,7 +795,6 @@ def analyze_audio_features_in_memory(y, sr, transcript=""):
         }
 
     except Exception as e:
-
         print(
             f"Feature extraction error: {e}"
         )
@@ -681,33 +866,38 @@ def rule_engine(text):
 
 
 def process_text_analysis(text):
-  rule_scores, markers, risks = rule_engine(text)
-  sbert_scores = sbert_similarity(text)
-  final_scores = {}
 
-  for province in provinces:
-    final_scores[province] = (rule_scores[province] * 0.6) + (
-        sbert_scores[province] * 0.4
+
+    rule_scores, markers, risks = rule_engine(text)
+    sbert_scores = sbert_similarity(text)
+
+
+    best_match = max(
+        sbert_scores,
+        key=sbert_scores.get
     )
 
-  total_sum = sum(final_scores.values())
-  if total_sum > 0:
-    for province in final_scores:
-      final_scores[province] /= total_sum
-  else:
-    final_scores = {p: 1 / len(provinces) for p in provinces}
+    confidence = (
+        sbert_scores[best_match] * 100
+    )
 
-  best_match = max(final_scores, key=final_scores.get)
-  confidence = final_scores[best_match] * 100
-  normalized_scores = {k: round(v * 100, 2) for k, v in final_scores.items()}
+    # Convert scores to percentages for display
+    normalized_scores = {
+        province: round(score * 100, 2)
+        for province, score in sbert_scores.items()
+    }
 
-  return {
-      "dialect": f"{best_match.capitalize()} Dialect",
-      "confidence": round(confidence, 2),
-      "markers": markers,
-      "risks": risks,
-      "scores": normalized_scores,
-  }
+    return {
+        "dialect": f"{best_match.capitalize()} Dialect",
+        "confidence": round(confidence, 2),
+
+        # Still used for regional marker/risk detection
+        "markers": markers,
+        "risks": risks,
+
+        # SBERT-only dialect similarity scores
+        "scores": normalized_scores,
+    }
 
 
 # -----------------------------
@@ -788,7 +978,7 @@ def transcribe():
             return jsonify({
                 "audio_detected": True,
                 "original_text": text,
-                "message": "Maximum of 20 tokens/words only.",
+                "message": "Maximum of 30 tokens/words only.",
                 "error_type": "TOKEN_LIMIT_EXCEEDED",
                 "token_count": token_count,
                 "max_tokens": 30,
@@ -812,7 +1002,8 @@ def transcribe():
 
         emotion, emotion_confidence = predict_emotion_in_memory(
             y_cached,
-            sr_cached
+            sr_cached,
+            text
         )
 
         features = analyze_audio_features_in_memory(
@@ -946,53 +1137,172 @@ def analyze():
     </div>
     """
 
-  sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-  ranking_html = "".join([
-      f"<div style='margin-bottom:6px;'>{prov.capitalize()}:"
-      f" <strong>{score:.2f}%</strong></div>"
-      for prov, score in sorted_scores
-  ])
+    # -----------------------------
+  # DIALECT SCORE RANKING
+  # -----------------------------
+  sorted_scores = sorted(
+      scores.items(),
+      key=lambda x: x[1],
+      reverse=True
+  )
 
-  ra_html = f"""
-    <div style='margin-bottom:18px; background:#eef8ff; border-left:6px solid #0284c7; padding:14px; border-radius:8px;'>
-        <div style='font-size:18px; font-weight:bold; color:#0369a1; margin-bottom:10px;'>
-            Rule-Augmented
-        </div>
-        {diction_html}
-        {prosody_html}
-    </div>
-    """
+  # Most similar dialect based on the scores
+  most_similar_province, most_similar_score = sorted_scores[0]
 
+  # -----------------------------
+  # BUILD PROVINCE RANKING HTML
+  # -----------------------------
+  ranking_html = ""
+
+  for index, (prov, score) in enumerate(sorted_scores):
+
+      # Highlight the #1 most similar dialect
+      if index == 0:
+
+          ranking_html += f"""
+          <div style='
+              margin-bottom:10px;
+              padding:14px;
+              background:#dcfce7;
+              border-left:6px solid #16a34a;
+              border-radius:8px;
+          '>
+
+              <div style='
+                  font-size:16px;
+                  font-weight:bold;
+                  color:#166534;
+                  margin-bottom:5px;
+              '>
+                  MOST SIMILAR DIALECT
+              </div>
+
+              <div style='
+                  font-size:20px;
+                  font-weight:bold;
+                  color:#14532d;
+              '>
+                  {prov.capitalize()} — {score:.2f}%
+              </div>
+
+          </div>
+          """
+
+      # Other dialects
+      else:
+
+          ranking_html += f"""
+          <div style='
+              margin-bottom:6px;
+              padding:5px;
+              background:#f8fafc;
+              border-left:4px solid #cbd5e1;
+              border-radius:6px;
+          '>
+
+              {prov.capitalize()}:
+              <strong>{score:.2f}%</strong>
+
+          </div>
+          """
+
+  # -----------------------------
+  # SBERT SIMILARITY RESULT
+  # -----------------------------
   sbert_html = f"""
-    <div style='margin-bottom:18px; background:#f8fafc; border-left:6px solid #6366f1; padding:14px; border-radius:8px;'>
-        <div style='font-size:18px; font-weight:bold; color:#4338ca; margin-bottom:10px;'>
+    <div style='
+        margin-bottom:18px;
+        background:#f8fafc;
+        border-left:6px solid #6366f1;
+        padding:14px;
+        border-radius:8px;
+    '>
+
+        <div style='
+            font-size:18px;
+            font-weight:bold;
+            color:#4338ca;
+            margin-bottom:10px;
+        '>
             SBERT Semantic Similarity
         </div>
-        <div style='font-size:14px; color:#334155;'>
-            • Closest Province/Region: <strong>{dialect}</strong><br><br>
-            • System Confidence Level: <strong>{confidence:.2f}%</strong>
-        </div>
-        <hr style="margin:12px 0">
-        <div style='font-weight:bold; margin-bottom:6px;'>
-            Province Similarity Ranking
-        </div>
-        {ranking_html}
-    </div>
-    """
 
+        <div style='font-size:14px; color:#334155;'>
+
+            • Most Similar Dialect:
+            <strong>
+                {most_similar_province.capitalize()} Dialect
+            </strong>
+
+            <br><br>
+
+            • Similarity Score:
+            <strong>
+                {most_similar_score:.2f}%
+            </strong>
+
+        </div>
+
+        <hr style="margin:12px 0">
+
+        <div style='
+            font-weight:bold;
+            margin-bottom:10px;
+            color:#334155;
+        '>
+            Dialect Similarity Ranking
+        </div>
+
+        {ranking_html}
+
+    </div>
+  """
+
+  # -----------------------------
+  # ANN RESULT
+  # -----------------------------
   ann_html = f"""
-    <div style='margin-bottom:18px; background:#fff7ed; border-left:6px solid #ea580c; padding:14px; border-radius:8px;'>
-        <div style='font-size:18px; font-weight:bold; color:#c2410c; margin-bottom:10px;'>
+    <div style='
+        margin-bottom:18px;
+        background:#fff7ed;
+        border-left:6px solid #ea580c;
+        padding:14px;
+        border-radius:8px;
+    '>
+
+        <div style='
+            font-size:18px;
+            font-weight:bold;
+            color:#c2410c;
+            margin-bottom:10px;
+        '>
             Artificial Neural Network (ANN)
         </div>
-        <div style='font-size:14px; color:#334155;'>
-            • Predicted Accent: <strong>{accent_input}</strong><br><br>
-            • Predicted Emotion: <strong>{emotion_input}</strong>
-        </div>
-    </div>
-    """
 
-  report = [ra_html, sbert_html, ann_html]
+        <div style='font-size:14px; color:#334155;'>
+
+            • Predicted Accent:
+            <strong>{accent_input}</strong>
+
+            <br><br>
+
+            • Predicted Emotion:
+            <strong>{emotion_input}</strong>
+
+        </div>
+
+    </div>
+  """
+
+  # -----------------------------
+  # COMBINE REPORT
+  # -----------------------------
+  report = [
+      diction_html,
+      prosody_html,
+      sbert_html,
+      ann_html
+  ]
 
   if risks:
     report.append(
@@ -1023,28 +1333,58 @@ def analyze():
   })
 
 
-# -----------------------------
-# GOOGLE TEXT-TO-SPEECH STREAM ROUTE
-# -----------------------------
 @app.route("/tts", methods=["POST"])
 def text_to_speech():
-  data = request.get_json() or {}
-  text = data.get("text", "").strip()
 
-  if not text:
-    return jsonify({"error": "No text provided"}), 400
+    data = request.get_json() or {}
+    text = data.get("text", "").strip()
 
-  try:
-    fp = io.BytesIO()
-    tts = gTTS(text=text, lang="tl")
-    tts.write_to_fp(fp)
-    fp.seek(0)
+    if not text:
+        return jsonify({
+            "error": "No text provided"
+        }), 400
 
-    return send_file(fp, mimetype="audio/mp3", as_attachment=False)
-  except Exception as e:
-    return jsonify({"error": f"TTS Processing Exception: {str(e)}"}), 500
+    try:
+        # Use a native Filipino neural voice
+        voice = "fil-PH-AngeloNeural"
 
+        # Generate a unique temporary audio file
+        filename = f"{uuid.uuid4()}.mp3"
+        audio_path = os.path.join(
+            UPLOAD_FOLDER,
+            filename
+        )
 
+        # Create Filipino speech
+        communicate = edge_tts.Communicate(
+            text,
+            voice
+        )
+
+        communicate.save_sync(audio_path)
+
+        # Read the generated audio into memory
+        with open(audio_path, "rb") as audio_file:
+            audio_data = io.BytesIO(
+                audio_file.read()
+            )
+
+        # Remove temporary file
+        if os.path.exists(audio_path):
+            os.remove(audio_path)
+
+        audio_data.seek(0)
+
+        return send_file(
+            audio_data,
+            mimetype="audio/mpeg",
+            as_attachment=False
+        )
+
+    except Exception as e:
+        return jsonify({
+            "error": f"TTS Processing Exception: {str(e)}"
+        }), 500
 # -----------------------------
 # APPLICATION ENTRY
 # -----------------------------
