@@ -1,157 +1,48 @@
+from model_loader import (
+    device,
+    accent_model,
+    accent_scaler,
+    accent_encoder,
+    emotion_model,
+    emotion_scaler,
+    emotion_encoder,
+    whisper_model,
+    sbert_model
+)
+
+from data_loader import (
+    provinces,
+    proto_df,
+    risk_df,
+    honorifics_df,
+    proto_embeddings
+)
+
+from outputs import (
+    create_diction_html,
+    create_prosody_html,
+    create_ranking_html,
+    create_sbert_html,
+    create_ann_html
+)
+
 import io
 import os
 import re
 import uuid
 from flask import Flask, jsonify, render_template, request, send_file
 import edge_tts
-import joblib
 import librosa
 import noisereduce as nr
 import numpy as np
-import pandas as pd
 from sentence_transformers import SentenceTransformer, util
 import soundfile as sf
-from tensorflow.keras.models import load_model
 import torch
-import whisper
 
 app = Flask(__name__)
 
-# -----------------------------
-# DIRECTORY SETUP
-# -----------------------------
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-# -----------------------------
-# DEVICE INITIALIZATION
-# -----------------------------
-device = "cuda" if torch.cuda.is_available() else "cpu"
-print(f"\n=== SYSTEM DEVICE: {device.upper()} ===")
-
-# -----------------------------
-# MODEL INITIALIZATIONS
-# -----------------------------
-print("--- Loading Accent ANN Models ---")
-try:
-  accent_model = load_model("accent_ai/models/accent_ann.keras")
-  accent_scaler = joblib.load("accent_ai/models/scaler.pkl")
-  accent_encoder = joblib.load("accent_ai/models/label_encoder.pkl")
-  print("Accent ANN Loaded Successfully")
-except Exception as e:
-  print(f"Warning: Failed to load Accent ANN models: {e}")
-  accent_model, accent_scaler, accent_encoder = None, None, None
-
-print("--- Loading Emotion ANN Models ---")
-try:
-  emotion_model = load_model("emotion_ai/models/emotion_ann.keras")
-  emotion_scaler = joblib.load("emotion_ai/models/scaler.pkl")
-  emotion_encoder = joblib.load("emotion_ai/models/label_encoder.pkl")
-  print("Emotion ANN Loaded Successfully")
-except Exception as e:
-  print(f"Warning: Failed to load Emotion ANN models: {e}")
-  emotion_model, emotion_scaler, emotion_encoder = None, None, None
-
-print("--- Initializing Whisper Model ---")
-try:
-  whisper_model = whisper.load_model("turbo", device=device)
-  print("Loaded Whisper Turbo Model")
-except Exception as e:
-  print(f"Turbo unavailable -> fallback to medium: {e}")
-  whisper_model = whisper.load_model("medium", device=device)
-
-print("--- Loading Multilingual SBERT Model ---")
-sbert_model = SentenceTransformer(
-    "paraphrase-multilingual-MiniLM-L12-v2", device=device
-)
-
-# -----------------------------
-# TARGET RESEARCH PROVINCES
-# -----------------------------
-provinces = ["batangas", "laguna", "cavite", "rizal", "quezon"]
-
-
-# -----------------------------
-# SAFE DATA LOADERS
-# -----------------------------
-def safe_read_csv(path):
-  encodings = ["utf-8", "cp1252", "latin-1"]
-  for enc in encodings:
-    try:
-      return pd.read_csv(path, encoding=enc)
-    except:
-      continue
-  return pd.DataFrame()
-
-
-def load_reference_sentences():
-  path = "reference_sentences.csv"
-  if not os.path.exists(path):
-    print("reference_sentences.csv not found")
-    return pd.DataFrame()
-
-  df = safe_read_csv(path)
-  if df.empty:
-    return df
-
-  df.columns = df.columns.str.strip().str.lower()
-  required_cols = ["dialect", "sentence"]
-
-  for col in required_cols:
-    if col not in df.columns:
-      raise Exception(f"Missing required column: {col}")
-
-  df["dialect"] = df["dialect"].astype(str).str.lower().str.strip()
-  df["sentence"] = df["sentence"].astype(str).str.strip()
-  return df
-
-
-def load_risk_words():
-  path = "risk_words.csv"
-  if not os.path.exists(path):
-    print("risk_words.csv not found")
-    return pd.DataFrame()
-
-  df = safe_read_csv(path)
-  if df.empty:
-    return df
-
-  df.columns = df.columns.str.strip().str.lower()
-
-  if "dielect_tag" in df.columns and "dialect_tag" not in df.columns:
-    df = df.rename(columns={"dielect_tag": "dialect_tag"})
-  if "context_meaning" in df.columns and "meaning" not in df.columns:
-    df = df.rename(columns={"context_meaning": "meaning"})
-
-  if "token" not in df.columns:
-    raise Exception("Missing required column: token")
-
-  return df.fillna("")
-
-
-proto_df = load_reference_sentences()
-risk_df = load_risk_words()
-
-# -----------------------------
-# PRECOMPUTE SBERT EMBEDDINGS
-# -----------------------------
-print("--- Building Province Embeddings ---")
-proto_embeddings = {}
-
-if not proto_df.empty:
-  with torch.no_grad():
-    for prov in provinces:
-      sentences = proto_df[proto_df["dialect"] == prov]["sentence"].tolist()
-      if len(sentences) == 0:
-        proto_embeddings[prov] = None
-        continue
-
-      embeddings = sbert_model.encode(
-          sentences, convert_to_tensor=True, device=device
-      )
-      proto_embeddings[prov] = embeddings
-print("Province embeddings complete")
-
 
 # -----------------------------
 # AUDIO PROCESSING PIPELINE
@@ -866,11 +757,8 @@ def rule_engine(text):
 
 
 def process_text_analysis(text):
-
-
     rule_scores, markers, risks = rule_engine(text)
     sbert_scores = sbert_similarity(text)
-
 
     best_match = max(
         sbert_scores,
@@ -1067,49 +955,64 @@ def analyze():
   tokens = re.findall(r"\b[\w']+\b", text.lower())
   word_count = len(tokens)
 
-  # Honorifics
-  honorifics = ["po", "opo", "ho", "oho"]
-  honorific_found = [
-      token for token in tokens if token in honorifics and token
-  ]
-  honorific_found = list(dict.fromkeys(honorific_found))  # Unique list
+  # -----------------------------
+  # HONORIFIC ANALYSIS
+  # -----------------------------
+  honorific_found = []
+
+  # Create lookup dictionary
+  honorific_lookup = {}
+
+  if not honorifics_df.empty:
+      honorific_lookup = dict(
+          zip(
+              honorifics_df["word"],
+              honorifics_df["category"]
+          )
+      )
+
+      # Check every word in the transcript
+      for token in tokens:
+          if token in honorific_lookup:
+              # Avoid duplicate honorific words
+              if token not in honorific_found:
+                  honorific_found.append(token)
+
+
+  # Combine honorific word and category
+  honorific_display_items = []
+
+  for token in honorific_found:
+      category = honorific_lookup.get(token, "Unknown")
+
+      honorific_display_items.append(
+          f"{token} ({category})"
+      )
+
 
   honorific_display = (
-      ", ".join(honorific_found) if honorific_found else "None"
+      ", ".join(honorific_display_items)
+      if honorific_display_items
+      else "None"
   )
-  verbal_style = "Polite" if honorific_found else "Plain"
 
-  diction_html = f"""
-    <div style='margin-bottom:16px; background:#eff6ff; border-left:5px solid #0284c7; padding:12px; border-radius:8px;'>
-        <div style='font-weight:bold; color:#0369a1; margin-bottom:6px;'>
-            Diction Patterns
-        </div>
-        <div style='font-size:14px; color:#334155;'>
-            • Total Words: <strong>{word_count}</strong><br>
-            • Regional Marker Count: <strong>{len(markers)}</strong><br>
-            • Honorific Usage: <strong>{honorific_display}</strong><br>
-            • Speech Register: <strong>{verbal_style}</strong>
-        </div>
-    </div>
-    """
+  # Determine speech register
+  verbal_style = (
+      "Polite / Respectful"
+      if honorific_found
+      else "Plain"
+  )
+
+  diction_html = create_diction_html(
+    word_count,
+    markers,
+    honorific_display,
+    verbal_style
+  )
 
   sentence_particles = [
-      "ba",
-      "nga",
-      "po",
-      "ho",
-      "naman",
-      "eh",
-      "kasi",
-      "diba",
-      "pala",
-      "na",
-      "pa",
-      "lang",
-      "din",
-      "rin",
-      "daw",
-      "raw",
+    "ba", "nga", "naman", "pala", "na", "pa",
+    "lang", "lamang", "daw", "raw", "din", "rin", "eh", "diba", "yata", "talaga", "ano"
   ]
   sentences = re.split(r"[.!?]+", text.lower())
   particles_found = []
@@ -1124,20 +1027,12 @@ def analyze():
 
   particle_display = ", ".join(particles_found) if particles_found else "None"
 
-  prosody_html = f"""
-    <div style='margin-bottom:16px; background:#fefce8; border-left:5px solid #ca8a04; padding:12px; border-radius:8px;'>
-        <div style='font-weight:bold; color:#a16207; margin-bottom:6px;'>
-            Intonation Markers and Prosodic Signals
-        </div>
-        <div style='font-size:14px; color:#334155;'>
-            • Sentence-final Particles: <strong>{particle_display}</strong><br>
-            • Intonation Pattern: <strong>{intonation_input}</strong><br>
-            • Speech Rate: <strong>{speech_rate:.2f} units/sec</strong>
-        </div>
-    </div>
-    """
-
-    # -----------------------------
+  prosody_html = create_prosody_html(
+    particle_display,
+    intonation_input,
+    speech_rate
+  )
+  # -----------------------------
   # DIALECT SCORE RANKING
   # -----------------------------
   sorted_scores = sorted(
@@ -1149,150 +1044,20 @@ def analyze():
   # Most similar dialect based on the scores
   most_similar_province, most_similar_score = sorted_scores[0]
 
-  # -----------------------------
-  # BUILD PROVINCE RANKING HTML
-  # -----------------------------
-  ranking_html = ""
+  ranking_html = create_ranking_html(
+    sorted_scores
+  )
 
-  for index, (prov, score) in enumerate(sorted_scores):
+  sbert_html = create_sbert_html(
+    most_similar_province,
+    most_similar_score,
+    ranking_html
+ )
 
-      # Highlight the #1 most similar dialect
-      if index == 0:
-
-          ranking_html += f"""
-          <div style='
-              margin-bottom:10px;
-              padding:14px;
-              background:#dcfce7;
-              border-left:6px solid #16a34a;
-              border-radius:8px;
-          '>
-
-              <div style='
-                  font-size:16px;
-                  font-weight:bold;
-                  color:#166534;
-                  margin-bottom:5px;
-              '>
-                  MOST SIMILAR DIALECT
-              </div>
-
-              <div style='
-                  font-size:20px;
-                  font-weight:bold;
-                  color:#14532d;
-              '>
-                  {prov.capitalize()} — {score:.2f}%
-              </div>
-
-          </div>
-          """
-
-      # Other dialects
-      else:
-
-          ranking_html += f"""
-          <div style='
-              margin-bottom:6px;
-              padding:5px;
-              background:#f8fafc;
-              border-left:4px solid #cbd5e1;
-              border-radius:6px;
-          '>
-
-              {prov.capitalize()}:
-              <strong>{score:.2f}%</strong>
-
-          </div>
-          """
-
-  # -----------------------------
-  # SBERT SIMILARITY RESULT
-  # -----------------------------
-  sbert_html = f"""
-    <div style='
-        margin-bottom:18px;
-        background:#f8fafc;
-        border-left:6px solid #6366f1;
-        padding:14px;
-        border-radius:8px;
-    '>
-
-        <div style='
-            font-size:18px;
-            font-weight:bold;
-            color:#4338ca;
-            margin-bottom:10px;
-        '>
-            SBERT Semantic Similarity
-        </div>
-
-        <div style='font-size:14px; color:#334155;'>
-
-            • Most Similar Dialect:
-            <strong>
-                {most_similar_province.capitalize()} Dialect
-            </strong>
-
-            <br><br>
-
-            • Similarity Score:
-            <strong>
-                {most_similar_score:.2f}%
-            </strong>
-
-        </div>
-
-        <hr style="margin:12px 0">
-
-        <div style='
-            font-weight:bold;
-            margin-bottom:10px;
-            color:#334155;
-        '>
-            Dialect Similarity Ranking
-        </div>
-
-        {ranking_html}
-
-    </div>
-  """
-
-  # -----------------------------
-  # ANN RESULT
-  # -----------------------------
-  ann_html = f"""
-    <div style='
-        margin-bottom:18px;
-        background:#fff7ed;
-        border-left:6px solid #ea580c;
-        padding:14px;
-        border-radius:8px;
-    '>
-
-        <div style='
-            font-size:18px;
-            font-weight:bold;
-            color:#c2410c;
-            margin-bottom:10px;
-        '>
-            Artificial Neural Network (ANN)
-        </div>
-
-        <div style='font-size:14px; color:#334155;'>
-
-            • Predicted Accent:
-            <strong>{accent_input}</strong>
-
-            <br><br>
-
-            • Predicted Emotion:
-            <strong>{emotion_input}</strong>
-
-        </div>
-
-    </div>
-  """
+  ann_html = create_ann_html(
+    accent_input,
+    emotion_input
+  )
 
   # -----------------------------
   # COMBINE REPORT
