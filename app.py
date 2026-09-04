@@ -1072,18 +1072,18 @@ def analyze():
   if risks:
     report.append(
         "<div style='font-weight:bold; margin-bottom:10px; color:#e11d48;'>Flagged"
-        " Regional Risk Words</div>"
+        " Unique dialect Words</div>"
     )
     for risk in risks:
       report.append(f"""
             <div style='margin-bottom:10px; border-left:4px solid #e11d48; padding:8px; background:#fff1f2; border-radius:6px;'>
                 • <strong>{risk.get('word', 'unknown')}</strong> ({risk.get('category', 'Uncategorized')})<br>
-                <small style='color:#475569;'>Meaning: {risk.get('meaning', 'No meaning metadata')} [{risk.get('tag', 'UNK').upper()}]</small>
+                <small style='color:#475569;'>Meaning: {risk.get('meaning', 'No meaning metadata')}</small>
             </div>
             """)
   else:
     report.append(
-        "<div style='color:#64748b; font-style:italic;'>No regional"
+        "<div style='color:#64748b; font-style:italic;'>No Unique dialect"
         " misunderstanding or dialect-sensitive terms detected.</div>"
     )
 
