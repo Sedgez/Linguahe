@@ -22,12 +22,15 @@
 
   <body class="bg-slate-100">
     <div class="main-content">
+
       <!-- HEADER -->
       <header class="header-bar">Linguahe</header>
 
       <div class="container mx-auto px-4 py-6">
+
         <!-- MAIN GRID -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
           <!-- INPUT SECTION -->
           <div class="card-box">
             <div class="flex justify-between items-center mb-4">
@@ -45,7 +48,11 @@
             </div>
 
             <div class="mt-4 flex items-center gap-2">
-              <input type="checkbox" id="noiseToggle" class="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="noiseToggle"
+                class="w-4 h-4"
+              />
 
               <label
                 for="noiseToggle"
@@ -63,20 +70,26 @@
             </p>
 
             <div id="explanationBox" class="explanation-box">
-              <p class="text-gray-400 italic">Awaiting speech input...</p>
+              <p class="text-gray-400 italic">
+                Awaiting speech input...
+              </p>
             </div>
           </div>
         </div>
 
         <!-- CONTROL PANEL -->
         <div class="flex flex-col items-center gap-4 mt-10">
-          <button id="micBtn" class="mic-button">🎤</button>
+
+          <button id="micBtn" class="mic-button">
+            🎤
+          </button>
 
           <p id="statusText" class="text-sm text-gray-500 font-bold">
             Tap to Record (20 Seconds Max)
           </p>
 
           <div class="flex flex-wrap justify-center gap-4 mt-2">
+
             <button
               id="speakBtn"
               class="bg-emerald-100 text-emerald-700 px-6 py-2 rounded-lg text-sm font-bold hover:bg-emerald-200 transition"
@@ -97,34 +110,445 @@
             >
               Clear
             </button>
+
           </div>
 
-          <!-- About Button -->
-          <div class="flex justify-center mt-5">
+          <!-- INFORMATION BUTTONS -->
+          <div class="flex flex-wrap justify-center gap-4 mt-5">
+
+            <!-- Tutorial Button -->
+            <button
+              id="tutorialBtn"
+              class="bg-indigo-600 text-white px-8 py-3 rounded-xl font-semibold shadow hover:bg-indigo-700 transition"
+            >
+              📖 How to Use
+            </button>
+
+            <!-- About Button -->
             <button
               id="aboutBtn"
-              class="text-black px-8 py-3 rounded-xl font-semibold shadow hover:bg-indigo-700 transition"
+              class="bg-white text-black px-8 py-3 rounded-xl font-semibold shadow hover:bg-gray-100 transition"
             >
               ℹ️ About Linguahe
             </button>
+
           </div>
         </div>
       </div>
     </div>
 
     <!-- FOOTER -->
-    <footer class="footer-bar pb-10">© 2026 Linguahe Team</footer>
+    <footer class="footer-bar pb-10">
+      © 2026 Linguahe Team
+    </footer>
 
+
+    <!-- ====================================================== -->
+    <!-- TUTORIAL MODAL -->
+    <!-- ====================================================== -->
+
+    <div
+      id="tutorialModal"
+      class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50"
+    >
+
+      <div
+        class="bg-white rounded-2xl shadow-2xl w-11/12 max-w-2xl p-8 max-h-[90vh] overflow-y-auto"
+      >
+
+        <!-- Tutorial Header -->
+        <div class="flex justify-between items-center mb-6">
+
+          <div>
+            <h2 class="text-3xl font-bold text-indigo-700">
+              How to Use Linguahe
+            </h2>
+
+            <p class="text-sm text-gray-500 mt-1">
+              Follow these steps to analyze your speech.
+            </p>
+          </div>
+
+          <button
+            id="closeTutorial"
+            class="text-gray-500 hover:text-red-500 text-2xl font-bold"
+          >
+            ✕
+          </button>
+        </div>
+
+        <!-- ================================================== -->
+        <!-- STEP 1 -->
+        <!-- ================================================== -->
+
+        <div class="tutorial-step" data-step="1">
+          <div class="bg-indigo-50 border-l-4 border-indigo-500 p-5 rounded-lg">
+            <div class="text-4xl mb-3">
+            </div>
+
+            <h3 class="text-xl font-bold text-indigo-700 mb-2">
+              Step 1: Prepare Your Speech
+            </h3>
+
+            <p class="text-gray-700 leading-relaxed">
+              Linguahe analyzes spoken Filipino language through your
+              microphone. Prepare a short and clear Filipino sentence
+              before starting the recording.
+            </p>
+
+          </div>
+
+          <div class="mt-5 bg-gray-50 p-4 rounded-lg">
+
+            <p class="font-semibold text-gray-700 mb-2">
+              Tips for better results:
+            </p>
+
+            <ul class="list-disc ml-6 text-gray-600 space-y-1">
+              <li>Speak clearly and naturally.</li>
+              <li>Use a quiet environment when possible.</li>
+              <li>Keep your microphone close enough to capture your voice.</li>
+              <li>Keep your sentence within the allowed word limit.</li>
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- STEP 2 -->
+        <!-- ================================================== -->
+
+        <div class="tutorial-step hidden" data-step="2">
+
+          <div
+            class="bg-sky-50 border-l-4 border-sky-500 p-5 rounded-lg"
+          >
+
+            <div class="text-4xl mb-3">
+              
+            </div>
+
+            <h3 class="text-xl font-bold text-sky-700 mb-2">
+              Step 2: Enable Noise Suppression
+            </h3>
+
+            <p class="text-gray-700 leading-relaxed">
+              If you are recording in an environment with background
+              noise, enable the
+              <strong>Noise Suppression</strong>
+              option before recording.
+            </p>
+
+          </div>
+
+          <div class="mt-5 bg-gray-50 p-4 rounded-lg">
+
+            <p class="font-semibold text-gray-700 mb-2">
+              When should you enable it?
+            </p>
+
+            <ul class="list-disc ml-6 text-gray-600 space-y-1">
+              <li>When there is background conversation.</li>
+              <li>When there is fan or air-conditioning noise.</li>
+              <li>When there is traffic or environmental noise.</li>
+            </ul>
+
+            <p class="text-sm text-gray-500 mt-3">
+              For a quiet environment, you may leave this option disabled.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- STEP 3 -->
+        <!-- ================================================== -->
+
+        <div class="tutorial-step hidden" data-step="3">
+
+          <div
+            class="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-lg"
+          >
+
+            <div class="text-4xl mb-3">
+              
+            </div>
+
+            <h3 class="text-xl font-bold text-emerald-700 mb-2">
+              Step 3: Record Your Speech
+            </h3>
+
+            <p class="text-gray-700 leading-relaxed">
+              Click the
+              <strong>🎤 microphone button</strong>
+              to begin recording.
+            </p>
+
+          </div>
+
+          <div class="mt-5 space-y-3">
+            <div class="flex gap-3 items-start">
+              <span class="font-bold text-indigo-600">1.</span>
+              <p class="text-gray-600">
+                Click the microphone button.
+              </p>
+            </div>
+
+            <div class="flex gap-3 items-start">
+              <span class="font-bold text-indigo-600">2.</span>
+              <p class="text-gray-600">
+                Speak your Filipino sentence clearly.
+              </p>
+            </div>
+
+            <div class="flex gap-3 items-start">
+              <span class="font-bold text-indigo-600">3.</span>
+              <p class="text-gray-600">
+                Click the button again when you finish speaking.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-5 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+
+            <p class="text-yellow-800 text-sm font-semibold">
+              ⚠️ Maximum recording time: 20 seconds
+            </p>
+          </div>
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- STEP 4 -->
+        <!-- ================================================== -->
+
+        <div class="tutorial-step hidden" data-step="4">
+          <div class="bg-purple-50 border-l-4 border-purple-500 p-5 rounded-lg">
+            <div class="text-4xl mb-3">
+            </div>
+            <h3 class="text-xl font-bold text-purple-700 mb-2">
+              Step 4: Review the Transcription
+            </h3>
+
+            <p class="text-gray-700 leading-relaxed">
+              After recording, Linguahe automatically processes the audio
+              and converts your speech into text.
+            </p>
+
+          </div>
+
+          <div class="mt-5 bg-gray-50 p-4 rounded-lg">
+            <p class="font-semibold text-gray-700 mb-2">
+              Check the Speech / Text Input area.
+            </p>
+            <p class="text-gray-600">
+              Your transcribed sentence will appear in the text box.
+              Make sure that the transcription accurately represents
+              what you said.
+            </p>
+          </div>
+
+          <div class="mt-4 bg-orange-50 border-l-4 border-orange-400 p-4 rounded">
+            <p class="text-orange-800 text-sm">
+              If no audio is detected, record your sentence again and
+              make sure you are speaking clearly into the microphone.
+            </p>
+          </div>
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- STEP 5 -->
+        <!-- ================================================== -->
+
+        <div class="tutorial-step hidden" data-step="5">
+          <div class="bg-orange-50 border-l-4 border-orange-500 p-5 rounded-lg">
+            <div class="text-4xl mb-3">
+            </div>
+
+            <h3 class="text-xl font-bold text-orange-700 mb-2">
+              Step 5: View the Analysis Results
+            </h3>
+
+            <p class="text-gray-700 leading-relaxed">
+              Once processing is complete, Linguahe displays the
+              linguistic analysis in the
+              <strong>Linguistic Analysis Results</strong>
+              section.
+            </p>
+
+          </div>
+
+          <div class="mt-5 bg-gray-50 p-4 rounded-lg">
+
+            <p class="font-semibold text-gray-700 mb-2">
+              The analysis may include:
+            </p>
+
+            <ul class="list-disc ml-6 text-gray-600 space-y-1">
+              <li>Diction and language patterns</li>
+              <li>Sentence-final particle patterns</li>
+              <li>Speech-related characteristics</li>
+              <li>Intonation characteristics</li>
+              <li>Emotion classification</li>
+              <li>Possible regional linguistic indicators</li>
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- STEP 6 -->
+        <!-- ================================================== -->
+
+        <div class="tutorial-step hidden" data-step="6">
+          <div class="bg-green-50 border-l-4 border-green-500 p-5 rounded-lg">
+            <div class="text-4xl mb-3">
+            </div>
+
+            <h3 class="text-xl font-bold text-green-700 mb-2">
+              Step 6: Listen, Download, or Start Again
+            </h3>
+
+            <p class="text-gray-700 leading-relaxed">
+              After receiving your results, you can use the available
+              controls to continue working with your analysis.
+            </p>
+
+          </div>
+
+          <div class="mt-5 space-y-3">
+
+            <div class="flex gap-3">
+              <span class="text-xl"></span>
+              <p class="text-gray-600">
+                <strong>Listen to Text</strong> — converts the displayed
+                text into spoken audio.
+              </p>
+            </div>
+
+            <div class="flex gap-3">
+              <span class="text-xl"></span>
+              <p class="text-gray-600">
+                <strong>Download Report</strong> — saves your transcript
+                and linguistic analysis as a report.
+              </p>
+            </div>
+
+            <div class="flex gap-3">
+              <span class="text-xl"></span>
+              <p class="text-gray-600">
+                <strong>Clear</strong> — clears the current session and
+                allows you to start again.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="mt-5 bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded">
+            <p class="text-indigo-800 text-sm">
+              You now know how to use Linguahe!
+            </p>
+          </div>
+
+        </div>
+
+        <!-- ================================================== -->
+        <!-- TUTORIAL PROGRESS -->
+        <!-- ================================================== -->
+
+        <div class="mt-8">
+
+          <div class="flex justify-center gap-2" id="tutorialIndicators">
+
+            <span
+              class="tutorial-dot w-3 h-3 rounded-full bg-indigo-600"
+              data-indicator="1"
+            ></span>
+
+            <span
+              class="tutorial-dot w-3 h-3 rounded-full bg-gray-300"
+              data-indicator="2"
+            ></span>
+
+            <span
+              class="tutorial-dot w-3 h-3 rounded-full bg-gray-300"
+              data-indicator="3"
+            ></span>
+
+            <span
+              class="tutorial-dot w-3 h-3 rounded-full bg-gray-300"
+              data-indicator="4"
+            ></span>
+
+            <span
+              class="tutorial-dot w-3 h-3 rounded-full bg-gray-300"
+              data-indicator="5"
+            ></span>
+
+            <span
+              class="tutorial-dot w-3 h-3 rounded-full bg-gray-300"
+              data-indicator="6"
+            ></span>
+          </div>
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- TUTORIAL CONTROLS -->
+        <!-- ================================================== -->
+
+        <div class="flex justify-between items-center mt-6">
+
+          <button
+            id="tutorialBack"
+            class="bg-gray-100 text-gray-600 px-5 py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
+          >
+            ← Back
+          </button>
+
+          <p
+            id="tutorialStepText"
+            class="text-sm font-semibold text-gray-500"
+          >
+            Step 1 of 6
+          </p>
+
+          <button
+            id="tutorialNext"
+            class="bg-indigo-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition"
+          >
+            Next →
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ====================================================== -->
     <!-- ABOUT MODAL -->
+    <!-- ====================================================== -->
+
     <div
       id="aboutModal"
       class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50"
     >
+
       <div
         class="bg-white rounded-xl shadow-2xl w-11/12 max-w-3xl p-8 max-h-[90vh] overflow-y-auto"
       >
+
         <div class="flex justify-between items-center mb-6">
-          <h2 class="text-3xl font-bold text-sky-700">About Linguahe WebApp</h2>
+
+          <h2 class="text-3xl font-bold text-sky-700">
+            About Linguahe WebApp
+          </h2>
 
           <button
             id="closeAbout"
@@ -132,16 +556,25 @@
           >
             ✕
           </button>
+
         </div>
 
         <p class="text-gray-700 mb-6">
-          <strong>Linguahe</strong> is a web-based linguistic analysis system
-          designed to detect possible cross-cultural communication differences
-          among Tagalog dialects spoken in the CALABARZON Region.
+
+          <strong>Linguahe</strong>
+          is a web-based linguistic analysis system
+          designed to detect possible cross-cultural communication
+          differences among Tagalog dialects spoken in the CALABARZON Region.
+
         </p>
 
-        <div class="border-l-4 border-sky-500 bg-sky-50 p-4 rounded mb-5">
-          <h3 class="font-bold text-sky-700 mb-2">Rule-Augmented Algorithm</h3>
+        <div
+          class="border-l-4 border-sky-500 bg-sky-50 p-4 rounded mb-5"
+        >
+
+          <h3 class="font-bold text-sky-700 mb-2">
+            Rule-Augmented Algorithm
+          </h3>
 
           <ul class="list-disc ml-6 text-gray-700 space-y-1">
             <li>Diction Pattern Analysis</li>
@@ -149,18 +582,28 @@
             <li>Speech Rate Analysis</li>
             <li>Intonation Detection</li>
           </ul>
+
         </div>
 
-        <div class="border-l-4 border-indigo-500 bg-indigo-50 p-4 rounded mb-5">
-          <h3 class="font-bold text-indigo-700 mb-2">Sentence-BERT (SBERT)</h3>
+        <div
+          class="border-l-4 border-indigo-500 bg-indigo-50 p-4 rounded mb-5"
+        >
+
+          <h3 class="font-bold text-indigo-700 mb-2">
+            Sentence-BERT (SBERT)
+          </h3>
 
           <ul class="list-disc ml-6 text-gray-700 space-y-1">
             <li>Semantic Similarity Analysis</li>
             <li>Reference Sentence Comparison</li>
           </ul>
+
         </div>
 
-        <div class="border-l-4 border-orange-500 bg-orange-50 p-4 rounded mb-5">
+        <div
+          class="border-l-4 border-orange-500 bg-orange-50 p-4 rounded mb-5"
+        >
+
           <h3 class="font-bold text-orange-700 mb-2">
             Artificial Neural Network (ANN)
           </h3>
@@ -168,9 +611,13 @@
           <ul class="list-disc ml-6 text-gray-700 space-y-1">
             <li>Emotion Classification</li>
           </ul>
+
         </div>
 
-        <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded">
+        <div
+          class="border-l-4 border-green-500 bg-green-50 p-4 rounded"
+        >
+
           <h3 class="font-bold text-green-700 mb-3">
             Speech Processing Pipeline
           </h3>
@@ -187,18 +634,25 @@ Sentence-BERT
 Artificial Neural Network
     ↓
 Linguistic Analysis Results
-         </pre
-          >
+          </pre>
+
         </div>
 
         <div class="mt-8 text-center text-sm text-gray-500">
           Version 1.0<br />
           Developed by the Linguahe Team
         </div>
+
       </div>
     </div>
 
+
+    <!-- ====================================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ====================================================== -->
+
     <script>
+
       let recorder;
       let audioChunks = [];
 
@@ -209,11 +663,13 @@ Linguistic Analysis Results
       const inputArea = document.getElementById("inputText");
       const explanationBox = document.getElementById("explanationBox");
 
+
       // ======================================================
       // MAIN ANALYSIS EXECUTION
       // ======================================================
 
       async function executeAnalysis(text, audioFeatures = {}) {
+
         if (!text || text.trim() === "") {
           return;
         }
@@ -221,7 +677,9 @@ Linguistic Analysis Results
         statusText.innerText = "Analyzing linguistic features...";
 
         try {
+
           const response = await fetch("/analyze", {
+
             method: "POST",
 
             headers: {
@@ -229,6 +687,7 @@ Linguistic Analysis Results
             },
 
             body: JSON.stringify({
+
               conversation: text,
 
               intonation: audioFeatures.intonation,
@@ -238,7 +697,9 @@ Linguistic Analysis Results
               emotion: audioFeatures.emotion,
 
               accent: audioFeatures.accent,
+
             }),
+
           });
 
           const data = await response.json();
@@ -246,22 +707,30 @@ Linguistic Analysis Results
           explanationBox.innerHTML = data.explanation;
 
           statusText.innerText = "Analysis Complete";
+
         } catch (error) {
+
           console.error(error);
 
           statusText.innerText = "Analysis engine failure.";
+
         }
+
       }
+
 
       // ======================================================
       // AUDIO RECORDING
       // ======================================================
 
       async function startRecording() {
+
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-          });
+
+          const stream =
+            await navigator.mediaDevices.getUserMedia({
+              audio: true,
+            });
 
           recorder = new MediaRecorder(stream);
 
@@ -273,20 +742,27 @@ Linguistic Analysis Results
 
           statusText.innerText = "Recording speech...";
 
+
           recorder.ondataavailable = (event) => {
+
             audioChunks.push(event.data);
+
           };
 
+
           recorder.onstop = async () => {
+
             micBtn.innerHTML = "🎤";
 
             micBtn.classList.remove("recording");
 
             statusText.innerText = "Transcribing audio...";
 
+
             const blob = new Blob(audioChunks, {
               type: "audio/wav",
             });
+
 
             const formData = new FormData();
 
@@ -297,211 +773,348 @@ Linguistic Analysis Results
               document.getElementById("noiseToggle").checked,
             );
 
+
             try {
+
               const response = await fetch("/transcribe", {
+
                 method: "POST",
 
                 body: formData,
+
               });
+
 
               const result = await response.json();
 
-              // ======================================================
+
+              // ==================================================
               // NO AUDIO DETECTED
-              // ======================================================
+              // ==================================================
+
               if (result.audio_detected === false) {
+
                 inputArea.value = "";
 
                 explanationBox.innerHTML = `
-        <div style="
-          padding:16px;
-          background:#fff7ed;
-          border-left:5px solid #f97316;
-          border-radius:8px;
-          color:#9a3412;
-          font-weight:bold;
-        ">
-          No Audio Detected
-          <br>
-          <span style="
-            font-weight:normal;
-            font-size:14px;
-          ">
-            Please speak clearly and try recording again.
-          </span>
-        </div>
-    `;
 
-                statusText.innerText = "No audio detected. Please try again.";
+                  <div style="
+                    padding:16px;
+                    background:#fff7ed;
+                    border-left:5px solid #f97316;
+                    border-radius:8px;
+                    color:#9a3412;
+                    font-weight:bold;
+                  ">
+
+                    No Audio Detected
+
+                    <br>
+
+                    <span style="
+                      font-weight:normal;
+                      font-size:14px;
+                    ">
+
+                      Please speak clearly and try recording again.
+
+                    </span>
+
+                  </div>
+
+                `;
+
+                statusText.innerText =
+                  "No audio detected. Please try again.";
 
                 return;
+
               }
 
-              // ======================================================
+
+              // ==================================================
               // TOKEN / WORD LIMIT
-              // ======================================================
-              if (result.error_type === "TOKEN_LIMIT_EXCEEDED") {
-                inputArea.value = result.original_text || "";
+              // ==================================================
+
+              if (
+                result.error_type ===
+                "TOKEN_LIMIT_EXCEEDED"
+              ) {
+
+                inputArea.value =
+                  result.original_text || "";
 
                 explanationBox.innerHTML = `
-        <div style="
-          padding:16px;
-          background:#fef2f2;
-          border-left:5px solid #ef4444;
-          border-radius:8px;
-          color:#b91c1c;
-          font-weight:bold;
-        ">
-          Maximum of 20 tokens/words only.
-          <br>
-          <span style="
-            font-weight:normal;
-            font-size:14px;
-          ">
-            Your recording contains ${result.token_count} words.
-            Please shorten your recording and try again.
-          </span>
-        </div>
-    `;
 
-                statusText.innerText = "Maximum of 20 tokens/words exceeded.";
+                  <div style="
+                    padding:16px;
+                    background:#fef2f2;
+                    border-left:5px solid #ef4444;
+                    border-radius:8px;
+                    color:#b91c1c;
+                    font-weight:bold;
+                  ">
+
+                    Maximum of 20 tokens/words only.
+
+                    <br>
+
+                    <span style="
+                      font-weight:normal;
+                      font-size:14px;
+                    ">
+
+                      Your recording contains
+                      ${result.token_count}
+                      words.
+
+                      Please shorten your recording
+                      and try again.
+
+                    </span>
+
+                  </div>
+
+                `;
+
+                statusText.innerText =
+                  "Maximum of 20 tokens/words exceeded.";
 
                 return;
+
               }
 
-              // ======================================================
+
+              // ==================================================
               // NORMAL TRANSCRIPTION
-              // ======================================================
-              if (result.original_text && result.original_text.trim() !== "") {
-                inputArea.value = result.original_text;
+              // ==================================================
 
-                await executeAnalysis(result.original_text, result);
+              if (
+                result.original_text &&
+                result.original_text.trim() !== ""
+              ) {
+
+                inputArea.value =
+                  result.original_text;
+
+                await executeAnalysis(
+                  result.original_text,
+                  result
+                );
+
               } else {
+
                 inputArea.value = "";
 
-                statusText.innerText = "No audio detected. Please try again.";
+                statusText.innerText =
+                  "No audio detected. Please try again.";
+
               }
 
-              if (result.original_text && result.original_text.trim() !== "") {
-                inputArea.value = result.original_text;
-
-                await executeAnalysis(result.original_text, result);
-              } else {
-                inputArea.value = "";
-
-                statusText.innerText = "No audio detected. Please try again.";
-              }
             } catch (error) {
+
               console.error(error);
 
-              statusText.innerText = "Transcription failure.";
+              statusText.innerText =
+                "Transcription failure.";
+
             }
+
           };
+
 
           recorder.start();
 
-          // AUTO STOP AFTER 15 SECONDS
+
+          // AUTO STOP AFTER 20 SECONDS
+
           setTimeout(() => {
-            if (recorder && recorder.state === "recording") {
+
+            if (
+              recorder &&
+              recorder.state === "recording"
+            ) {
+
               recorder.stop();
+
             }
+
           }, 20000);
+
         } catch (error) {
+
           alert("Microphone permission denied.");
+
         }
+
       }
+
 
       // ======================================================
       // MIC BUTTON
       // ======================================================
 
       micBtn.addEventListener("click", () => {
-        if (recorder && recorder.state === "recording") {
+
+        if (
+          recorder &&
+          recorder.state === "recording"
+        ) {
+
           recorder.stop();
+
         } else {
+
           startRecording();
+
         }
+
       });
 
+
       // ======================================================
-      // GOOGLE TTS SPEECH SYNTHESIS EXECUTION
+      // GOOGLE TTS SPEECH SYNTHESIS
       // ======================================================
 
       speakBtn.addEventListener("click", async () => {
-        const textToSpeak = inputArea.value.trim();
+
+        const textToSpeak =
+          inputArea.value.trim();
+
 
         if (!textToSpeak) {
+
           alert(
             "Walang text na babasahin. Please enter or record some text first.",
           );
+
           return;
+
         }
 
-        statusText.innerText = "Synthesizing Tagalog voice output...";
+
+        statusText.innerText =
+          "Synthesizing Tagalog voice output...";
+
 
         try {
-          const response = await fetch("/tts", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ text: textToSpeak }),
-          });
+
+          const response =
+            await fetch("/tts", {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json",
+              },
+
+              body: JSON.stringify({
+                text: textToSpeak
+              }),
+
+            });
+
 
           if (!response.ok) {
-            throw new Error("Network error during TTS generation.");
+
+            throw new Error(
+              "Network error during TTS generation."
+            );
+
           }
 
-          const audioBlob = await response.blob();
-          const audioUrl = URL.createObjectURL(audioBlob);
-          const audioPlayback = new Audio(audioUrl);
 
-          statusText.innerText = "Playing audio...";
+          const audioBlob =
+            await response.blob();
+
+          const audioUrl =
+            URL.createObjectURL(audioBlob);
+
+          const audioPlayback =
+            new Audio(audioUrl);
+
+
+          statusText.innerText =
+            "Playing audio...";
+
 
           audioPlayback.onended = () => {
-            statusText.innerText = "Audio playback complete";
+
+            statusText.innerText =
+              "Audio playback complete";
+
           };
 
+
           await audioPlayback.play();
+
         } catch (error) {
+
           console.error(error);
+
           statusText.innerText =
             "TTS Failure. Ensure you are connected to the internet.";
+
         }
+
       });
+
 
       // ======================================================
       // MANUAL TEXT INPUT
       // ======================================================
 
       inputArea.addEventListener("change", () => {
-        executeAnalysis(inputArea.value, {});
+
+        executeAnalysis(
+          inputArea.value,
+          {}
+        );
+
       });
+
 
       // ======================================================
       // CLEAR BUTTON
       // ======================================================
 
-      document.getElementById("clearBtn").addEventListener("click", () => {
-        location.reload();
-      });
+      document
+        .getElementById("clearBtn")
+        .addEventListener("click", () => {
+
+          location.reload();
+
+        });
+
 
       // ======================================================
       // DOWNLOAD REPORT
       // ======================================================
 
-      document.getElementById("downloadBtn").addEventListener("click", () => {
-        const transcript = inputArea.value;
+      document
+        .getElementById("downloadBtn")
+        .addEventListener("click", () => {
 
-        if (!transcript) {
-          alert("No transcript available.");
+          const transcript =
+            inputArea.value;
 
-          return;
-        }
 
-        const reportText = explanationBox.innerText;
+          if (!transcript) {
 
-        const finalReport = `LINGUAHE SPEECH ANALYSIS REPORT
+            alert(
+              "No transcript available."
+            );
+
+            return;
+
+          }
+
+
+          const reportText =
+            explanationBox.innerText;
+
+
+          const finalReport = `LINGUAHE SPEECH ANALYSIS REPORT
 
 Generated:
 ${new Date().toLocaleString()}
@@ -524,46 +1137,409 @@ System:
 ANN + SBERT Hybrid Linguistic Engine
 `;
 
-        const blob = new Blob([finalReport], { type: "text/plain" });
 
-        const url = URL.createObjectURL(blob);
+          const blob =
+            new Blob(
+              [finalReport],
+              {
+                type: "text/plain"
+              }
+            );
 
-        const a = document.createElement("a");
 
-        a.href = url;
+          const url =
+            URL.createObjectURL(blob);
 
-        a.download = `Linguahe_Report_${Date.now()}.txt`;
 
-        a.click();
+          const a =
+            document.createElement("a");
 
-        URL.revokeObjectURL(url);
-      });
+
+          a.href = url;
+
+
+          a.download =
+            `Linguahe_Report_${Date.now()}.txt`;
+
+
+          a.click();
+
+
+          URL.revokeObjectURL(url);
+
+        });
+
 
       // ======================================================
       // ABOUT MODAL
       // ======================================================
 
-      const aboutBtn = document.getElementById("aboutBtn");
-      const aboutModal = document.getElementById("aboutModal");
-      const closeAbout = document.getElementById("closeAbout");
+      const aboutBtn =
+        document.getElementById(
+          "aboutBtn"
+        );
 
-      aboutBtn.addEventListener("click", () => {
-        aboutModal.classList.remove("hidden");
-        aboutModal.classList.add("flex");
-      });
+      const aboutModal =
+        document.getElementById(
+          "aboutModal"
+        );
 
-      closeAbout.addEventListener("click", () => {
-        aboutModal.classList.add("hidden");
-        aboutModal.classList.remove("flex");
-      });
+      const closeAbout =
+        document.getElementById(
+          "closeAbout"
+        );
 
-      // Close when clicking outside the popup
-      aboutModal.addEventListener("click", (e) => {
-        if (e.target === aboutModal) {
-          aboutModal.classList.add("hidden");
-          aboutModal.classList.remove("flex");
+
+      aboutBtn.addEventListener(
+        "click",
+        () => {
+
+          aboutModal.classList.remove(
+            "hidden"
+          );
+
+          aboutModal.classList.add(
+            "flex"
+          );
+
         }
-      });
+      );
+
+
+      closeAbout.addEventListener(
+        "click",
+        () => {
+
+          aboutModal.classList.add(
+            "hidden"
+          );
+
+          aboutModal.classList.remove(
+            "flex"
+          );
+
+        }
+      );
+
+
+      // Close About when clicking outside
+
+      aboutModal.addEventListener(
+        "click",
+        (e) => {
+
+          if (
+            e.target === aboutModal
+          ) {
+
+            aboutModal.classList.add(
+              "hidden"
+            );
+
+            aboutModal.classList.remove(
+              "flex"
+            );
+
+          }
+
+        }
+      );
+
+
+      // ======================================================
+      // TUTORIAL MODAL
+      // ======================================================
+
+      const tutorialBtn =
+        document.getElementById(
+          "tutorialBtn"
+        );
+
+      const tutorialModal =
+        document.getElementById(
+          "tutorialModal"
+        );
+
+      const closeTutorial =
+        document.getElementById(
+          "closeTutorial"
+        );
+
+      const tutorialNext =
+        document.getElementById(
+          "tutorialNext"
+        );
+
+      const tutorialBack =
+        document.getElementById(
+          "tutorialBack"
+        );
+
+      const tutorialStepText =
+        document.getElementById(
+          "tutorialStepText"
+        );
+
+      const tutorialSteps =
+        document.querySelectorAll(
+          ".tutorial-step"
+        );
+
+      const tutorialDots =
+        document.querySelectorAll(
+          ".tutorial-dot"
+        );
+
+
+      let currentTutorialStep = 1;
+
+      const totalTutorialSteps =
+        tutorialSteps.length;
+
+
+      // ======================================================
+      // SHOW TUTORIAL STEP
+      // ======================================================
+
+      function showTutorialStep(step) {
+
+        currentTutorialStep = step;
+
+
+        // Hide all steps
+
+        tutorialSteps.forEach(
+          (tutorialStep) => {
+
+            tutorialStep.classList.add(
+              "hidden"
+            );
+
+          }
+        );
+
+
+        // Show current step
+
+        const activeStep =
+          document.querySelector(
+            `.tutorial-step[data-step="${step}"]`
+          );
+
+
+        if (activeStep) {
+
+          activeStep.classList.remove(
+            "hidden"
+          );
+
+        }
+
+
+        // Update dots
+
+        tutorialDots.forEach(
+          (dot) => {
+
+            const indicator =
+              Number(
+                dot.dataset.indicator
+              );
+
+
+            if (
+              indicator === step
+            ) {
+
+              dot.classList.remove(
+                "bg-gray-300"
+              );
+
+              dot.classList.add(
+                "bg-indigo-600"
+              );
+
+            } else {
+
+              dot.classList.remove(
+                "bg-indigo-600"
+              );
+
+              dot.classList.add(
+                "bg-gray-300"
+              );
+
+            }
+
+          }
+        );
+
+
+        // Update step counter
+
+        tutorialStepText.innerText =
+          `Step ${step} of ${totalTutorialSteps}`;
+
+
+        // Back button
+
+        if (step === 1) {
+
+          tutorialBack.disabled = true;
+
+          tutorialBack.classList.add(
+            "opacity-50",
+            "cursor-not-allowed"
+          );
+
+        } else {
+
+          tutorialBack.disabled = false;
+
+          tutorialBack.classList.remove(
+            "opacity-50",
+            "cursor-not-allowed"
+          );
+
+        }
+
+
+        // Next button
+
+        if (
+          step === totalTutorialSteps
+        ) {
+
+          tutorialNext.innerText =
+            "Finish ✓";
+
+        } else {
+
+          tutorialNext.innerText =
+            "Next →";
+
+        }
+
+      }
+
+
+      // ======================================================
+      // OPEN TUTORIAL
+      // ======================================================
+
+      tutorialBtn.addEventListener(
+        "click",
+        () => {
+
+          showTutorialStep(1);
+
+          tutorialModal.classList.remove(
+            "hidden"
+          );
+
+          tutorialModal.classList.add(
+            "flex"
+          );
+
+        }
+      );
+
+
+      // ======================================================
+      // CLOSE TUTORIAL
+      // ======================================================
+
+      closeTutorial.addEventListener(
+        "click",
+        () => {
+
+          tutorialModal.classList.add(
+            "hidden"
+          );
+
+          tutorialModal.classList.remove(
+            "flex"
+          );
+
+        }
+      );
+
+
+      // Close tutorial when clicking outside
+
+      tutorialModal.addEventListener(
+        "click",
+        (e) => {
+
+          if (
+            e.target === tutorialModal
+          ) {
+
+            tutorialModal.classList.add(
+              "hidden"
+            );
+
+            tutorialModal.classList.remove(
+              "flex"
+            );
+
+          }
+
+        }
+      );
+
+
+      // ======================================================
+      // NEXT BUTTON
+      // ======================================================
+
+      tutorialNext.addEventListener(
+        "click",
+        () => {
+
+          if (
+            currentTutorialStep <
+            totalTutorialSteps
+          ) {
+
+            showTutorialStep(
+              currentTutorialStep + 1
+            );
+
+          } else {
+
+            tutorialModal.classList.add(
+              "hidden"
+            );
+
+            tutorialModal.classList.remove(
+              "flex"
+            );
+          }
+        }
+      );
+
+      // ======================================================
+      // BACK BUTTON
+      // ======================================================
+
+      tutorialBack.addEventListener(
+        "click",
+        () => {
+          if (
+            currentTutorialStep > 1
+          ) {
+
+            showTutorialStep(
+              currentTutorialStep - 1
+            );
+          }
+        }
+      );
+      // ======================================================
+      // INITIALIZE TUTORIAL
+      // ======================================================
+      showTutorialStep(1);
     </script>
   </body>
 </html>
