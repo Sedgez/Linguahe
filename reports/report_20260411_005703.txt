@@ -1,0 +1,7 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-11 00:57:03
+Transcript: ... пут lang ... turn karan korang
+Diction Score: 0%
+Semantic Match: Ilocano (78%)
+Structural Status: Verified
+------------------------------------------

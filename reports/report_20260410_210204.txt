@@ -1,0 +1,7 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 21:02:04
+Transcript: punta tayo di to sa nagat.
+Diction Score: 58.24%
+Semantic Match: Ilocano (80%)
+Structural Status: Verified
+------------------------------------------

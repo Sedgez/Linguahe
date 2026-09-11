@@ -1,0 +1,7 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 02:16:45
+Transcript: punta tayo sa daga atin
+Diction Score: 55.86%
+Semantic Match: Tagalog (80%)
+Structural Status: Verified
+------------------------------------------

@@ -1,0 +1,9 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 01:49:41
+Transcript: punta tayo sa nagat yawa pating.
+Diction Score: 74.44%
+Semantic Match: Cebuano (87%)
+Structural Status: Verified
+------------------------------------------
+Detailed Linguistic Analysis:
+⚠️ Risk: 'pating' (Noun)— Risk: Tagalog: "shark"; Ilocano: "dove/pigeon."

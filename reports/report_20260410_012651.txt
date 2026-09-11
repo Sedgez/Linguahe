@@ -1,0 +1,7 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 01:26:51
+Transcript: bu no in dait ka ayo bu no bu
+Diction Score: 22.4%
+Semantic Match: Cebuano (81%)
+Structural Status: Verified
+------------------------------------------

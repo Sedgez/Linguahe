@@ -1,0 +1,3 @@
+DIAGNOSTIC REPORT
+Text: ...ض Char reuse
+Dialect: Standard Tagalog

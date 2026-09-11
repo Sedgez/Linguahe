@@ -1,0 +1,3 @@
+DIAGNOSTIC REPORT
+Text: Hello
+Dialect: Standard Tagalog

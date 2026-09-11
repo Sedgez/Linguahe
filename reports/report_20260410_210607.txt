@@ -1,0 +1,8 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 21:06:07
+Transcript: daga gathered po opo
+Diction Score: 0%
+Semantic Match: Cebuano (65%)
+Structural Status: Verified
+------------------------------------------
+Politeness Markers: po, opo

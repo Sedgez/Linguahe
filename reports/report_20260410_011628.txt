@@ -1,0 +1,8 @@
+LINGUAHE DIAGNOSTIC - Ilocano
+Transcript: bono, kadi, bo, oranda.
+<strong>Diction Score:</strong> 54.65%
+<strong>Semantic Match:</strong> Ilocano (70%)
+<strong>Structural Status:</strong> Verified (Transformer-Based Syntactic Analysis)
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+<strong>Detailed Linguistic Analysis:</strong>
+✓ <strong>Marker</strong>: 'kadi' (Particle)<br><small>— Exclusive Ilocano request particle (e.g., "Mangan ta kadi").</small>

@@ -1,0 +1,9 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-11 00:57:11
+Transcript: puno tagat kadlaw.
+Diction Score: 53.86%
+Semantic Match: Ilocano (72%)
+Structural Status: Verified
+------------------------------------------
+Detailed Linguistic Analysis:
+⚠️ Risk: 'puno' (Noun)— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."

@@ -1,0 +1,7 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 21:02:30
+Transcript: hatno bo
+Diction Score: 0%
+Semantic Match: Tagalog (72%)
+Structural Status: Verified
+------------------------------------------

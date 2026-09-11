@@ -1,0 +1,9 @@
+LINGUAHE DIAGNOSTIC - Ilocano
+Transcript: buno kadi po opo maganda.
+<strong>Diction Score:</strong> 58.6%
+<strong>Semantic Match:</strong> Ilocano (76%)
+<strong>Structural Status:</strong> Verified (Transformer-Based Syntactic Analysis)
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+✓ <strong>Cultural Encoding:</strong> Politeness detected (po, opo)
+<strong>Detailed Linguistic Analysis:</strong>
+✓ <strong>Marker</strong>: 'kadi' (Particle)<br><small>— Exclusive Ilocano request particle (e.g., "Mangan ta kadi").</small>

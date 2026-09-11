@@ -1,0 +1,12 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 01:35:29
+Transcript: puno salamat kuto bulong ilong
+Diction Score: 74.2%
+Semantic Match: Tagalog (84%)
+Structural Status: Verified
+------------------------------------------
+Detailed Linguistic Analysis:
+⚠️ Risk: 'bulong' (Noun/Verb)— Risk: Tagalog: "whisper"; Cebuano: "medicine/cure."
+⚠️ Risk: 'kuto' (Noun/Verb)— Risk: Tagalog: "head lice"; Ilocano: "to pick or harvest."
+⚠️ Risk: 'salamat' (Greeting)— General: Common to all, but requires context (e.g., 'kaayo' for Ceb, 'po' for Tag).
+⚠️ Risk: 'puno' (Noun)— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."

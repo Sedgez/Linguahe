@@ -1,0 +1,9 @@
+LINGUAHE DIAGNOSTIC - Ilocano
+Transcript: puno kadi po.
+<strong>Diction Score:</strong> 53.99%
+<strong>Semantic Match:</strong> Ilocano (57%)
+<strong>Structural Status:</strong> Verified (Transformer-Based Syntactic Analysis)
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+<strong>Detailed Linguistic Analysis:</strong>
+⚠️ <strong>Risk</strong>: 'puno' (Noun)<br><small>— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."</small>
+✓ <strong>Marker</strong>: 'kadi' (Particle)<br><small>— Exclusive Ilocano request particle (e.g., "Mangan ta kadi").</small>

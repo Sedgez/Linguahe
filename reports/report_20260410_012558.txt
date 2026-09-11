@@ -1,0 +1,11 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 01:25:58
+Transcript: puno inday kaayo ba lay wun.
+Diction Score: 57.3%
+Semantic Match: Tagalog (77%)
+Structural Status: Verified
+------------------------------------------
+Detailed Linguistic Analysis:
+✓ Marker: 'kaayo' (Adverb)— Marker: Cebuano intensive for "very" (Tagalog: talaga).
+✓ Marker: 'inday' (Noun)— Visayan term of endearment for a young woman.
+⚠️ Risk: 'puno' (Noun)— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."

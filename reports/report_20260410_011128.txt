@@ -1,0 +1,11 @@
+LINGUAHE DIAGNOSTIC - Ilocano
+Transcript: puno kadi inday ka ayo balay.
+<strong>Diction Score:</strong> 73.19%
+<strong>Semantic Match:</strong> Ilocano (61%)
+<strong>Structural Status:</strong> Verified (Transformer-Based Syntactic Analysis)
+<hr style='margin: 10px 0; border: 0; border-top: 1px solid #eee;'>
+<strong>Detailed Linguistic Analysis:</strong>
+✓ <strong>Marker</strong>: 'balay' (Noun)<br><small>— Marker: Visayan/Ilocano for "house" (Tagalog: bahay).</small>
+✓ <strong>Marker</strong>: 'inday' (Noun)<br><small>— Visayan term of endearment for a young woman.</small>
+⚠️ <strong>Risk</strong>: 'puno' (Noun)<br><small>— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."</small>
+✓ <strong>Marker</strong>: 'kadi' (Particle)<br><small>— Exclusive Ilocano request particle (e.g., "Mangan ta kadi").</small>

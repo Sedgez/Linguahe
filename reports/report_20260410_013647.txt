@@ -1,0 +1,12 @@
+LINGUAHE DIAGNOSTIC REPORT
+Date: 2026-04-10 01:36:47
+Transcript: puno buang pating salamat bitau.
+Diction Score: 57.38%
+Semantic Match: Cebuano (67%)
+Structural Status: Verified
+------------------------------------------
+Detailed Linguistic Analysis:
+⚠️ Risk: 'salamat' (Greeting)— General: Common to all, but requires context (e.g., 'kaayo' for Ceb, 'po' for Tag).
+⚠️ Risk: 'pating' (Noun)— Risk: Tagalog: "shark"; Ilocano: "dove/pigeon."
+✓ Marker: 'buang' (Adjective)— Marker: Visayan term for "crazy" (Tagalog: luko-luko).
+⚠️ Risk: 'puno' (Noun)— Tagalog: "Tree/Full"; Cebuano: "To add/supplement."
