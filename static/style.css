@@ -184,3 +184,35 @@ mark.marker-hit {
     70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
     100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
+
+.nav-button {
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.language-toggle {
+  background: white;
+  color: #0369a1;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.language-toggle:hover {
+  background: #e0f2fe;
+}
