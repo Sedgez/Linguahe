@@ -30,6 +30,7 @@ import io
 import os
 import re
 import uuid
+import subprocess
 from flask import Flask, jsonify, render_template, request, send_file
 import edge_tts
 import librosa
@@ -43,6 +44,33 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+def convert_audio_to_wav(input_path, output_path):
+    """
+    Convert browser-recorded audio (WebM/Opus, MP4, etc.)
+    into a 16 kHz mono WAV file using FFmpeg.
+    """
+    command = [
+        "ffmpeg",
+        "-y",
+        "-i", input_path,
+        "-ar", "16000",
+        "-ac", "1",
+        "-c:a", "pcm_s16le",
+        output_path
+    ]
+
+    result = subprocess.run(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True
+    )
+
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"FFmpeg audio conversion failed:\n{result.stderr}"
+        )
 
 # -----------------------------
 # AUDIO PROCESSING PIPELINE
@@ -807,13 +835,26 @@ def transcribe():
             "message": "No audio detected. Please speak and try recording again."
         }), 400
 
-    unique_name = f"{uuid.uuid4()}.wav"
-    audio_path = os.path.join(UPLOAD_FOLDER, unique_name)
+    unique_id = str(uuid.uuid4())
+
+    input_path = os.path.join(
+        UPLOAD_FOLDER,
+        f"{unique_id}_input"
+    )
+
+    audio_path = os.path.join(
+        UPLOAD_FOLDER,
+        f"{unique_id}.wav"
+    )
 
     try:
-        audio.save(audio_path)
+        # Save the original browser audio first
+        audio.save(input_path)
 
-        # Process audio pipeline
+        # Convert browser audio to a proper WAV file
+        convert_audio_to_wav(input_path, audio_path)
+
+        # Existing Linguahe audio pipeline
         y_cached, sr_cached, audio_detected = process_audio_pipeline(
             audio_path,
             use_noise=use_noise
@@ -920,6 +961,9 @@ def transcribe():
         }), 500
 
     finally:
+        if os.path.exists(input_path):
+            os.remove(input_path)
+
         if os.path.exists(audio_path):
             os.remove(audio_path)
 
