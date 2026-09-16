@@ -793,8 +793,12 @@ def process_text_analysis(text):
 # -----------------------------
 @app.route("/")
 def home():
-  return render_template("index.html")
+  return render_template("landing.html")
 
+
+@app.route("/analyzer")
+def analyzer():
+  return render_template("index.html")
 
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
