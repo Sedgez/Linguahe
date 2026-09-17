@@ -30,7 +30,6 @@ fsspec==2026.2.0
 gast==0.7.0
 google-pasta==0.2.0
 grpcio==1.82.0
-gTTS==2.5.4
 gunicorn==26.2.0
 h11==0.16.0
 h5py==3.14.0
@@ -63,7 +62,6 @@ noisereduce==3.0.3
 numba==0.64.0
 numpy==2.4.3
 onnxruntime==1.30.0
-openai-whisper==20250625
 opt_einsum==3.4.0
 optree==0.19.1
 packaging==26.0
