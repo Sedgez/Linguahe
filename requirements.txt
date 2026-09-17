@@ -13,10 +13,7 @@ blinker==1.9.0
 certifi==2026.2.25
 cffi==2.0.0
 charset-normalizer==3.4.6
-<<<<<<< Updated upstream
-=======
 click==8.5.0
->>>>>>> Stashed changes
 colorama==0.4.6
 contourpy==1.3.3
 ctranslate2==4.8.2
@@ -33,10 +30,7 @@ fsspec==2026.2.0
 gast==0.7.0
 google-pasta==0.2.0
 grpcio==1.82.0
-<<<<<<< Updated upstream
-=======
 gTTS==2.5.4
->>>>>>> Stashed changes
 gunicorn==26.2.0
 h11==0.16.0
 h5py==3.14.0
