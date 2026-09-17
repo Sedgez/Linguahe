@@ -1,0 +1,535 @@
+/* =========================================================
+   MOBILE / TABLET GENERAL
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .main-content {
+        padding-bottom: 90px;
+    }
+
+
+    /* -----------------------------------------------------
+       HEADER
+       ----------------------------------------------------- */
+
+    .header-bar {
+        padding: 10px 14px;
+        font-size: 20px;
+
+        position: sticky;
+        top: 0;
+        z-index: 30;
+    }
+
+    .header-bar > div {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .header-bar nav {
+        gap: 4px;
+    }
+
+    .nav-button,
+    .language-toggle {
+        min-width: 42px;
+        min-height: 42px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 8px !important;
+    }
+
+    .nav-button .nav-text,
+    .language-toggle .language-text {
+        display: none;
+    }
+
+
+    /* -----------------------------------------------------
+       MAIN CONTAINER
+       ----------------------------------------------------- */
+
+    .container {
+        width: 100%;
+        padding: 20px 12px;
+    }
+
+
+    /* -----------------------------------------------------
+       CARDS
+       ----------------------------------------------------- */
+
+    .card-box {
+        width: 100%;
+        min-width: 0;
+        min-height: auto;
+
+        padding: 18px;
+
+        border-radius: 14px;
+    }
+
+
+    /* -----------------------------------------------------
+       CARD HEADERS
+       ----------------------------------------------------- */
+
+    .card-box > .flex.justify-between.items-center {
+        align-items: center;
+        gap: 10px;
+
+        /*
+           Allow the heading and action button to move
+           onto separate lines when the phone is narrow.
+        */
+        flex-wrap: wrap;
+    }
+
+
+    /* Prevent long headings from forcing buttons
+       outside the card. */
+
+    .card-box > .flex.justify-between.items-center > * {
+        min-width: 0;
+    }
+
+
+    /* -----------------------------------------------------
+       TEXT INPUT
+       ----------------------------------------------------- */
+
+    .transcript-container {
+        height: 230px;
+        min-height: 230px;
+
+        border-radius: 10px;
+    }
+
+    .textarea-main {
+        font-size: 16px !important;
+        line-height: 1.5 !important;
+
+        padding: 16px !important;
+    }
+
+
+    /* -----------------------------------------------------
+       NOISE SUPPRESSION
+       ----------------------------------------------------- */
+
+    #noiseToggle {
+        flex-shrink: 0;
+    }
+
+
+    /* -----------------------------------------------------
+       RESULTS
+       ----------------------------------------------------- */
+
+    .explanation-box {
+        height: 230px;
+        min-height: 230px;
+
+        padding: 16px;
+
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .explanation-box strong {
+        font-size: 0.85rem;
+    }
+
+
+    /* -----------------------------------------------------
+       ACTION BUTTONS
+       ----------------------------------------------------- */
+
+    #speakBtn,
+    #downloadBtn {
+        position: static !important;
+
+        min-height: 42px;
+
+        padding: 8px 11px !important;
+
+        font-size: 0.78rem !important;
+        line-height: 1.2 !important;
+
+        white-space: nowrap;
+
+        width: auto;
+        max-width: 100%;
+
+        flex-shrink: 0;
+    }
+
+
+    /* -----------------------------------------------------
+       CONTROL PANEL
+       ----------------------------------------------------- */
+
+    .control-panel {
+        margin-top: 28px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 12px;
+    }
+
+
+    /* -----------------------------------------------------
+       FLOATING MICROPHONE
+       ----------------------------------------------------- */
+
+    .mic-button {
+        /*
+           IMPORTANT:
+           This is intentionally fixed so the user can
+           access the recording button without scrolling.
+        */
+
+        position: fixed !important;
+
+        right: 18px;
+        bottom: 20px;
+
+        width: 68px;
+        height: 68px;
+
+        z-index: 100;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0;
+
+        border-radius: 50%;
+
+        font-size: 28px;
+
+        border: 3px solid white;
+
+        box-shadow:
+            0 6px 20px rgba(14, 165, 233, 0.35);
+
+        touch-action: manipulation;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mic-button:hover {
+        transform: none;
+    }
+
+    .mic-button:active {
+        transform: scale(0.92);
+    }
+
+    .mic-button.recording {
+        background-color: #ef4444;
+
+        animation: pulse-red 1.5s infinite;
+    }
+
+
+    /* -----------------------------------------------------
+       STATUS TEXT
+       ----------------------------------------------------- */
+
+    .status-text {
+        max-width: 90%;
+
+        text-align: center;
+
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+
+    /* -----------------------------------------------------
+       CLEAR BUTTON
+       ----------------------------------------------------- */
+
+    .clear-button {
+        min-height: 44px;
+
+        padding: 9px 18px;
+    }
+
+
+    /* -----------------------------------------------------
+       TUTORIAL MODAL
+       ----------------------------------------------------- */
+
+    #tutorialModal {
+        padding: 12px;
+    }
+
+    #tutorialModal > div {
+        width: calc(100% - 4px) !important;
+        max-height: 90vh;
+
+        padding: 18px !important;
+
+        border-radius: 16px;
+    }
+
+    #tutorialModal h2 {
+        font-size: 1.4rem;
+        line-height: 1.3;
+    }
+
+    #tutorialModal h3 {
+        font-size: 1.05rem;
+        line-height: 1.35;
+    }
+
+    #tutorialModal p,
+    #tutorialModal li {
+        font-size: 0.9rem;
+        line-height: 1.55;
+    }
+
+
+    /* -----------------------------------------------------
+       TUTORIAL NAVIGATION
+       ----------------------------------------------------- */
+
+    .tutorial-controls {
+        gap: 8px;
+    }
+
+    #tutorialBack,
+    #tutorialNext {
+        min-height: 44px;
+
+        padding: 8px 13px;
+
+        font-size: 0.8rem;
+    }
+
+    #tutorialStepText {
+        font-size: 0.75rem;
+
+        white-space: nowrap;
+    }
+
+
+    /* -----------------------------------------------------
+       FOOTER
+       ----------------------------------------------------- */
+
+    .footer-bar {
+        padding: 20px 14px;
+
+        font-size: 0.8rem;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   320px - 380px
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .header-bar {
+        padding: 8px 10px;
+    }
+
+    .header-bar nav {
+        gap: 2px;
+    }
+
+    .nav-button,
+    .language-toggle {
+        width: 40px;
+        min-width: 40px;
+
+        height: 40px;
+        min-height: 40px;
+
+        padding: 6px !important;
+    }
+
+
+    /* -----------------------------------------------------
+       MAIN CONTAINER
+       ----------------------------------------------------- */
+
+    .container {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
+
+    /* -----------------------------------------------------
+       CARDS
+       ----------------------------------------------------- */
+
+    .card-box {
+        padding: 14px;
+    }
+
+
+    /* -----------------------------------------------------
+       CARD HEADERS
+       ----------------------------------------------------- */
+
+    .card-box > .flex.justify-between.items-center {
+        gap: 8px;
+
+        /*
+           Allow wrapping on narrow phones.
+        */
+        flex-wrap: wrap;
+    }
+
+
+    /* -----------------------------------------------------
+       TEXT INPUT
+       ----------------------------------------------------- */
+
+    .transcript-container {
+        height: 210px;
+        min-height: 210px;
+    }
+
+
+    /* -----------------------------------------------------
+       RESULTS
+       ----------------------------------------------------- */
+
+    .explanation-box {
+        height: 210px;
+        min-height: 210px;
+    }
+
+
+    /* -----------------------------------------------------
+       ACTION BUTTONS
+       ----------------------------------------------------- */
+
+    #speakBtn,
+    #downloadBtn {
+        min-height: 38px;
+
+        padding: 6px 8px !important;
+
+        font-size: 0.68rem !important;
+
+        width: auto;
+        max-width: 100%;
+    }
+
+
+    /* -----------------------------------------------------
+       FLOATING MICROPHONE
+       ----------------------------------------------------- */
+
+    .mic-button {
+        right: 14px;
+        bottom: 16px;
+
+        width: 64px;
+        height: 64px;
+
+        font-size: 26px;
+    }
+
+
+    /* -----------------------------------------------------
+       TUTORIAL
+       ----------------------------------------------------- */
+
+    .tutorial-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 340px) {
+
+    .header-bar {
+        font-size: 18px;
+    }
+
+
+    /* -----------------------------------------------------
+       CARDS
+       ----------------------------------------------------- */
+
+    .card-box {
+        padding: 12px;
+    }
+
+
+    /* -----------------------------------------------------
+       TEXT INPUT
+       ----------------------------------------------------- */
+
+    .transcript-container {
+        height: 190px;
+        min-height: 190px;
+    }
+
+
+    /* -----------------------------------------------------
+       RESULTS
+       ----------------------------------------------------- */
+
+    .explanation-box {
+        height: 190px;
+        min-height: 190px;
+    }
+
+
+    /* -----------------------------------------------------
+       ACTION BUTTONS
+       ----------------------------------------------------- */
+
+    #speakBtn,
+    #downloadBtn {
+        min-height: 36px;
+
+        padding: 5px 7px !important;
+
+        font-size: 0.62rem !important;
+    }
+
+
+    /* -----------------------------------------------------
+       FLOATING MICROPHONE
+       ----------------------------------------------------- */
+
+    .mic-button {
+        right: 12px;
+        bottom: 14px;
+
+        width: 60px;
+        height: 60px;
+
+        font-size: 24px;
+    }
+
+}

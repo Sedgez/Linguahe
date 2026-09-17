@@ -1,0 +1,771 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Linguahe - Linguistic Analysis System</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .hero-pattern {
+            background:
+                radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.10), transparent 30%),
+                radial-gradient(circle at 80% 30%, rgba(14, 165, 233, 0.08), transparent 30%),
+                linear-gradient(to bottom, #f8fafc, #ffffff);
+        }
+
+        .fade-up {
+            animation: fadeUp 0.8s ease-out;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-800">
+
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200">
+
+        <div class="max-w-6xl mx-auto px-6 py-4">
+
+            <!-- Main Navigation -->
+            <div class="flex items-center justify-between">
+
+                <!-- Logo -->
+                <a href="/" class="flex items-center gap-3">
+
+                    <div class="w-10 h-10 rounded-xl bg-[#0ea5e9] text-white flex items-center justify-center font-bold text-lg">
+                        L
+                    </div>
+
+                    <div>
+                        <h1 class="font-bold text-xl text-gray-900">
+                            Linguahe
+                        </h1>
+
+                        <p class="text-xs text-gray-500">
+                            Linguistic Analysis System
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-8 text-sm">
+
+                    <a href="#how-it-works"
+                       class="text-gray-600 hover:text-[#0ea5e9] transition">
+                        How It Works
+                    </a>
+
+                    <a href="#about"
+                       class="text-gray-600 hover:text-[#0ea5e9] transition">
+                        About
+                    </a>
+
+                    <a href="#coverage"
+                       class="text-gray-600 hover:text-[#0ea5e9] transition">
+                        Coverage
+                    </a>
+
+                    <a href="/analyzer"
+                       class="px-5 py-2.5 rounded-lg bg-[#0ea5e9] text-white font-semibold hover:bg-[#0284c7] transition">
+                        Get Started
+                    </a>
+
+                </nav>
+
+
+                <!-- Mobile Menu Button -->
+                <button
+                    id="mobileMenuButton"
+                    type="button"
+                    class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-700 hover:bg-[#f0f9ff] hover:text-[#0ea5e9] transition"
+                    aria-label="Open navigation menu"
+                    aria-expanded="false"
+                    aria-controls="mobileMenu"
+                >
+
+                    <!-- Hamburger Icon -->
+                    <svg
+                        id="menuIcon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4 6h16M4 12h16M4 18h16"
+                        />
+                    </svg>
+
+                    <!-- Close Icon -->
+                    <svg
+                        id="closeIcon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6 hidden"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                        />
+                    </svg>
+                </button>
+            </div>
+
+
+            <!-- Mobile Navigation Menu -->
+            <div
+                id="mobileMenu"
+                class="hidden md:hidden mt-4 pb-2"
+            >
+
+                <nav class="flex flex-col gap-2 text-sm">
+
+                    <a
+                        href="#how-it-works"
+                        class="mobile-nav-link px-4 py-3 rounded-lg text-gray-700 hover:bg-[#f0f9ff] hover:text-[#0ea5e9] transition"
+                    >
+                        How It Works
+                    </a>
+
+                    <a
+                        href="#about"
+                        class="mobile-nav-link px-4 py-3 rounded-lg text-gray-700 hover:bg-[#f0f9ff] hover:text-[#0ea5e9] transition"
+                    >
+                        About
+                    </a>
+
+                    <a
+                        href="#coverage"
+                        class="mobile-nav-link px-4 py-3 rounded-lg text-gray-700 hover:bg-[#f0f9ff] hover:text-[#0ea5e9] transition"
+                    >
+                        Coverage
+                    </a>
+
+                    <a
+                        href="/analyzer"
+                        class="mobile-nav-link mt-2 px-4 py-3 rounded-lg bg-[#0ea5e9] text-white text-center font-semibold hover:bg-[#0284c7] transition"
+                    >
+                        Get Started
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Hero -->
+    <main>
+
+        <section class="hero-pattern min-h-screen flex items-center pt-24">
+
+            <div class="max-w-6xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-16 items-center">
+
+                <!-- Hero Text -->
+                <div class="fade-up">
+
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f0f9ff] border border-[#e0f2fe] text-[#0369a1] text-sm font-medium mb-6">
+
+                        <span class="w-2 h-2 rounded-full bg-[#0ea5e9]"></span>
+
+                        Linguistic Analysis
+                    </div>
+
+
+                    <h2 class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
+
+                        Understanding Language
+
+                        <span class="text-[#0ea5e9]">
+                            Across Regions
+                        </span>
+
+                    </h2>
+
+
+                    <p class="mt-6 text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl">
+
+                        Linguahe is an AI-assisted linguistic analysis system
+                        designed to examine spoken Tagalog Dialect and
+                        identify possible Dialect variations within
+                        CALABARZON.
+
+                    </p>
+
+
+                    <div class="mt-8 flex flex-wrap gap-4">
+
+                        <a
+                            href="/analyzer"
+                            class="px-7 py-3.5 rounded-xl bg-[#0ea5e9] text-white font-semibold shadow-lg shadow-[rgba(14,165,233,0.20)] hover:bg-[#0284c7] transition"
+                        >
+                            Start Analysis
+                        </a>
+
+                        <a
+                            href="#how-it-works"
+                            class="px-7 py-3.5 rounded-xl border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 transition"
+                        >
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Visual -->
+                <div class="hidden lg:block">
+                    <div class="relative">
+                        <div class="absolute -inset-6 bg-[#e0f2fe]/50 rounded-3xl blur-2xl"></div>
+                        <div class="relative bg-white border border-gray-200 rounded-3xl shadow-xl p-8">
+                            <div class="flex items-center justify-between mb-8">
+                                <div>
+                                    <p class="text-sm text-gray-500">
+                                        Linguahe
+                                    </p>
+
+                                    <h3 class="text-2xl font-bold text-gray-900">
+                                        Linguistic Analysis
+                                    </h3>
+                                </div>
+
+                                <div class="w-12 h-12 rounded-xl bg-[#0ea5e9] text-white flex items-center justify-center font-bold">
+                                    L
+                                </div>
+                            </div>
+
+                            <!-- Speech -->
+                            <div class="p-5 rounded-2xl bg-gray-50 border border-gray-200">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-10 h-10 rounded-full bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center">
+                                        🎙
+                                    </div>
+
+                                    <div>
+                                        <p class="font-semibold text-gray-900">
+                                            Speech Input
+                                        </p>
+
+                                        <p class="text-sm text-gray-500">
+                                            Recorded Filipino speech
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-center py-4 text-[#0ea5e9] text-2xl">
+                                ↓
+                            </div>
+
+                            <!-- AI -->
+                            <div class="p-5 rounded-2xl bg-[#f0f9ff] border border-[#e0f2fe]">
+
+                                <p class="text-sm text-[#0ea5e9] font-semibold">
+                                    SYSTEM PROCESSING
+                                </p>
+
+                                <div class="mt-3 flex flex-wrap gap-2">
+
+                                    <span class="px-3 py-1.5 bg-white rounded-lg text-sm border border-[#e0f2fe]">
+                                        Rule Analysis
+                                    </span>
+
+                                    <span class="px-3 py-1.5 bg-white rounded-lg text-sm border border-[#e0f2fe]">
+                                        SBERT
+                                    </span>
+
+                                    <span class="px-3 py-1.5 bg-white rounded-lg text-sm border border-[#e0f2fe]">
+                                        ANN
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <div class="flex justify-center py-4 text-[#0ea5e9] text-2xl">
+                                ↓
+                            </div>
+
+
+                            <!-- Results -->
+                            <div class="p-5 rounded-2xl bg-gray-50 border border-gray-200">
+
+                                <div class="flex items-center justify-between">
+
+                                    <div>
+
+                                        <p class="text-sm text-gray-500">
+                                            Analysis
+                                        </p>
+
+                                        <p class="font-bold text-gray-900">
+                                            Linguistic Results
+                                        </p>
+
+                                    </div>
+
+                                    <div class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
+                                        Complete
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how-it-works" class="py-24 bg-white">
+
+            <div class="max-w-6xl mx-auto px-6">
+
+                <div class="text-center max-w-2xl mx-auto">
+
+                    <p class="text-[#0ea5e9] font-semibold text-sm uppercase tracking-wider">
+                        How It Works
+                    </p>
+
+                    <h2 class="mt-3 text-4xl font-bold text-gray-900">
+                        From Speech to Analysis
+                    </h2>
+
+                    <p class="mt-4 text-gray-600">
+
+                        Linguahe combines speech recognition, linguistic rules,
+                        semantic analysis, and artificial intelligence model to
+                        process spoken language.
+
+                    </p>
+
+                </div>
+
+
+                <div class="mt-16 grid md:grid-cols-3 gap-8">
+
+                    <!-- Step 1 -->
+                    <div class="p-8 rounded-2xl border border-gray-200 bg-white shadow-sm">
+
+                        <div class="w-14 h-14 rounded-xl bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center text-xl font-bold">
+                            01
+                        </div>
+
+                        <h3 class="mt-6 text-xl font-bold text-gray-900">
+                            Record Speech
+                        </h3>
+
+                        <p class="mt-3 text-gray-600 leading-relaxed">
+
+                            The user records Tagalog speech through the
+                            Linguahe web interface.
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- Step 2 -->
+                    <div class="p-8 rounded-2xl border border-gray-200 bg-white shadow-sm">
+
+                        <div class="w-14 h-14 rounded-xl bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center text-xl font-bold">
+                            02
+                        </div>
+
+                        <h3 class="mt-6 text-xl font-bold text-gray-900">
+                            AI Analysis
+                        </h3>
+
+                        <p class="mt-3 text-gray-600 leading-relaxed">
+
+                            The system transcribes and analyzes the speech
+                            using Rule-Augmented Algorithm, SBERT, and
+                            artificial neural networks(ANN).
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- Step 3 -->
+                    <div class="p-8 rounded-2xl border border-gray-200 bg-white shadow-sm">
+
+                        <div class="w-14 h-14 rounded-xl bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center text-xl font-bold">
+                            03
+                        </div>
+
+                        <h3 class="mt-6 text-xl font-bold text-gray-900">
+                            View Results
+                        </h3>
+
+                        <p class="mt-3 text-gray-600 leading-relaxed">
+
+                            The processed information is presented as
+                            linguistic analysis results for the user.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- About -->
+        <section id="about" class="py-24 bg-gray-50">
+
+            <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+
+                <div>
+
+                    <p class="text-[#0ea5e9] font-semibold text-sm uppercase tracking-wider">
+                        About Linguahe
+                    </p>
+
+                    <h2 class="mt-3 text-4xl font-bold text-gray-900">
+                        Exploring Regional Language Variation
+                    </h2>
+
+                    <p class="mt-6 text-gray-600 leading-relaxed">
+
+                        Linguahe is a web-based linguistic analysis system
+                        developed to examine possible differences in spoken
+                        Tagalog Dialect across CALABARZON regions.
+
+                    </p>
+
+                    <p class="mt-4 text-gray-600 leading-relaxed">
+
+                        The system uses a combination of rule-based linguistic
+                        analysis and artificial intelligence techniques to
+                        process speech and provide linguistic observations.
+
+                    </p>
+
+                    <a
+                        href="/analyzer"
+                        class="inline-block mt-8 px-6 py-3 rounded-xl bg-[#0ea5e9] text-white font-semibold hover:bg-[#0284c7] transition"
+                    >
+                        Try Linguahe
+                    </a>
+
+                </div>
+
+
+                <div class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900">
+                        Core Technologies
+                    </h3>
+
+
+                    <div class="mt-6 space-y-4">
+
+                        <div class="flex items-start gap-4">
+
+                            <div class="w-10 h-10 rounded-lg bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center">
+                                R
+                            </div>
+
+                            <div>
+
+                                <p class="font-semibold text-gray-900">
+                                    Rule-Augmented Analysis
+                                </p>
+
+                                <p class="text-sm text-gray-500">
+                                    Linguistic patterns and regional markers
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="flex items-start gap-4">
+
+                            <div class="w-10 h-10 rounded-lg bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center">
+                                S
+                            </div>
+
+                            <div>
+
+                                <p class="font-semibold text-gray-900">
+                                    Sentence-BERT
+                                </p>
+
+                                <p class="text-sm text-gray-500">
+                                    Semantic sentence comparison
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="flex items-start gap-4">
+
+                            <div class="w-10 h-10 rounded-lg bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center">
+                                A
+                            </div>
+
+                            <div>
+
+                                <p class="font-semibold text-gray-900">
+                                    Artificial Neural Network
+                                </p>
+
+                                <p class="text-sm text-gray-500">
+                                    Speech-related classification
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Coverage -->
+        <section id="coverage" class="py-24 bg-white">
+
+            <div class="max-w-6xl mx-auto px-6 text-center">
+
+                <p class="text-[#0ea5e9] font-semibold text-sm uppercase tracking-wider">
+                    Regional Coverage
+                </p>
+
+                <h2 class="mt-3 text-4xl font-bold text-gray-900">
+                    CALABARZON
+                </h2>
+
+                <p class="mt-4 max-w-2xl mx-auto text-gray-600">
+
+                    Linguahe focuses on possible linguistic variations within
+                    the CALABARZON region of the Philippines.
+
+                </p>
+
+
+                <div class="mt-12 grid grid-cols-2 md:grid-cols-5 gap-4">
+
+                    <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                        <p class="font-bold text-gray-900">
+                            Cavite
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                        <p class="font-bold text-gray-900">
+                            Laguna
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                        <p class="font-bold text-gray-900">
+                            Batangas
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                        <p class="font-bold text-gray-900">
+                            Rizal
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                        <p class="font-bold text-gray-900">
+                            Quezon
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CTA -->
+        <section class="py-20 bg-[#0ea5e9]">
+
+            <div class="max-w-4xl mx-auto px-6 text-center">
+
+                <h2 class="text-4xl font-bold text-white">
+                    Ready to Analyze Speech?
+                </h2>
+
+                <p class="mt-4 text-[#e0f2fe] text-lg">
+                    Explore the Linguahe linguistic analysis system.
+                </p>
+
+                <a
+                    href="/analyzer"
+                    class="inline-block mt-8 px-8 py-3.5 rounded-xl bg-white text-[#0ea5e9] font-bold hover:bg-[#f0f9ff] transition"
+                >
+                    Get Started
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400">
+
+        <div class="max-w-6xl mx-auto px-6 py-10">
+
+            <div class="flex flex-col md:flex-row justify-between gap-6">
+
+                <div>
+
+                    <h3 class="text-white text-xl font-bold">
+                        Linguahe
+                    </h3>
+
+                    <p class="mt-2 text-sm">
+                        AI-Assisted Linguistic Analysis System
+                    </p>
+
+                </div>
+
+
+                <div class="text-sm md:text-right">
+
+                    <p>
+                        Developed by the Linguahe Team
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="mt-8 pt-6 border-t border-gray-800 text-sm text-center">
+
+                © 2026 Linguahe Team. All rights reserved.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Mobile Navigation Script -->
+    <script>
+
+        const mobileMenuButton =
+            document.getElementById("mobileMenuButton");
+
+        const mobileMenu =
+            document.getElementById("mobileMenu");
+
+        const menuIcon =
+            document.getElementById("menuIcon");
+
+        const closeIcon =
+            document.getElementById("closeIcon");
+
+        const mobileNavLinks =
+            document.querySelectorAll(".mobile-nav-link");
+
+
+        // Open / close mobile navigation
+        mobileMenuButton.addEventListener("click", () => {
+
+            const isOpen =
+                !mobileMenu.classList.contains("hidden");
+
+
+            mobileMenu.classList.toggle("hidden");
+
+            menuIcon.classList.toggle("hidden");
+            closeIcon.classList.toggle("hidden");
+
+
+            mobileMenuButton.setAttribute(
+                "aria-expanded",
+                String(!isOpen)
+            );
+
+
+            mobileMenuButton.setAttribute(
+                "aria-label",
+                isOpen
+                    ? "Open navigation menu"
+                    : "Close navigation menu"
+            );
+
+        });
+
+
+        // Close menu after selecting a navigation item
+        mobileNavLinks.forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                mobileMenu.classList.add("hidden");
+
+                menuIcon.classList.remove("hidden");
+                closeIcon.classList.add("hidden");
+
+
+                mobileMenuButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+
+                mobileMenuButton.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
