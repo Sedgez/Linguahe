@@ -185,6 +185,7 @@ mark.marker-hit {
     100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 
+<<<<<<< Updated upstream
 .nav-button {
   background: transparent;
   color: white;
@@ -216,3 +217,237 @@ mark.marker-hit {
 .language-toggle:hover {
   background: #e0f2fe;
 }
+=======
+/* =========================================================
+RESPONSIVE HEADER / NAVIGATION
+========================================================= */
+
+.header-bar {
+position: relative;
+width: 100%;
+z-index: 1000;
+}
+
+.header-inner {
+width: 100%;
+max-width: 1400px;
+margin: 0 auto;
+
+min-height: 72px;
+padding: 0 24px;
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+/* ---------------------------------------------------------
+LOGO
+--------------------------------------------------------- */
+
+.header-logo {
+text-decoration: none;
+font-size: 1.35rem;
+font-weight: 700;
+color: inherit;
+white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+DESKTOP NAV
+--------------------------------------------------------- */
+
+.desktop-nav {
+display: flex;
+align-items: center;
+gap: 18px;
+}
+
+.nav-button,
+.language-toggle {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 7px;
+
+border: none;
+background: transparent;
+
+text-decoration: none;
+cursor: pointer;
+
+white-space: nowrap;
+
+margin-left: 8px;
+}
+
+.nav-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+width: 20px;
+height: 20px;
+
+font-size: 0.95rem;
+font-weight: 700;
+}
+
+.language-flag {
+font-size: 1rem;
+}
+
+.language-text {
+white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+MOBILE MENU BUTTON
+--------------------------------------------------------- */
+
+.mobile-menu-btn {
+display: none;
+
+width: 44px;
+height: 44px;
+
+padding: 8px;
+
+border: none;
+background: transparent;
+
+cursor: pointer;
+
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 5px;
+}
+
+.mobile-menu-btn span {
+display: block;
+
+width: 24px;
+height: 2px;
+
+border-radius: 2px;
+
+background: currentColor;
+
+transition:
+transform 0.25s ease,
+opacity 0.25s ease;
+}
+
+/* Hamburger → X */
+
+.mobile-menu-btn.active span:nth-child(1) {
+transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---------------------------------------------------------
+MOBILE NAV
+--------------------------------------------------------- */
+
+.mobile-nav {
+display: none;
+}
+
+/* =========================================================
+MOBILE BREAKPOINT
+========================================================= */
+
+@media (max-width: 768px) {
+
+.header-inner {
+min-height: 64px;
+padding: 0 18px;
+}
+
+/* Hide desktop navigation */
+.desktop-nav {
+display: none;
+}
+
+/* Show hamburger */
+.mobile-menu-btn {
+display: flex;
+}
+
+/* Mobile dropdown */
+.mobile-nav {
+display: flex;
+
+flex-direction: column;
+
+width: 100%;
+
+max-height: 0;
+overflow: hidden;
+
+opacity: 0;
+
+transition:
+  max-height 0.3s ease,
+  opacity 0.2s ease;
+
+}
+
+.mobile-nav.open {
+max-height: 400px;
+opacity: 1;
+}
+
+.mobile-nav-button {
+width: 100%;
+
+display: flex;
+align-items: center;
+
+gap: 10px;
+
+padding: 14px 20px;
+
+border: none;
+background: transparent;
+
+text-decoration: none;
+text-align: left;
+
+cursor: pointer;
+
+font: inherit;
+color: inherit;
+
+}
+
+.mobile-nav-button .nav-icon {
+width: 22px;
+}
+
+}
+
+/* ---------------------------------------------------------
+VERY SMALL PHONES
+--------------------------------------------------------- */
+
+@media (max-width: 380px) {
+
+.header-inner {
+padding: 0 14px;
+}
+
+.header-logo {
+font-size: 1.2rem;
+}
+
+}
+>>>>>>> Stashed changes

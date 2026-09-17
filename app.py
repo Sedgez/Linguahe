@@ -883,15 +883,15 @@ def transcribe():
         # -----------------------------------------
         # ONLY RUN WHISPER IF AUDIO IS DETECTED
         # -----------------------------------------
-        with torch.no_grad():
-            result = whisper_model.transcribe(
-                audio_path,
-                fp16=(device == "cuda"),
-                beam_size=5,
-                language="tl"
-            )
-
-        text = result["text"].strip()
+        segments, info = whisper_model.transcribe(
+            audio_path,
+            beam_size=5,
+            language="tl"
+        )
+ 
+        text = " ".join(
+            segment.text for segment in segments
+        ).strip()
 
         # -----------------------------------------
         # MAXIMUM WORD LIMIT
