@@ -1,15 +1,14 @@
 import joblib
 import torch
+from faster_whisper import WhisperModel
 from tensorflow.keras.models import load_model
 from sentence_transformers import SentenceTransformer
-from faster_whisper import WhisperModel
 
 # -----------------------------
 # DEVICE INITIALIZATION
 # -----------------------------
 device = "cuda" if torch.cuda.is_available() else "cpu"
 compute_type = "float16" if device == "cuda" else "int8"
-
 print(f"\n=== SYSTEM DEVICE: {device.upper()} ({compute_type}) ===")
 
 
@@ -42,21 +41,32 @@ except Exception as e:
 
 
 # -----------------------------
-# FASTER-WHISPER MODEL
+# WHISPER MODEL
 # -----------------------------
+
 print("--- Initializing Faster-Whisper Model ---")
 whisper_model = None
 try:
-    whisper_model = WhisperModel("turbo", device=device, compute_type=compute_type)
-    print("Loaded Faster-Whisper Turbo Model")
+    whisper_model = WhisperModel(
+        "turbo",
+        device=device,
+        compute_type=compute_type
+    )
+    print(f"Loaded Faster-Whisper Turbo Model ({compute_type})")
 except Exception as e:
     print(f"Turbo unavailable -> fallback to medium: {e}")
     try:
-        whisper_model = WhisperModel("medium", device=device, compute_type=compute_type)
-        print("Loaded Faster-Whisper Medium Model")
+        whisper_model = WhisperModel(
+            "medium",
+            device=device,
+            compute_type=compute_type
+        )
+        print(f"Loaded Faster-Whisper Medium Model ({compute_type})")
     except Exception as fallback_e:
-        print(f"Warning: Failed to load Faster-Whisper fallback: {fallback_e}")
-
+        print(
+            f"Warning: Failed to load Faster-Whisper fallback: "
+            f"{fallback_e}"
+        )
 
 # -----------------------------
 # SBERT MODEL

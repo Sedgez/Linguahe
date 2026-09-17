@@ -1,3 +1,7 @@
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
 * {
     box-sizing: border-box;
 }
@@ -11,13 +15,16 @@ body {
     font-family: 'Inter', sans-serif, system-ui;
 }
 
-
 .main-content {
     flex: 1 0 auto;
     padding-bottom: 40px;
 }
 
-/* Header */
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
 .header-bar {
     background-color: #0ea5e9;
     color: white;
@@ -26,13 +33,191 @@ body {
     font-weight: 600;
 }
 
+.header-inner {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-logo {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.35rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   DESKTOP NAVIGATION
+   ========================================================= */
+
+.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nav-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.nav-button:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.nav-button:active {
+    transform: scale(0.97);
+}
+
+.nav-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.language-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 42px;
+    margin-left: 8px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.10);
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.language-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+}
+
+.language-toggle:active {
+    transform: scale(0.97);
+}
+
+.language-flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   MOBILE MENU BUTTON
+   ========================================================= */
+
+.mobile-menu-btn {
+    display: none;
+    width: 42px;
+    height: 42px;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.mobile-menu-btn:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.mobile-menu-btn:active {
+    transform: scale(0.95);
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 23px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: white;
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+/* Hamburger → X */
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
+.mobile-nav {
+    display: none;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
 }
 
-/* Flex Layout */
+
+/* =========================================================
+   FLEX LAYOUT
+   ========================================================= */
+
 .flex-container-main {
     display: flex;
     flex-direction: column;
@@ -41,22 +226,32 @@ body {
 }
 
 @media (min-width: 768px) {
+
     .flex-container-main {
         flex-direction: row;
         align-items: stretch;
     }
 }
 
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
 .card-box {
     flex: 1;
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     padding: 30px;
     min-height: 500px;
 }
 
-/* --- THE FINAL ALIGNMENT FIX (MONOSPACE) --- */
+
+/* =========================================================
+   TRANSCRIPT CONTAINER
+   ========================================================= */
+
 .transcript-container {
     position: relative;
     width: 100%;
@@ -67,54 +262,82 @@ body {
     overflow: hidden;
 }
 
+
+/* =========================================================
+   MAIN TEXTAREA
+   ========================================================= */
+
 .textarea-main {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-
     padding: 20px !important;
     margin: 0 !important;
 
-    font-family: 'Courier New', Courier, monospace !important;
+    font-family:
+        'Courier New',
+        Courier,
+        monospace !important;
+
     font-size: 1.1rem !important;
-    line-height: 1.5 !important; 
-    
+    line-height: 1.5 !important;
+
     white-space: pre-wrap !important;
     word-wrap: break-word !important;
     overflow-y: auto;
-    
+
     border: none !important;
     outline: none !important;
 }
 
 
+/* =========================================================
+   HIGHLIGHT LAYER
+   ========================================================= */
+
 #highlightLayer {
     z-index: 1;
-    /* This makes the background text INVISIBLE so you only see the mark */
-    color: transparent !important; 
+
+    /*
+       Makes the background text invisible so only
+       highlighted markers are visible.
+    */
+    color: transparent !important;
     -webkit-text-fill-color: transparent !important;
+
     background: transparent !important;
+
     pointer-events: none;
 }
 
+
+/* =========================================================
+   INPUT TEXT
+   ========================================================= */
+
 #inputText {
     z-index: 2;
-    background: transparent !important; 
+
+    background: transparent !important;
     color: #333 !important;
+
     resize: none;
     caret-color: #333;
 }
 
 
-/* --- Report Styling --- */
+/* =========================================================
+   REPORT STYLING
+   ========================================================= */
+
 .explanation-box {
     background-color: #f9fafb;
     padding: 24px;
     border-radius: 8px;
     border: 1px solid #eee;
-    height: 380px; 
+    height: 380px;
     overflow-y: auto;
 }
 
@@ -134,7 +357,11 @@ body {
     font-size: 0.9rem;
 }
 
-/* --- Marker Styling --- */
+
+/* =========================================================
+   MARKER STYLING
+   ========================================================= */
+
 mark.linguistic-risk {
     background-color: #fee2e2;
     border-bottom: 2px solid #ef4444;
@@ -151,26 +378,109 @@ mark.marker-hit {
     padding: 0 1px;
 }
 
-/* Mic Button */
+
+/* =========================================================
+   MICROPHONE BUTTON
+   ========================================================= */
 .mic-button {
     background-color: #0ea5e9;
     color: white;
+
     width: 80px;
     height: 80px;
+
     border-radius: 50%;
     font-size: 32px;
+
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(14,165,233,0.3);
-    transition: transform 0.2s;
+
+    box-shadow:
+        0 4px 10px rgba(14, 165, 233, 0.3);
+
+    transition: transform 0.2s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
 }
 
-.mic-button:hover { transform: scale(1.05); }
+.mic-button:hover {
+    transform: scale(1.05);
+}
+
+.mic-button:active {
+    transform: scale(0.92);
+}
 
 .mic-button.recording {
     background-color: #ef4444;
     animation: pulse-red 1.5s infinite;
 }
+
+.mic-icon {
+    display: block;
+    object-fit: contain;
+}
+
+#micStopIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================================
+   MICROPHONE ICON
+   ========================================================= */
+
+.mic-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.mic-icon {
+    display: block;
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    object-position: center;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+#micStopIcon {
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   STATUS TEXT
+   ========================================================= */
+
+.status-text {
+    text-align: center;
+}
+
+
+/* =========================================================
+   CLEAR BUTTON
+   ========================================================= */
+
+.clear-button {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 .footer-bar {
     background-color: #1e293b;
@@ -179,275 +489,25 @@ mark.marker-hit {
     text-align: center;
 }
 
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
 @keyframes pulse-red {
-    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+
+    0% {
+        box-shadow:
+            0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+
+    70% {
+        box-shadow:
+            0 0 0 15px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 0 rgba(239, 68, 68, 0);
+    }
 }
-
-<<<<<<< Updated upstream
-.nav-button {
-  background: transparent;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.nav-button:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.language-toggle {
-  background: white;
-  color: #0369a1;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.language-toggle:hover {
-  background: #e0f2fe;
-}
-=======
-/* =========================================================
-RESPONSIVE HEADER / NAVIGATION
-========================================================= */
-
-.header-bar {
-position: relative;
-width: 100%;
-z-index: 1000;
-}
-
-.header-inner {
-width: 100%;
-max-width: 1400px;
-margin: 0 auto;
-
-min-height: 72px;
-padding: 0 24px;
-
-display: flex;
-align-items: center;
-justify-content: space-between;
-}
-
-/* ---------------------------------------------------------
-LOGO
---------------------------------------------------------- */
-
-.header-logo {
-text-decoration: none;
-font-size: 1.35rem;
-font-weight: 700;
-color: inherit;
-white-space: nowrap;
-}
-
-/* ---------------------------------------------------------
-DESKTOP NAV
---------------------------------------------------------- */
-
-.desktop-nav {
-display: flex;
-align-items: center;
-gap: 18px;
-}
-
-.nav-button,
-.language-toggle {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 7px;
-
-border: none;
-background: transparent;
-
-text-decoration: none;
-cursor: pointer;
-
-white-space: nowrap;
-
-margin-left: 8px;
-}
-
-.nav-icon {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-
-width: 20px;
-height: 20px;
-
-font-size: 0.95rem;
-font-weight: 700;
-}
-
-.language-flag {
-font-size: 1rem;
-}
-
-.language-text {
-white-space: nowrap;
-}
-
-/* ---------------------------------------------------------
-MOBILE MENU BUTTON
---------------------------------------------------------- */
-
-.mobile-menu-btn {
-display: none;
-
-width: 44px;
-height: 44px;
-
-padding: 8px;
-
-border: none;
-background: transparent;
-
-cursor: pointer;
-
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 5px;
-}
-
-.mobile-menu-btn span {
-display: block;
-
-width: 24px;
-height: 2px;
-
-border-radius: 2px;
-
-background: currentColor;
-
-transition:
-transform 0.25s ease,
-opacity 0.25s ease;
-}
-
-/* Hamburger → X */
-
-.mobile-menu-btn.active span:nth-child(1) {
-transform: translateY(7px) rotate(45deg);
-}
-
-.mobile-menu-btn.active span:nth-child(2) {
-opacity: 0;
-}
-
-.mobile-menu-btn.active span:nth-child(3) {
-transform: translateY(-7px) rotate(-45deg);
-}
-
-/* ---------------------------------------------------------
-MOBILE NAV
---------------------------------------------------------- */
-
-.mobile-nav {
-display: none;
-}
-
-/* =========================================================
-MOBILE BREAKPOINT
-========================================================= */
-
-@media (max-width: 768px) {
-
-.header-inner {
-min-height: 64px;
-padding: 0 18px;
-}
-
-/* Hide desktop navigation */
-.desktop-nav {
-display: none;
-}
-
-/* Show hamburger */
-.mobile-menu-btn {
-display: flex;
-}
-
-/* Mobile dropdown */
-.mobile-nav {
-display: flex;
-
-flex-direction: column;
-
-width: 100%;
-
-max-height: 0;
-overflow: hidden;
-
-opacity: 0;
-
-transition:
-  max-height 0.3s ease,
-  opacity 0.2s ease;
-
-}
-
-.mobile-nav.open {
-max-height: 400px;
-opacity: 1;
-}
-
-.mobile-nav-button {
-width: 100%;
-
-display: flex;
-align-items: center;
-
-gap: 10px;
-
-padding: 14px 20px;
-
-border: none;
-background: transparent;
-
-text-decoration: none;
-text-align: left;
-
-cursor: pointer;
-
-font: inherit;
-color: inherit;
-
-}
-
-.mobile-nav-button .nav-icon {
-width: 22px;
-}
-
-}
-
-/* ---------------------------------------------------------
-VERY SMALL PHONES
---------------------------------------------------------- */
-
-@media (max-width: 380px) {
-
-.header-inner {
-padding: 0 14px;
-}
-
-.header-logo {
-font-size: 1.2rem;
-}
-
-}
->>>>>>> Stashed changes
