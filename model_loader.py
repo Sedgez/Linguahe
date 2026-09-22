@@ -41,6 +41,31 @@ except Exception as e:
 
 
 # -----------------------------
+# DICTION ANN MODEL
+# -----------------------------
+print("--- Loading Diction ANN Model ---")
+
+try:
+    diction_model = load_model(
+        "diction_ai/models/diction_ann.keras"
+    )
+
+    diction_encoder = joblib.load(
+        "diction_ai/models/label_encoder.pkl"
+    )
+
+    print("Diction ANN Loaded Successfully")
+
+except Exception as e:
+
+    print(
+        f"Warning: Failed to load Diction ANN model: {e}"
+    )
+
+    diction_model = None
+    diction_encoder = None
+
+# -----------------------------
 # WHISPER MODEL
 # -----------------------------
 

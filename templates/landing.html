@@ -1,25 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Linguahe - Linguistic Analysis System</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Linguahe - Linguistic Analysis System
+    </title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+          href="style.css">
 
     <style>
+
         html {
             scroll-behavior: smooth;
         }
 
         .hero-pattern {
             background:
-                radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.10), transparent 30%),
-                radial-gradient(circle at 80% 30%, rgba(14, 165, 233, 0.08), transparent 30%),
-                linear-gradient(to bottom, #f8fafc, #ffffff);
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(14, 165, 233, 0.10),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 80% 30%,
+                    rgba(14, 165, 233, 0.08),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    to bottom,
+                    #f8fafc,
+                    #ffffff
+                );
         }
 
         .fade-up {
@@ -27,6 +47,7 @@
         }
 
         @keyframes fadeUp {
+
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -36,28 +57,44 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+
         }
+
+        .dataset-row-processing {
+            opacity: 0.6;
+        }
+
     </style>
+
 </head>
+
 
 <body class="bg-white text-gray-800">
 
+
     <!-- Navigation -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200">
+    <header
+        class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200"
+    >
 
         <div class="max-w-6xl mx-auto px-6 py-4">
 
             <!-- Main Navigation -->
             <div class="flex items-center justify-between">
 
-                <!-- Logo -->
-                <a href="/" class="flex items-center gap-3">
 
-                    <div class="w-10 h-10 rounded-xl bg-[#0ea5e9] text-white flex items-center justify-center font-bold text-lg">
+                <!-- Logo -->
+                <a href="/"
+                   class="flex items-center gap-3">
+
+                    <div
+                        class="w-10 h-10 rounded-xl bg-[#0ea5e9] text-white flex items-center justify-center font-bold text-lg"
+                    >
                         L
                     </div>
 
                     <div>
+
                         <h1 class="font-bold text-xl text-gray-900">
                             Linguahe
                         </h1>
@@ -65,29 +102,50 @@
                         <p class="text-xs text-gray-500">
                             Linguistic Analysis System
                         </p>
+
                     </div>
+
                 </a>
 
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex items-center gap-8 text-sm">
 
-                    <a href="#how-it-works"
-                       class="text-gray-600 hover:text-[#0ea5e9] transition">
+                <!-- Desktop Navigation -->
+                <nav
+                    class="hidden md:flex items-center gap-8 text-sm"
+                >
+
+                    <a
+                        href="#how-it-works"
+                        class="text-gray-600 hover:text-[#0ea5e9] transition"
+                    >
                         How It Works
                     </a>
 
-                    <a href="#about"
-                       class="text-gray-600 hover:text-[#0ea5e9] transition">
+                    <a
+                        href="#about"
+                        class="text-gray-600 hover:text-[#0ea5e9] transition"
+                    >
                         About
                     </a>
 
-                    <a href="#coverage"
-                       class="text-gray-600 hover:text-[#0ea5e9] transition">
+                    <a
+                        href="#coverage"
+                        class="text-gray-600 hover:text-[#0ea5e9] transition"
+                    >
                         Coverage
                     </a>
 
-                    <a href="/analyzer"
-                       class="px-5 py-2.5 rounded-lg bg-[#0ea5e9] text-white font-semibold hover:bg-[#0284c7] transition">
+                    <!-- Temporary Dataset Link -->
+                    <a
+                        href="#dataset"
+                        class="text-gray-600 hover:text-[#0ea5e9] transition"
+                    >
+                        Dataset
+                    </a>
+
+                    <a
+                        href="/analyzer"
+                        class="px-5 py-2.5 rounded-lg bg-[#0ea5e9] text-white font-semibold hover:bg-[#0284c7] transition"
+                    >
                         Get Started
                     </a>
 
@@ -114,12 +172,15 @@
                         stroke="currentColor"
                         stroke-width="2"
                     >
+
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
                             d="M4 6h16M4 12h16M4 18h16"
                         />
+
                     </svg>
+
 
                     <!-- Close Icon -->
                     <svg
@@ -131,13 +192,17 @@
                         stroke="currentColor"
                         stroke-width="2"
                     >
+
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
                             d="M6 18L18 6M6 6l12 12"
                         />
+
                     </svg>
+
                 </button>
+
             </div>
 
 
@@ -147,7 +212,9 @@
                 class="hidden md:hidden mt-4 pb-2"
             >
 
-                <nav class="flex flex-col gap-2 text-sm">
+                <nav
+                    class="flex flex-col gap-2 text-sm"
+                >
 
                     <a
                         href="#how-it-works"
@@ -170,37 +237,63 @@
                         Coverage
                     </a>
 
+                    <!-- Temporary Dataset Link -->
+                    <a
+                        href="#dataset"
+                        class="mobile-nav-link px-4 py-3 rounded-lg text-gray-700 hover:bg-[#f0f9ff] hover:text-[#0ea5e9] transition"
+                    >
+                        Dataset
+                    </a>
+
                     <a
                         href="/analyzer"
                         class="mobile-nav-link mt-2 px-4 py-3 rounded-lg bg-[#0ea5e9] text-white text-center font-semibold hover:bg-[#0284c7] transition"
                     >
                         Get Started
                     </a>
+
                 </nav>
+
             </div>
+
         </div>
+
     </header>
 
 
-    <!-- Hero -->
+    <!-- Main -->
     <main>
 
-        <section class="hero-pattern min-h-screen flex items-center pt-24">
 
-            <div class="max-w-6xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Hero -->
+        <section
+            class="hero-pattern min-h-screen flex items-center pt-24"
+        >
+
+            <div
+                class="max-w-6xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-16 items-center"
+            >
+
 
                 <!-- Hero Text -->
                 <div class="fade-up">
 
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f0f9ff] border border-[#e0f2fe] text-[#0369a1] text-sm font-medium mb-6">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f0f9ff] border border-[#e0f2fe] text-[#0369a1] text-sm font-medium mb-6"
+                    >
 
-                        <span class="w-2 h-2 rounded-full bg-[#0ea5e9]"></span>
+                        <span
+                            class="w-2 h-2 rounded-full bg-[#0ea5e9]"
+                        ></span>
 
                         Linguistic Analysis
+
                     </div>
 
 
-                    <h2 class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
+                    <h2
+                        class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight"
+                    >
 
                         Understanding Language
 
@@ -211,7 +304,9 @@
                     </h2>
 
 
-                    <p class="mt-6 text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl">
+                    <p
+                        class="mt-6 text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl"
+                    >
 
                         Linguahe is linguistic analysis system
                         designed to examine spoken Tagalog Dialect and
@@ -236,40 +331,69 @@
                         >
                             Learn More
                         </a>
+
                     </div>
+
                 </div>
+
 
                 <!-- Hero Visual -->
                 <div class="hidden lg:block">
+
                     <div class="relative">
-                        <div class="absolute -inset-6 bg-[#e0f2fe]/50 rounded-3xl blur-2xl"></div>
-                        <div class="relative bg-white border border-gray-200 rounded-3xl shadow-xl p-8">
-                            <div class="flex items-center justify-between mb-8">
+
+                        <div
+                            class="absolute -inset-6 bg-[#e0f2fe]/50 rounded-3xl blur-2xl"
+                        ></div>
+
+                        <div
+                            class="relative bg-white border border-gray-200 rounded-3xl shadow-xl p-8"
+                        >
+
+                            <div
+                                class="flex items-center justify-between mb-8"
+                            >
+
                                 <div>
+
                                     <p class="text-sm text-gray-500">
                                         Linguahe
                                     </p>
 
-                                    <h3 class="text-2xl font-bold text-gray-900">
+                                    <h3
+                                        class="text-2xl font-bold text-gray-900"
+                                    >
                                         Linguistic Analysis
                                     </h3>
+
                                 </div>
 
-                                <div class="w-12 h-12 rounded-xl bg-[#0ea5e9] text-white flex items-center justify-center font-bold">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-[#0ea5e9] text-white flex items-center justify-center font-bold"
+                                >
                                     L
                                 </div>
+
                             </div>
 
+
                             <!-- Speech -->
-                            <div class="p-5 rounded-2xl bg-gray-50 border border-gray-200">
+                            <div
+                                class="p-5 rounded-2xl bg-gray-50 border border-gray-200"
+                            >
 
-                                <div class="flex items-center gap-3">
+                                <div
+                                    class="flex items-center gap-3"
+                                >
 
-                                    <div class="w-10 h-10 rounded-full bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center"
+                                    >
                                         🎙
                                     </div>
 
                                     <div>
+
                                         <p class="font-semibold text-gray-900">
                                             Speech Input
                                         </p>
@@ -277,47 +401,74 @@
                                         <p class="text-sm text-gray-500">
                                             Recorded Filipino speech
                                         </p>
+
                                     </div>
+
                                 </div>
+
                             </div>
 
-                            <div class="flex justify-center py-4 text-[#0ea5e9] text-2xl">
+
+                            <div
+                                class="flex justify-center py-4 text-[#0ea5e9] text-2xl"
+                            >
                                 ↓
                             </div>
 
-                            <!-- AI -->
-                            <div class="p-5 rounded-2xl bg-[#f0f9ff] border border-[#e0f2fe]">
 
-                                <p class="text-sm text-[#0ea5e9] font-semibold">
+                            <!-- AI -->
+                            <div
+                                class="p-5 rounded-2xl bg-[#f0f9ff] border border-[#e0f2fe]"
+                            >
+
+                                <p
+                                    class="text-sm text-[#0ea5e9] font-semibold"
+                                >
                                     SYSTEM PROCESSING
                                 </p>
 
-                                <div class="mt-3 flex flex-wrap gap-2">
+                                <div
+                                    class="mt-3 flex flex-wrap gap-2"
+                                >
 
-                                    <span class="px-3 py-1.5 bg-white rounded-lg text-sm border border-[#e0f2fe]">
+                                    <span
+                                        class="px-3 py-1.5 bg-white rounded-lg text-sm border border-[#e0f2fe]"
+                                    >
                                         Rule Analysis
                                     </span>
 
-                                    <span class="px-3 py-1.5 bg-white rounded-lg text-sm border border-[#e0f2fe]">
+                                    <span
+                                        class="px-3 py-1.5 bg-white rounded-lg text-sm border border-[#e0f2fe]"
+                                    >
                                         SBERT
                                     </span>
 
-                                    <span class="px-3 py-1.5 bg-white rounded-lg text-sm border border-[#e0f2fe]">
+                                    <span
+                                        class="px-3 py-1.5 bg-white rounded-lg text-sm border border-[#e0f2fe]"
+                                    >
                                         ANN
                                     </span>
+
                                 </div>
+
                             </div>
 
 
-                            <div class="flex justify-center py-4 text-[#0ea5e9] text-2xl">
+                            <div
+                                class="flex justify-center py-4 text-[#0ea5e9] text-2xl"
+                            >
                                 ↓
                             </div>
 
 
                             <!-- Results -->
-                            <div class="p-5 rounded-2xl bg-gray-50 border border-gray-200">
+                            <div
+                                class="p-5 rounded-2xl bg-gray-50 border border-gray-200"
+                            >
 
-                                <div class="flex items-center justify-between">
+                                <div
+                                    class="flex items-center justify-between"
+                                >
 
                                     <div>
 
@@ -325,35 +476,56 @@
                                             Analysis
                                         </p>
 
-                                        <p class="font-bold text-gray-900">
+                                        <p
+                                            class="font-bold text-gray-900"
+                                        >
                                             Linguistic Results
                                         </p>
 
                                     </div>
 
-                                    <div class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
+                                    <div
+                                        class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold"
+                                    >
                                         Complete
                                     </div>
+
                                 </div>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
 
+
         <!-- How It Works -->
-        <section id="how-it-works" class="py-24 bg-white">
+        <section
+            id="how-it-works"
+            class="py-24 bg-white"
+        >
 
             <div class="max-w-6xl mx-auto px-6">
 
-                <div class="text-center max-w-2xl mx-auto">
+                <div
+                    class="text-center max-w-2xl mx-auto"
+                >
 
-                    <p class="text-[#0ea5e9] font-semibold text-sm uppercase tracking-wider">
+                    <p
+                        class="text-[#0ea5e9] font-semibold text-sm uppercase tracking-wider"
+                    >
                         How It Works
                     </p>
 
-                    <h2 class="mt-3 text-4xl font-bold text-gray-900">
+                    <h2
+                        class="mt-3 text-4xl font-bold text-gray-900"
+                    >
                         From Speech to Analysis
                     </h2>
 
@@ -368,20 +540,30 @@
                 </div>
 
 
-                <div class="mt-16 grid md:grid-cols-3 gap-8">
+                <div
+                    class="mt-16 grid md:grid-cols-3 gap-8"
+                >
 
                     <!-- Step 1 -->
-                    <div class="p-8 rounded-2xl border border-gray-200 bg-white shadow-sm">
+                    <div
+                        class="p-8 rounded-2xl border border-gray-200 bg-white shadow-sm"
+                    >
 
-                        <div class="w-14 h-14 rounded-xl bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center text-xl font-bold">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center text-xl font-bold"
+                        >
                             01
                         </div>
 
-                        <h3 class="mt-6 text-xl font-bold text-gray-900">
+                        <h3
+                            class="mt-6 text-xl font-bold text-gray-900"
+                        >
                             Record Speech
                         </h3>
 
-                        <p class="mt-3 text-gray-600 leading-relaxed">
+                        <p
+                            class="mt-3 text-gray-600 leading-relaxed"
+                        >
 
                             The user records Tagalog speech through the
                             Linguahe web interface.
@@ -392,21 +574,29 @@
 
 
                     <!-- Step 2 -->
-                    <div class="p-8 rounded-2xl border border-gray-200 bg-white shadow-sm">
+                    <div
+                        class="p-8 rounded-2xl border border-gray-200 bg-white shadow-sm"
+                    >
 
-                        <div class="w-14 h-14 rounded-xl bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center text-xl font-bold">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center text-xl font-bold"
+                        >
                             02
                         </div>
 
-                        <h3 class="mt-6 text-xl font-bold text-gray-900">
+                        <h3
+                            class="mt-6 text-xl font-bold text-gray-900"
+                        >
                             AI Analysis
                         </h3>
 
-                        <p class="mt-3 text-gray-600 leading-relaxed">
+                        <p
+                            class="mt-3 text-gray-600 leading-relaxed"
+                        >
 
                             The system transcribes and analyzes the speech
                             using Rule-Augmented Algorithm, SBERT, and
-                            artificial neural networks(ANN).
+                            artificial neural networks (ANN).
 
                         </p>
 
@@ -414,17 +604,25 @@
 
 
                     <!-- Step 3 -->
-                    <div class="p-8 rounded-2xl border border-gray-200 bg-white shadow-sm">
+                    <div
+                        class="p-8 rounded-2xl border border-gray-200 bg-white shadow-sm"
+                    >
 
-                        <div class="w-14 h-14 rounded-xl bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center text-xl font-bold">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center text-xl font-bold"
+                        >
                             03
                         </div>
 
-                        <h3 class="mt-6 text-xl font-bold text-gray-900">
+                        <h3
+                            class="mt-6 text-xl font-bold text-gray-900"
+                        >
                             View Results
                         </h3>
 
-                        <p class="mt-3 text-gray-600 leading-relaxed">
+                        <p
+                            class="mt-3 text-gray-600 leading-relaxed"
+                        >
 
                             The processed information is presented as
                             linguistic analysis results for the user.
@@ -440,22 +638,245 @@
         </section>
 
 
-        <!-- About -->
-        <section id="about" class="py-24 bg-gray-50">
+        <!-- ===================================================== -->
+        <!-- TEMPORARY INTONATION DATASET COLLECTION -->
+        <!-- ===================================================== -->
+        <section
+            id="dataset"
+            class="py-24 bg-[#f8fafc]"
+        >
 
-            <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="max-w-6xl mx-auto px-6">
+
+                <div class="text-center max-w-3xl mx-auto">
+
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f0f9ff] border border-[#e0f2fe] text-[#0369a1] text-sm font-medium"
+                    >
+                        <span class="w-2 h-2 rounded-full bg-[#0ea5e9]"></span>
+                        Temporary Dataset Collection
+                    </div>
+
+                    <h2 class="mt-4 text-4xl font-bold text-gray-900">
+                        Intonation Dataset
+                    </h2>
+
+                    <p class="mt-4 text-gray-600 leading-relaxed">
+                        Upload recorded Tagalog speech files to extract pitch
+                        features for the Intonation ANN dataset. The system
+                        provides a preliminary Rising, Falling, or Uncertain
+                        suggestion based on the pitch measurements.
+                    </p>
+
+                </div>
+
+                <div class="mt-12 bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
+
+                    <div class="grid md:grid-cols-2 gap-6">
+
+                        <div>
+                            <label
+                                for="datasetSpeakerId"
+                                class="block text-sm font-semibold text-gray-900 mb-2"
+                            >
+                                Speaker ID
+                            </label>
+
+                            <input
+                                type="text"
+                                id="datasetSpeakerId"
+                                placeholder="Example: Speaker01"
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0ea5e9] focus:border-transparent"
+                            >
+
+                            <p class="mt-2 text-xs text-gray-500">
+                                Use the same ID for recordings from the same speaker.
+                            </p>
+                        </div>
+
+                        <div>
+                            <label
+                                for="datasetAudioFiles"
+                                class="block text-sm font-semibold text-gray-900 mb-2"
+                            >
+                                Audio Files
+                            </label>
+
+                            <input
+                                type="file"
+                                id="datasetAudioFiles"
+                                accept="audio/*"
+                                multiple
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm"
+                            >
+
+                            <p class="mt-2 text-xs text-gray-500">
+                                Select one or multiple recordings.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-6 flex flex-wrap gap-4">
+
+                        <button
+                            id="processDatasetButton"
+                            type="button"
+                            onclick="processDatasetFiles()"
+                            class="px-7 py-3.5 rounded-xl bg-[#0ea5e9] text-white font-semibold hover:bg-[#0284c7] transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Process Audio Dataset
+                        </button>
+
+                        <button
+                            id="exportDatasetButton"
+                            type="button"
+                            onclick="exportDatasetCSV()"
+                            class="px-7 py-3.5 rounded-xl border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled
+                        >
+                            Export CSV
+                        </button>
+
+                        <button
+                            id="clearDatasetButton"
+                            type="button"
+                            onclick="clearDataset()"
+                            class="px-7 py-3.5 rounded-xl border border-red-200 text-red-600 font-semibold hover:bg-red-50 transition"
+                        >
+                            Clear
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="datasetStatus"
+                        class="hidden mt-6 p-4 rounded-xl text-sm"
+                    ></div>
+
+                </div>
+
+                <div class="mt-8 bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
+
+                    <div class="px-6 py-5 border-b border-gray-200">
+
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">
+                                    Collected Recordings
+                                </h3>
+
+                                <p class="text-sm text-gray-500 mt-1">
+                                    Review the three pitch metrics and confirm the final ANN label.
+                                </p>
+                            </div>
+
+                            <div
+                                id="datasetCount"
+                                class="px-3 py-1.5 rounded-full bg-[#f0f9ff] text-[#0369a1] text-sm font-semibold"
+                            >
+                                0 recordings
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="overflow-x-auto">
+
+                        <table class="w-full text-sm">
+
+                            <thead class="bg-gray-50 border-b border-gray-200">
+                                <tr>
+                                    <th class="px-4 py-4 text-left font-semibold text-gray-700 whitespace-nowrap">Speaker</th>
+                                    <th class="px-4 py-4 text-left font-semibold text-gray-700 whitespace-nowrap">Audio File</th>
+                                    <th class="px-4 py-4 text-left font-semibold text-gray-700 min-w-[250px]">Transcript</th>
+                                    <th class="px-4 py-4 text-left font-semibold text-gray-700 whitespace-nowrap">Pitch Change</th>
+                                    <th class="px-4 py-4 text-left font-semibold text-gray-700 whitespace-nowrap">Pitch Slope</th>
+                                    <th class="px-4 py-4 text-left font-semibold text-gray-700 whitespace-nowrap">Pitch Range</th>
+                                    <th class="px-4 py-4 text-left font-semibold text-gray-700 whitespace-nowrap">Suggested</th>
+                                    <th class="px-4 py-4 text-left font-semibold text-gray-700 whitespace-nowrap">Final Label</th>
+                                </tr>
+                            </thead>
+
+                            <tbody
+                                id="datasetResults"
+                                class="divide-y divide-gray-100"
+                            >
+                                <tr id="datasetEmptyRow">
+                                    <td
+                                        colspan="8"
+                                        class="px-6 py-12 text-center text-gray-500"
+                                    >
+                                        No recordings processed yet.
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="mt-6 p-5 rounded-2xl bg-blue-50 border border-blue-100">
+
+                    <div class="flex gap-3">
+
+                        <div class="w-8 h-8 flex-shrink-0 rounded-lg bg-white text-[#0ea5e9] flex items-center justify-center font-bold">
+                            i
+                        </div>
+
+                        <div>
+                            <p class="font-semibold text-[#0369a1]">
+                                Dataset preparation note
+                            </p>
+
+                            <p class="mt-1 text-sm text-blue-800 leading-relaxed">
+                                The Suggested label is only a preliminary mathematical
+                                interpretation. It is not ground truth. If Pitch Change
+                                and Pitch Slope disagree, the system marks the recording
+                                as Uncertain so you can review it before using it for ANN training.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- About -->
+        <section
+            id="about"
+            class="py-24 bg-gray-50"
+        >
+
+            <div
+                class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center"
+            >
 
                 <div>
 
-                    <p class="text-[#0ea5e9] font-semibold text-sm uppercase tracking-wider">
+                    <p
+                        class="text-[#0ea5e9] font-semibold text-sm uppercase tracking-wider"
+                    >
                         About Linguahe
                     </p>
 
-                    <h2 class="mt-3 text-4xl font-bold text-gray-900">
+                    <h2
+                        class="mt-3 text-4xl font-bold text-gray-900"
+                    >
                         Exploring Regional Language Variation
                     </h2>
 
-                    <p class="mt-6 text-gray-600 leading-relaxed">
+                    <p
+                        class="mt-6 text-gray-600 leading-relaxed"
+                    >
 
                         Linguahe is a web-based linguistic analysis system
                         developed to examine possible differences in spoken
@@ -463,7 +884,9 @@
 
                     </p>
 
-                    <p class="mt-4 text-gray-600 leading-relaxed">
+                    <p
+                        class="mt-4 text-gray-600 leading-relaxed"
+                    >
 
                         The system uses a combination of rule-based linguistic
                         analysis and artificial intelligence techniques to
@@ -481,28 +904,39 @@
                 </div>
 
 
-                <div class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8">
+                <div
+                    class="bg-white rounded-3xl border border-gray-200 shadow-sm p-8"
+                >
 
-                    <h3 class="text-xl font-bold text-gray-900">
+                    <h3
+                        class="text-xl font-bold text-gray-900"
+                    >
                         Core Technologies
                     </h3>
 
 
                     <div class="mt-6 space-y-4">
 
+
                         <div class="flex items-start gap-4">
 
-                            <div class="w-10 h-10 rounded-lg bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center"
+                            >
                                 R
                             </div>
 
                             <div>
 
-                                <p class="font-semibold text-gray-900">
+                                <p
+                                    class="font-semibold text-gray-900"
+                                >
                                     Rule-Augmented Analysis
                                 </p>
 
-                                <p class="text-sm text-gray-500">
+                                <p
+                                    class="text-sm text-gray-500"
+                                >
                                     Linguistic patterns and markers
                                 </p>
 
@@ -513,17 +947,23 @@
 
                         <div class="flex items-start gap-4">
 
-                            <div class="w-10 h-10 rounded-lg bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center"
+                            >
                                 S
                             </div>
 
                             <div>
 
-                                <p class="font-semibold text-gray-900">
+                                <p
+                                    class="font-semibold text-gray-900"
+                                >
                                     Sentence-BERT
                                 </p>
 
-                                <p class="text-sm text-gray-500">
+                                <p
+                                    class="text-sm text-gray-500"
+                                >
                                     Semantic sentence comparison
                                 </p>
 
@@ -534,17 +974,23 @@
 
                         <div class="flex items-start gap-4">
 
-                            <div class="w-10 h-10 rounded-lg bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-[#e0f2fe] text-[#0ea5e9] flex items-center justify-center"
+                            >
                                 A
                             </div>
 
                             <div>
 
-                                <p class="font-semibold text-gray-900">
+                                <p
+                                    class="font-semibold text-gray-900"
+                                >
                                     Artificial Neural Network
                                 </p>
 
-                                <p class="text-sm text-gray-500">
+                                <p
+                                    class="text-sm text-gray-500"
+                                >
                                     Speech-related classification
                                 </p>
 
@@ -562,19 +1008,30 @@
 
 
         <!-- Coverage -->
-        <section id="coverage" class="py-24 bg-white">
+        <section
+            id="coverage"
+            class="py-24 bg-white"
+        >
 
-            <div class="max-w-6xl mx-auto px-6 text-center">
+            <div
+                class="max-w-6xl mx-auto px-6 text-center"
+            >
 
-                <p class="text-[#0ea5e9] font-semibold text-sm uppercase tracking-wider">
+                <p
+                    class="text-[#0ea5e9] font-semibold text-sm uppercase tracking-wider"
+                >
                     Regional Coverage
                 </p>
 
-                <h2 class="mt-3 text-4xl font-bold text-gray-900">
+                <h2
+                    class="mt-3 text-4xl font-bold text-gray-900"
+                >
                     CALABARZON
                 </h2>
 
-                <p class="mt-4 max-w-2xl mx-auto text-gray-600">
+                <p
+                    class="mt-4 max-w-2xl mx-auto text-gray-600"
+                >
 
                     Linguahe focuses on possible linguistic variations within
                     the CALABARZON region of the Philippines.
@@ -582,33 +1039,45 @@
                 </p>
 
 
-                <div class="mt-12 grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div
+                    class="mt-12 grid grid-cols-2 md:grid-cols-5 gap-4"
+                >
 
-                    <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                    <div
+                        class="p-6 rounded-2xl bg-gray-50 border border-gray-200"
+                    >
                         <p class="font-bold text-gray-900">
                             Cavite
                         </p>
                     </div>
 
-                    <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                    <div
+                        class="p-6 rounded-2xl bg-gray-50 border border-gray-200"
+                    >
                         <p class="font-bold text-gray-900">
                             Laguna
                         </p>
                     </div>
 
-                    <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                    <div
+                        class="p-6 rounded-2xl bg-gray-50 border border-gray-200"
+                    >
                         <p class="font-bold text-gray-900">
                             Batangas
                         </p>
                     </div>
 
-                    <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                    <div
+                        class="p-6 rounded-2xl bg-gray-50 border border-gray-200"
+                    >
                         <p class="font-bold text-gray-900">
                             Rizal
                         </p>
                     </div>
 
-                    <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                    <div
+                        class="p-6 rounded-2xl bg-gray-50 border border-gray-200"
+                    >
                         <p class="font-bold text-gray-900">
                             Quezon
                         </p>
@@ -622,15 +1091,23 @@
 
 
         <!-- CTA -->
-        <section class="py-20 bg-[#0ea5e9]">
+        <section
+            class="py-20 bg-[#0ea5e9]"
+        >
 
-            <div class="max-w-4xl mx-auto px-6 text-center">
+            <div
+                class="max-w-4xl mx-auto px-6 text-center"
+            >
 
-                <h2 class="text-4xl font-bold text-white">
+                <h2
+                    class="text-4xl font-bold text-white"
+                >
                     Ready to Analyze Speech?
                 </h2>
 
-                <p class="mt-4 text-[#e0f2fe] text-lg">
+                <p
+                    class="mt-4 text-[#e0f2fe] text-lg"
+                >
                     Explore the Linguahe linguistic analysis system.
                 </p>
 
@@ -649,15 +1126,23 @@
 
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400">
+    <footer
+        class="bg-gray-900 text-gray-400"
+    >
 
-        <div class="max-w-6xl mx-auto px-6 py-10">
+        <div
+            class="max-w-6xl mx-auto px-6 py-10"
+        >
 
-            <div class="flex flex-col md:flex-row justify-between gap-6">
+            <div
+                class="flex flex-col md:flex-row justify-between gap-6"
+            >
 
                 <div>
 
-                    <h3 class="text-white text-xl font-bold">
+                    <h3
+                        class="text-white text-xl font-bold"
+                    >
                         Linguahe
                     </h3>
 
@@ -668,7 +1153,9 @@
                 </div>
 
 
-                <div class="text-sm md:text-right">
+                <div
+                    class="text-sm md:text-right"
+                >
 
                     <p>
                         Developed by the Linguahe Team
@@ -679,7 +1166,9 @@
             </div>
 
 
-            <div class="mt-8 pt-6 border-t border-gray-800 text-sm text-center">
+            <div
+                class="mt-8 pt-6 border-t border-gray-800 text-sm text-center"
+            >
 
                 © 2026 Linguahe Team. All rights reserved.
 
@@ -690,7 +1179,9 @@
     </footer>
 
 
+    <!-- ===================================================== -->
     <!-- Mobile Navigation Script -->
+    <!-- ===================================================== -->
     <script>
 
         const mobileMenuButton =
@@ -710,61 +1201,513 @@
 
 
         // Open / close mobile navigation
-        mobileMenuButton.addEventListener("click", () => {
+        mobileMenuButton.addEventListener(
+            "click",
+            () => {
 
-            const isOpen =
-                !mobileMenu.classList.contains("hidden");
-
-
-            mobileMenu.classList.toggle("hidden");
-
-            menuIcon.classList.toggle("hidden");
-            closeIcon.classList.toggle("hidden");
+                const isOpen =
+                    !mobileMenu.classList.contains("hidden");
 
 
-            mobileMenuButton.setAttribute(
-                "aria-expanded",
-                String(!isOpen)
-            );
+                mobileMenu.classList.toggle("hidden");
 
+                menuIcon.classList.toggle("hidden");
 
-            mobileMenuButton.setAttribute(
-                "aria-label",
-                isOpen
-                    ? "Open navigation menu"
-                    : "Close navigation menu"
-            );
-
-        });
-
-
-        // Close menu after selecting a navigation item
-        mobileNavLinks.forEach(link => {
-
-            link.addEventListener("click", () => {
-
-                mobileMenu.classList.add("hidden");
-
-                menuIcon.classList.remove("hidden");
-                closeIcon.classList.add("hidden");
+                closeIcon.classList.toggle("hidden");
 
 
                 mobileMenuButton.setAttribute(
                     "aria-expanded",
-                    "false"
+                    String(!isOpen)
                 );
 
 
                 mobileMenuButton.setAttribute(
                     "aria-label",
-                    "Open navigation menu"
+                    isOpen
+                        ? "Open navigation menu"
+                        : "Close navigation menu"
                 );
 
+            }
+        );
+
+
+        // Close menu after selecting navigation item
+        mobileNavLinks.forEach(
+            link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        mobileMenu.classList.add(
+                            "hidden"
+                        );
+
+                        menuIcon.classList.remove(
+                            "hidden"
+                        );
+
+                        closeIcon.classList.add(
+                            "hidden"
+                        );
+
+
+                        mobileMenuButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+
+                        mobileMenuButton.setAttribute(
+                            "aria-label",
+                            "Open navigation menu"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        // =====================================================
+        // TEMPORARY INTONATION DATASET COLLECTION
+        // =====================================================
+
+        let datasetRows = [];
+
+        async function processDatasetFiles() {
+
+            const fileInput = document.getElementById("datasetAudioFiles");
+            const speakerInput = document.getElementById("datasetSpeakerId");
+            const processButton = document.getElementById("processDatasetButton");
+            const files = Array.from(fileInput.files);
+            const speakerId = speakerInput.value.trim();
+
+            if (!speakerId) {
+                showDatasetStatus("Please enter a Speaker ID first.", "error");
+                speakerInput.focus();
+                return;
+            }
+
+            if (files.length === 0) {
+                showDatasetStatus("Please select at least one audio file.", "error");
+                return;
+            }
+
+            processButton.disabled = true;
+            fileInput.disabled = true;
+            speakerInput.disabled = true;
+
+            showDatasetStatus(`Processing ${files.length} audio file(s)...`, "info");
+
+            for (let i = 0; i < files.length; i++) {
+
+                showDatasetStatus(
+                    `Processing ${i + 1} of ${files.length}: ${files[i].name}`,
+                    "info"
+                );
+
+                await processSingleDatasetFile(files[i], speakerId);
+            }
+
+            processButton.disabled = false;
+            fileInput.disabled = false;
+            speakerInput.disabled = false;
+
+            document.getElementById("exportDatasetButton").disabled =
+                datasetRows.length === 0;
+
+            showDatasetStatus(
+                `Finished processing ${files.length} selected file(s).`,
+                "success"
+            );
+        }
+
+
+        async function processSingleDatasetFile(file, speakerId) {
+
+            const formData = new FormData();
+            formData.append("audio", file, file.name);
+
+            try {
+
+                // This temporary dataset tool uses the dedicated endpoint.
+                // It should only run Whisper + pitch analysis rather than
+                // the complete production analyzer pipeline.
+                const response = await fetch(
+                    "/dataset/analyze",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        result.error || "Audio processing failed."
+                    );
+                }
+
+                if (!result.success) {
+                    throw new Error(
+                        result.error || "Audio analysis failed."
+                    );
+                }
+
+                addDatasetRow(
+                    speakerId,
+                    file.name,
+                    result
+                );
+
+            } catch (error) {
+
+                addDatasetErrorRow(
+                    speakerId,
+                    file.name,
+                    error.message
+                );
+
+                console.error(
+                    `Dataset processing error for ${file.name}:`,
+                    error
+                );
+            }
+        }
+
+
+        function addDatasetRow(speakerId, fileName, result) {
+
+            const emptyRow = document.getElementById("datasetEmptyRow");
+
+            if (emptyRow) {
+                emptyRow.remove();
+            }
+
+            const rowIndex = datasetRows.length;
+
+            const rowData = {
+                speaker_id: speakerId,
+                audio_file: fileName,
+                transcript: result.transcript || "",
+                normalized_final_pitch_change:
+                    Number(result.pitch_change ?? 0),
+                normalized_final_pitch_slope:
+                    Number(result.pitch_slope ?? 0),
+                normalized_final_pitch_range:
+                    Number(result.pitch_range ?? 0),
+                suggested_label:
+                    result.suggested_label || "Uncertain",
+                intonation_label:
+                    result.suggested_label === "Rising" ||
+                    result.suggested_label === "Falling"
+                        ? result.suggested_label
+                        : ""
+            };
+
+            datasetRows.push(rowData);
+
+            const row = document.createElement("tr");
+            row.className = "hover:bg-gray-50 transition";
+
+            row.innerHTML = `
+                <td class="px-4 py-4 align-top">
+                    <span class="font-medium text-gray-900">
+                        ${escapeHTML(speakerId)}
+                    </span>
+                </td>
+
+                <td class="px-4 py-4 align-top">
+                    <span class="text-gray-700 whitespace-nowrap">
+                        ${escapeHTML(fileName)}
+                    </span>
+                </td>
+
+                <td class="px-4 py-4 align-top">
+                    <div class="text-gray-700 leading-relaxed max-w-md">
+                        ${escapeHTML(rowData.transcript)}
+                    </div>
+                </td>
+
+                <td class="px-4 py-4 align-top font-mono text-xs">
+                    ${rowData.normalized_final_pitch_change.toFixed(4)}
+                </td>
+
+                <td class="px-4 py-4 align-top font-mono text-xs">
+                    ${rowData.normalized_final_pitch_slope.toFixed(4)}
+                </td>
+
+                <td class="px-4 py-4 align-top font-mono text-xs">
+                    ${rowData.normalized_final_pitch_range.toFixed(4)}
+                </td>
+
+                <td class="px-4 py-4 align-top">
+                    ${createSuggestedBadge(rowData.suggested_label)}
+                </td>
+
+                <td class="px-4 py-4 align-top">
+                    <select
+                        onchange="updateDatasetLabel(${rowIndex}, this.value)"
+                        class="px-3 py-2 rounded-lg border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#0ea5e9]"
+                    >
+                        <option value="" ${rowData.intonation_label === "" ? "selected" : ""}>
+                            Select
+                        </option>
+                        <option value="Rising" ${rowData.intonation_label === "Rising" ? "selected" : ""}>
+                            Rising
+                        </option>
+                        <option value="Falling" ${rowData.intonation_label === "Falling" ? "selected" : ""}>
+                            Falling
+                        </option>
+                    </select>
+                </td>
+            `;
+
+            document.getElementById("datasetResults").appendChild(row);
+            updateDatasetCount();
+        }
+
+
+        function createSuggestedBadge(label) {
+
+            let classes = "bg-yellow-100 text-yellow-700";
+
+            if (label === "Rising") {
+                classes = "bg-green-100 text-green-700";
+            } else if (label === "Falling") {
+                classes = "bg-blue-100 text-blue-700";
+            }
+
+            return `
+                <span class="inline-flex px-3 py-1 rounded-full text-xs font-semibold ${classes}">
+                    ${escapeHTML(label)}
+                </span>
+            `;
+        }
+
+
+        function addDatasetErrorRow(speakerId, fileName, errorMessage) {
+
+            const emptyRow = document.getElementById("datasetEmptyRow");
+
+            if (emptyRow) {
+                emptyRow.remove();
+            }
+
+            const row = document.createElement("tr");
+            row.className = "bg-red-50";
+
+            row.innerHTML = `
+                <td class="px-4 py-4 align-top">
+                    ${escapeHTML(speakerId)}
+                </td>
+
+                <td class="px-4 py-4 align-top">
+                    ${escapeHTML(fileName)}
+                </td>
+
+                <td colspan="5" class="px-4 py-4 text-red-600">
+                    ${escapeHTML(errorMessage)}
+                </td>
+
+                <td class="px-4 py-4">
+                    <span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-semibold">
+                        Failed
+                    </span>
+                </td>
+            `;
+
+            document.getElementById("datasetResults").appendChild(row);
+        }
+
+
+        function updateDatasetLabel(index, value) {
+
+            if (datasetRows[index]) {
+                datasetRows[index].intonation_label = value;
+            }
+        }
+
+
+        function updateDatasetCount() {
+
+            const count = datasetRows.length;
+
+            document.getElementById("datasetCount").textContent =
+                `${count} recording${count === 1 ? "" : "s"}`;
+        }
+
+
+        function exportDatasetCSV() {
+
+            if (datasetRows.length === 0) {
+                showDatasetStatus(
+                    "There are no processed recordings to export.",
+                    "error"
+                );
+                return;
+            }
+
+            const incomplete = datasetRows.filter(
+                row => !row.intonation_label
+            );
+
+            if (incomplete.length > 0) {
+                showDatasetStatus(
+                    `${incomplete.length} recording(s) still need a final label. Review the Suggested column and choose Rising or Falling.`,
+                    "error"
+                );
+                return;
+            }
+
+            const headers = [
+                "speaker_id",
+                "audio_file",
+                "transcript",
+                "normalized_final_pitch_change",
+                "normalized_final_pitch_slope",
+                "normalized_final_pitch_range",
+                "suggested_label",
+                "intonation_label"
+            ];
+
+            const csvRows = [headers];
+
+            datasetRows.forEach(row => {
+                csvRows.push([
+                    row.speaker_id,
+                    row.audio_file,
+                    row.transcript,
+                    row.normalized_final_pitch_change,
+                    row.normalized_final_pitch_slope,
+                    row.normalized_final_pitch_range,
+                    row.suggested_label,
+                    row.intonation_label
+                ]);
             });
 
-        });
+            const csvContent = csvRows
+                .map(row => row.map(csvEscape).join(","))
+                .join("\n");
 
+            const blob = new Blob(
+                [csvContent],
+                { type: "text/csv;charset=utf-8;" }
+            );
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+
+            link.href = url;
+            link.download = "intonation_dataset.csv";
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            URL.revokeObjectURL(url);
+
+            showDatasetStatus(
+                "Dataset exported successfully.",
+                "success"
+            );
+        }
+
+
+        function csvEscape(value) {
+
+            const stringValue = String(value ?? "");
+
+            return `"${stringValue.replace(/"/g, '""')}"`;
+        }
+
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        function showDatasetStatus(message, type) {
+
+            const status = document.getElementById("datasetStatus");
+
+            status.className =
+                "mt-6 p-4 rounded-xl text-sm border";
+
+            if (type === "success") {
+                status.classList.add(
+                    "bg-green-50",
+                    "text-green-700",
+                    "border-green-200"
+                );
+            } else if (type === "error") {
+                status.classList.add(
+                    "bg-red-50",
+                    "text-red-700",
+                    "border-red-200"
+                );
+            } else {
+                status.classList.add(
+                    "bg-blue-50",
+                    "text-blue-700",
+                    "border-blue-200"
+                );
+            }
+
+            status.textContent = message;
+        }
+
+
+        function clearDataset() {
+
+            if (datasetRows.length === 0) {
+                return;
+            }
+
+            const confirmed = confirm(
+                "Clear all collected dataset records?"
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            datasetRows = [];
+
+            document.getElementById("datasetResults").innerHTML = `
+                <tr id="datasetEmptyRow">
+                    <td
+                        colspan="8"
+                        class="px-6 py-12 text-center text-gray-500"
+                    >
+                        No recordings processed yet.
+                    </td>
+                </tr>
+            `;
+
+            document.getElementById("datasetAudioFiles").value = "";
+            document.getElementById("exportDatasetButton").disabled = true;
+
+            updateDatasetCount();
+
+            showDatasetStatus(
+                "Dataset table cleared.",
+                "info"
+            );
+        }
     </script>
 
 </body>
 </html>
+
