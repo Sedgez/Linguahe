@@ -39,6 +39,36 @@ except Exception as e:
     print(f"Warning: Failed to load Emotion ANN models: {e}")
     emotion_model, emotion_scaler, emotion_encoder = None, None, None
 
+# -----------------------------
+# INTONATION ANN MODEL
+# -----------------------------
+print("--- Loading Intonation ANN Models ---")
+
+try:
+    intonation_model = load_model(
+        "intonation_ai/models/intonation_ann_small_fusion.keras"
+    )
+
+    intonation_acoustic_scaler = joblib.load(
+        "intonation_ai/models/intonation_acoustic_scaler.pkl"
+    )
+
+    intonation_encoder = joblib.load(
+        "intonation_ai/models/intonation_small_fusion_label_encoder.pkl"
+    )
+
+    print("Intonation Small Fusion ANN Loaded Successfully")
+
+except Exception as e:
+
+    print(
+        f"Warning: Failed to load Intonation ANN models: {e}"
+    )
+
+    intonation_model = None
+    intonation_acoustic_scaler = None
+    intonation_encoder = None
+
 
 # -----------------------------
 # DICTION ANN MODEL

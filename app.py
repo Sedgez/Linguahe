@@ -9,6 +9,10 @@ from model_loader import (
     emotion_scaler,
     emotion_encoder,
 
+    intonation_model,
+    intonation_acoustic_scaler,
+    intonation_encoder,
+
     diction_model,
     diction_encoder,
 
@@ -2113,6 +2117,203 @@ def build_intonation_features(
         token_details
     )
 
+# =========================================================
+# INTONATION FEATURE COMBINATION
+# =========================================================
+
+def build_intonation_features(
+    text,
+    acoustic_features
+):
+    ...
+    return (
+        combined_vector.reshape(1, -1),
+        token_details
+    )
+
+
+# =========================================================
+# INTONATION ANN PREDICTION
+# =========================================================
+
+def predict_intonation(
+    text,
+    acoustic_features
+):
+
+    if (
+        intonation_model is None
+        or intonation_acoustic_scaler is None
+        or intonation_encoder is None
+    ):
+
+        return {
+            "label": "Analysis Unavailable",
+            "confidence": 0.0,
+            "rule_matches": [],
+            "token_details": []
+        }
+
+    # -----------------------------------------
+    # RA-SBERT
+    # -----------------------------------------
+
+    ra_vector, token_details = (
+        intonation_ra_sbert_embedding(
+            text
+        )
+    )
+
+    if ra_vector is None:
+
+        return {
+            "label": "Analysis Unavailable",
+            "confidence": 0.0,
+            "rule_matches": [],
+            "token_details": []
+        }
+
+    ra_input = (
+        ra_vector
+        .detach()
+        .cpu()
+        .numpy()
+        .reshape(1, 384)
+        .astype(np.float32)
+    )
+
+    # -----------------------------------------
+    # 3-D ACOUSTIC FEATURES
+    # -----------------------------------------
+
+    acoustic_vector = np.array(
+        [
+            acoustic_features.get(
+                "normalized_final_pitch_change",
+                0.0
+            ),
+
+            acoustic_features.get(
+                "normalized_final_pitch_slope",
+                0.0
+            ),
+
+            acoustic_features.get(
+                "normalized_final_pitch_range",
+                0.0
+            )
+        ],
+        dtype=np.float32
+    ).reshape(1, 3)
+
+    # -----------------------------------------
+    # SCALE ACOUSTIC FEATURES
+    # -----------------------------------------
+
+    acoustic_scaled = (
+        intonation_acoustic_scaler
+        .transform(
+            acoustic_vector
+        )
+        .astype(np.float32)
+    )
+
+    # -----------------------------------------
+    # SMALL FUSION ANN
+    # -----------------------------------------
+
+    prediction = (
+        intonation_model.predict(
+            [
+                ra_input,
+                acoustic_scaled
+            ],
+            verbose=0
+        )
+    )
+
+    predicted_index = int(
+        np.argmax(
+            prediction[0]
+        )
+    )
+
+    predicted_label = (
+        intonation_encoder
+        .inverse_transform(
+            [predicted_index]
+        )[0]
+    )
+
+    confidence = float(
+        np.max(
+            prediction[0]
+        ) * 100
+    )
+
+    # -----------------------------------------
+    # RULE MATCHES
+    # -----------------------------------------
+
+    rule_matches = [
+        detail["token"]
+        for detail in token_details
+        if detail["rule_matched"]
+    ]
+
+    # -----------------------------------------
+    # DEBUG
+    # -----------------------------------------
+
+    print(
+        "\n========== INTONATION ANN =========="
+    )
+
+    print(
+        f"Prediction: {predicted_label}"
+    )
+
+    print(
+        f"Confidence: {confidence:.2f}%"
+    )
+
+    print(
+        "RA-SBERT dimensions: 384"
+    )
+
+    print(
+        "Acoustic dimensions: 3"
+    )
+
+    print(
+        "Small Fusion input: 384-D + 3-D"
+    )
+
+    print(
+        f"Sentence-final particles: "
+        f"{rule_matches}"
+    )
+
+    print(
+        "====================================\n"
+    )
+
+    return {
+        "label":
+            str(predicted_label),
+
+        "confidence":
+            round(
+                confidence,
+                2
+            ),
+
+        "rule_matches":
+            rule_matches,
+
+        "token_details":
+            token_details
+    }
 
 # =========================================================
 # DICTION ANN CLASSIFIER
@@ -2500,17 +2701,17 @@ def transcribe():
         )
 
         # -----------------------------------------
-        # BUILD INTONATION FEATURE VECTOR
+        # INTONATION ANN
         #
         # 384-D RA-SBERT
         # +
-        # 4 acoustic features
+        # 3 acoustic features
         # =
-        # 388-D proposed ANN input
+        # SMALL FUSION ANN
         # -----------------------------------------
 
-        intonation_vector, intonation_token_details = (
-            build_intonation_features(
+        intonation_result = (
+            predict_intonation(
                 text,
                 features
             )
@@ -2547,8 +2748,13 @@ def transcribe():
                 ],
 
             "intonation":
-                features[
-                    "intonation"
+                intonation_result[
+                    "label"
+                ],
+
+            "intonation_confidence":
+                intonation_result[
+                   "confidence"
                 ],
 
             "pitch_variation":
@@ -2584,26 +2790,28 @@ def transcribe():
                     emotion_confidence,
                     2
                 ),
-
+        
             # -----------------------------------------
-            # INTONATION RA-SBERT DEBUG INFORMATION
+            # INTONATION ANN INFORMATION
             # -----------------------------------------
 
-            "intonation_ra_sbert_dimensions":
-                (
-                    int(
-                        len(
-                            intonation_vector[
-                                0
-                            ]
-                        )
-                    )
-                    if intonation_vector is not None
-                    else 0
-                ),
+            "intonation_confidence":
+                intonation_result[
+                    "confidence"
+                ],
+
+            "intonation_rule_matches":
+                intonation_result[
+                    "rule_matches"
+                ],
 
             "intonation_token_details":
-                intonation_token_details
+                intonation_result[
+                    "token_details"
+                ],
+
+            "intonation_ra_sbert_dimensions":
+                384
         })
 
     except Exception as e:
