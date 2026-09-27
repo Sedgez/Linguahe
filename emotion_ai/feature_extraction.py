@@ -3,6 +3,7 @@ import librosa
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
+from pathlib import Path
 
 labels = pd.read_csv("labels.csv")
 
@@ -13,18 +14,11 @@ print("Extracting audio features...")
 for _, row in tqdm(labels.iterrows(), total=len(labels)):
 
     emotion = row["emotion"].lower()
-
     filename = row["filename"]
-
     speaker = row["speaker_id"]
+    path = Path("dataset") / emotion / filename
 
-    path = os.path.join(
-        "dataset",
-        emotion,
-        filename
-    )
-
-    if not os.path.exists(path):
+    if not path.exists():
 
         print("Missing:", path)
 
@@ -74,7 +68,6 @@ for _, row in tqdm(labels.iterrows(), total=len(labels)):
         "filename": filename,
 
         "speaker_id": speaker,
-
         "emotion": row["emotion"]
 
     }
