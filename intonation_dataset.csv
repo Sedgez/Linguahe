@@ -1,0 +1,281 @@
+audio_id,audio_file,transcript,normalized_final_pitch_change,normalized_final_pitch_slope,normalized_final_pitch_range,suggested_label,intonation_label
+F001,A1.wav,Kumusta? Kumain ka na ba bago umalis kanina?,-0.1431,-0.0081,0.2073,Falling,Falling
+F002,A2.wav,Saan kayo pupunta pagkatapos ng klase nyo mamaya?,-0.1198,-0.0009,0.4665,Falling,Falling
+F003,A3.wav,Mainit ngayon pero parang uulan mamayang gabi.,-0.2375,-0.011,0.5006,Falling,Falling
+F004,A4.wav,Matagal ang biyahe kaya medyo nakakapagod.,-0.197,-0.0157,0.3274,Falling,Falling
+F005,"Angel_Laguna_A_A2 - FLORDELIZA, ANGELITO.wav",Saan kayo pupunta pagtapos ng klase mamay?,-0.0604,-0.0163,0.4126,Falling,Falling
+F006,"Angel_Laguna_A_A3 - FLORDELIZA, ANGELITO.wav",May neat ngayon pero parang ulan mami yung gabi.,-0.0218,-0.0017,0.0373,Uncertain,Falling
+F007,"Angel_Laguna_A_A4 - FLORDELIZA, ANGELITO.wav",Matagal ang biyahe kaya medyo nakakapagod.,-0.0642,-0.0065,0.2926,Falling,Falling
+F008,"Angel_Laguna_A_A5 - FLORDELIZA, ANGELITO.wav",Pwede po bang makainin ng tulong saglit?,-0.0868,-0.0096,0.167,Falling,Falling
+F009,"Angel_Laguna_B_B1 - FLORDELIZA, ANGELITO.wav",Masaya pala dito.  Ngayon lang ulit ako nakapunta.,-0.019,-0.0021,0.0783,Uncertain,Falling
+F010,"Angel_Laguna_B_B2 - FLORDELIZA, ANGELITO.wav",Grabe naman traffic kanina.  Sobrang tagal ng biyahe.,-0.0012,0.001,0.1464,Uncertain,Falling
+F011,"Angel_Laguna_B_B3 - FLORDELIZA, ANGELITO.wav",Parang malakas yata ang ulan mami.,-0.048,-0.0042,0.0909,Falling,Falling
+F012,"Angel_Laguna_B_B4 - FLORDELIZA, ANGELITO.wav",Talaga?  Hindi ko yun ako sana mangyari yun.,-0.0647,-0.0159,0.3537,Falling,Falling
+F013,"Angel_Laguna_B_B5 - FLORDELIZA, ANGELITO.wav",kailangan natin tapusin  itong nagawa natin,-0.0283,-0.0053,0.3037,Uncertain,Falling
+F014,"Angel_Laguna_C_C1 - FLORDELIZA, ANGELITO.wav",Nung aras kayo alis bukas.,-0.1277,-0.0291,0.2942,Falling,Falling
+F015,"Angel_Laguna_C_C5 - FLORDELIZA, ANGELITO.wav",Nakita mo ba kung saan niya nilagay yun?,-0.142,-0.0244,0.2501,Falling,Falling
+F016,"Angel_Laguna_D_D1 - FLORDELIZA, ANGELITO.wav",Sandali lang ako kasi niyan si Kisoyan pa ako.,-0.068,-0.0068,0.1317,Falling,Falling
+F017,"Angel_Laguna_D_D2 - FLORDELIZA, ANGELITO.wav",Dalas kami pumunta ron pag walang klase.,-0.0606,-0.0077,0.1282,Falling,Falling
+F018,"Angel_Laguna_D_D3 - FLORDELIZA, ANGELITO.wav",Hindi ko agad narinigaw ang sinabi mo kanina.,-0.0189,-0.0035,0.1108,Uncertain,Falling
+F019,"Angel_Laguna_D_D4 - FLORDELIZA, ANGELITO.wav",Ibilin muna ako ng pagkain bago umuha.,-0.093,-0.013,0.1792,Falling,Falling
+F020,"Angel_Laguna_E_E1 - FLORDELIZA, ANGELITO.wav","Pag-gising ko pa lang, magsiselpon na ako.  Tapos, pababa ako,  tapos ako ng room.  Pag, pagka,  pagkababa ako,  if may pagkain na,  kung may ready ng pagkain,  pagkain ako,  parang kung mula pa,  magsishower na ako.  And, magbibihes.  Tapos, pupunta sa school.  Kung hindi pa ako ngain,  pupunta, paghanap muna ako ng pagkain ko.  And,  pagdating sa school,  mag-aaral na mabuti,  makikipag-uusap sa mga tao,  magagawa ng school stops,  tapos,  uwi at gagawa ng mga  kailangan gawin.  Boat sa bahay at  assignments sa schools.",-0.0058,-0.0001,0.6024,Uncertain,Falling
+F021,"Angel_Laguna_E_E2 - FLORDELIZA, ANGELITO.wav","There was one day na nag-duty ako sa Lente as a photographer sa graduation ng batch mga 2026.  So, 4am pa lang, nag-prepare na ako.  I-breakfast ako sa 7-11, mga 5am, and pumunta ako sa venue.  And then, ayan, whole day yung event.  Ang daming ganap, nakakapagod, nakatayo lang maghapon.  Tapos, 4pm na natapos yung event.  Tapos, when the event was done, I had to walk to the parking lot na napakalayo.  At, ayan, pag-uwi ko here, Santa Rosa, unfortunately, yung ati ko may sakit siya na kailangan siyang dalin sa hospital, sa ER.  I had to go with her.  And, kailangan kong antayin yung kapatid ko, yung nursing na nasa school pa, para sana makipagpalit.  So, nung inantay ko siya, at dawating na siya,  I had to go there, sa Kabuyo, sa bahay namin, para mag-edit naman ng photos, and para mag-gawa din ng thesis.  So, meron akong whole day, mula 4am hanggang 4pm, na physically active.  Tapos, mula nung mga 7pm up to 3am in the morning.  So, halos 24h din akong missing.  Ayan, tingin ko yun yung nakakapagod na araw para sakit.",-0.0038,0.0,0.5887,Uncertain,Falling
+F022,"Angel_Laguna_E_E3 - FLORDELIZA, ANGELITO.wav","Wala akong specific na  favoritong lugar here  sa Laguna.  Pero, meron akong  park na gusto ko, which is yung  sa may park na  makalagpas sa Los Baños.  Victoria,  Nagcarlan,  Kalawan,  and,  gusto ko yun kasi  malayo siya sa city,  and,  mahilig ako mag-drive  ng motorcycle,  and, walang traffic  dun, and, malawag yung  kalsada. So,  kapag pumupunta ako dun, mag-isa,  and, dadrive lang ako,  papunto sa Kawalan,  it's just me and my music.  Kaya,  ngayon,  it's a break from this  big  city.",-0.0903,-0.0002,0.5869,Falling,Falling
+F023,"Angel_Laguna_E_E4 - FLORDELIZA, ANGELITO.wav","Uh, huling hulakad.  Hindi ko maalala kung kahilan, pero me and my friends went to Pampanga to our other friend.  Na two friends na tagadaon.  And, ayun, wala kaming ginawa, kundi mag-inom ng tatlong araw.  Yun lang yung huling lakad ko sa mga balkaga.",0.0238,0.0001,0.7442,Uncertain,Falling
+F024,B1.wav,Ang saya pala dito. Ngayon lang ako nakapunta.,-0.291,-0.0195,0.5936,Falling,Falling
+F025,B2.wav,"Grabe ang traffic kanina, sobrang tagal ng biyahe.",-0.3756,-0.0197,0.6432,Falling,Falling
+F026,B3.wav,Parang malakas yata ang ulan mamaya.,-0.1973,-0.0134,1.185,Falling,Falling
+F027,B4.wav,Talaga? Hindi ko inaasahan ng mangyayari yun.,-0.3853,-0.0213,0.4592,Falling,Falling
+F028,B5.wav,Kailangan natin tapusin agad ang ginagawa natin.,-0.0801,-0.0108,0.3231,Falling,Falling
+F029,C1.wav,Anong oras kayo aalis bukas?,-0.3439,-0.0399,0.4443,Falling,Falling
+F030,C2.wav,Bakit parang tahimik mo ngayon?,-0.3772,-0.0452,0.4908,Falling,Falling
+F031,C4.wav,Pwede bang makahiram muna ng bullpen?,-0.3644,-0.0321,0.3783,Falling,Falling
+F032,C5.wav,Nakita mo ba kung saan niya nilagay iyon?,-0.3269,-0.0206,0.3597,Falling,Falling
+F033,D1.wav,Sandali lang ako kasi may aasikasuhin pa ako.,-0.3649,-0.0192,0.6029,Falling,Falling
+F034,D2.wav,Madalas kaming pumunta roon kapag walang klase.,-0.2142,-0.0184,0.7526,Falling,Falling
+F035,D3.wav,Hindi ko agad narinig ang sinabi mo kanina.,-0.4616,-0.018,0.5027,Falling,Falling
+F036,D4.wav,Bibili muna ako ng pagkain bago umuwi.,-0.1746,-0.0165,0.3602,Falling,Falling
+F037,D5.wav,Maaga akong nagising dahil maingay sa labas.,-0.0785,-0.0134,0.3729,Falling,Falling
+F038,E1.wav,"Gigising ako ng alas 4 ng madaling araw, tapos ako ay maghahanda ng pagkain, ako ay liligaw, magbibihes, tapos ako ay kakain, pagkatapos ay isasakay ng kotse, magmamaniho pa punta sa trabaho.",-0.4444,-0.0031,0.6724,Falling,Falling
+F039,Kaye_Laguna_A_A2.wav,Sangga ipo punta pagatapos ng klasi mamaya.,-0.0972,-0.0074,0.139,Falling,Falling
+F040,Kaye_Laguna_A_A3.wav,May init ngayon pero parang uulan mamayang gabi.,-0.0551,-0.0059,0.1287,Falling,Falling
+F041,Kaye_Laguna_A_A5.wav,Pwede po ba makaingin ng tulong saglit?,-0.1648,-0.0209,0.3098,Falling,Falling
+F042,Kaye_Laguna_B_B2.wav,Grabe naman ang traffic kanina.  Sobrang tagal ng biyahe.,-0.0324,-0.0037,0.1195,Falling,Falling
+F043,Kaye_Laguna_B_B3.wav,Parang malakas yata ang ulan mamaya.,-0.0083,-0.0028,0.0753,Uncertain,Falling
+F044,Kaye_Laguna_B_B5.wav,Kailangan natin tapusin agad ang ginagawa natin.,-0.0385,-0.0045,0.0938,Falling,Falling
+F045,Kaye_Laguna_C_C1.wav,"No, raskayalis bukas.",-0.0063,-0.0025,0.0635,Uncertain,Falling
+F046,Kaye_Laguna_C_C3.wav,May pasok pa ba tayo mamaya ng hapon?,-0.0358,-0.0062,0.1631,Falling,Falling
+F047,Kaye_Laguna_D_D1.wav,Sandali lang ako kasi may asikasuhin pa ako.,-0.0338,-0.0051,0.1159,Falling,Falling
+F048,Kaye_Laguna_D_D3.wav,Hindi ko agad narinig ang sinabi mo kanina.,-0.0019,0.0003,0.044,Uncertain,Falling
+F049,Kaye_Laguna_D_D4.wav,Bibili mo na ako ng pagkain bago umuwi.,-0.0292,-0.0075,0.1679,Uncertain,Falling
+F050,Kaye_Laguna_E_E1.wav,"Una kong ginagawa sa umaga is mag-cellphone muna, 10 to 20 minutes.  And after that, i-prepare ko na yung susuotin ko yung mga gamit ko, yung requirements ko sa school.  Then, almusal.  And after kumag-almusal, maliligo na ako.  And pag tapos kong maligo, i-prepare ko na yung sarili ko, magpapatiyo na ako ng buhok, i-prepare ko na yung baon ko.  And before umalis, nagsiselfphone ulit ako, mga 10 minutes.  After that, nag-motor na ako, papuntang school.  Minsan traffic, minsan hindi.  Pagpasok sa school, hanapin agad yung room, upo, maghihintay sa prof, maghihintay sa mga classmates, etc.",0.011,-0.0003,0.6941,Uncertain,Falling
+F051,Kaye_Laguna_E_E2.wav,"So, masasabi ko na nakakapagod yung araw ko kapag umaga hanggang buong maghapon, wala ako sa bahay.  Siyempre, unang-una sa lahat, may pasok ka, 7am.  May quiz, may lecture, may bigla ang recitation.  Tapos, ang break mo lang nun, one hour para kumain ng lunch.  After that, mostly ang labas namin is 4pm.  After yung 4pm, hindi ka pa agad uuwi kasi hindi pa agad ako uuwi kasi kailangan ko pong matandang training.  And yung training na yun, hindi naman siya easy lang kasi physical lang talaga yung pagod.  Na imbis na ipapahinga ko na lang, iti-training ko pa.  So, yung training namin, tumatagal pa yun ng 5pm hanggang 9pm.  And sobrang nakakapagod physically.  And, imbis na igagawa mo na lang ng assignments, ipapahinga mo na lang,  igagawa mo na lang sa gawaing bahay, hindi pa.  So, yung 9pm na yun, hindi ka pa agad makakauwi kasi babiyahe pa ako.  And, after that, pag-uwi ko ng bahay, hindi naman ako agad makakapagpahinga  kasi may need pa akong gawin, kakain pa ako, maglilinis pa ako ng mga natirang gawain.  And, sobrang nakakapagod kasi ilang oras lang itutulog mo,  kita bukasan, may pasok ka ka agad.",-0.0262,0.0,0.6593,Uncertain,Falling
+F052,Kaye_Laguna_E_E4.wav,"So, yung last lakad ko kasama yung barkada ko, is pumunta kami sa bahay ng friend namin.  Doon, nagkwentuhan kami.  Kasi matagal na rin kami hindi nagkita, so catch up lang sa mga nangyayari sa amin.  Yung isa, nagluluto ng fries.  Ako naman, yung nagluluto ng pansit kanton.  Tapos, yung mama ng friend ko, is gumagawa ng drink para sa amin.  Tapos, yung isa, nagsa-cellphone lang.  And, ayun, masaya kasi minsan na lang kami magkita-kita.  And, update na rin sa mga nangyayari sa college life namin since ito, graduating na kami.  And, masaya kasi before magkaroon ng pasok, nagkaroon kami ng time para mag-usap again, magkaroon ng bonding.",0.0062,-0.0002,0.6642,Uncertain,Falling
+F053,Litar - pasyal  o hirap.WAV,"Ang litter, pasyan o hikap.",-0.0703,-0.0008,0.319,Falling,Falling
+F054,Rahanrahan po lamang.WAV,Rahan-rahan po lamang.,-0.0383,-0.0129,0.1989,Falling,Falling
+F055,aa kainaman areng batang ire.WAV,"Oo, kayo naman na rin batang-ari.  Nanggikitata na ang suot-ing.",-0.0171,-0.0035,0.53,Uncertain,Falling
+F056,aa nakakabarino ka.WAV,"A-a, nakakabarino ka.",-0.2345,-0.0299,0.2837,Falling,Falling
+F057,aay bawasi paldo paldo nanaman eh.WAV,"Oo, bawasi.  Paldupal din na naman.  Kajakpat ka siguro, ano.",-0.2964,-0.0144,0.6071,Falling,Falling
+F058,aba_y Huo.WAV,abay huo'o.,0.0,0.0,0.0,Uncertain,Falling
+F059,aba_y hindi at akoy dine pinanganak eh ako dine mamamatay.WAV,"eh hindi, at ako di ni  pinanganak, eh ako di ni mamamatay",-0.0689,0.0015,0.5791,Uncertain,Falling
+F060,abay garni pala naman ang ugali eh tunay namang pagkakahitad nga naman pala eh kaya gay-on na lamang ang napapala ay jusko po rudy.WAV,"Apoy, garni pala naman na ugali, ay tunay namang pagkakahitad nga naman pala,  ay kaya gayo na lamang ang napapala ay suskupuruti.",-0.2122,-0.0053,0.5002,Falling,Falling
+F061,abay si utoy ay may sinat.WAV,Aby si UTMAC natin.,-0.0614,-0.0001,0.1747,Falling,Falling
+F062,adiyaw! yung bata nahulog s hagdan!.WAV,"Adeya, yung bata nahulog sa hagdan.",-0.1088,-0.0084,0.438,Falling,Falling
+F063,ako_y barinong-barino na sa iyo.WAV,Ako'y barinong-barinong sa iyo  Huwag kang lumapit-lapit sa akin  Baka gigil ka eh  Ako'y sasurahin mong bata ka  Ayan,-0.3076,-0.0037,0.6579,Falling,Falling
+F064,ako_y nababarino sa mga gay-an. pihadong ya_y pinagkukukunsinti la-ang ng mga magulang.WAV,"Eko'y nababarino sa mga gayaan, ay pihadong yung ipinagkukonsintila akong mga magulang.",-0.0576,-0.0048,0.4698,Falling,Falling
+F065,akoy nahihilo na kakahanap e.WAV,ako'y nahihilo nakakaanap  hindi ka man makakita yung winahanap,-0.0086,0.0001,0.0557,Uncertain,Falling
+F066,akoy surang sura na at gawa ng akoy anotalagang pangatal na ho ang aking dibdib ko_y kabog na kabog na.WAV,ako'y sura-sura na  at gawa na ako'y  ano na talagang pangatala ko  ang aking dibdib  ay kabug na kubug na,-0.0259,-0.0035,0.3638,Uncertain,Falling
+F067,"ala ay gay-on pala, ay akala ko na may garine. eh di akoy mali, gay-on na lamang ating gaw-in(1).WAV","Ala ay gayon pala, ay akala ko na may garni, hindi ako'y mali, gayon na lamang ating gawin.",-0.0554,-0.0007,0.827,Falling,Falling
+F068,"ala ay gay-on pala, ay akala ko na may garine. eh di akoy mali, gay-on na lamang ating gaw-in.WAV","Ala ay gayon pala, ay akala ko na may garni, hindi ako'y mali, gayon na lamang ating gawin.",-0.0554,-0.0007,0.827,Falling,Falling
+F069,ala eh akoy isang buwan na dine pagkaganun ang mga tao_y  palaging karipas at sa umaga ko pagsakarap ng kapeng barako.WAV,"Ala eh, ako'y isang buwan na din eh, pagkaganagan ng mga tao'y palaging karipas at sa umaga ko, pagkasarap ng kapeng bara ko.",-0.1352,-0.0037,0.4059,Falling,Falling
+F070,"ang akin hong ama ay photographer po, ngay-on po ay ngayon po ay di syempre ho kami ho ay laging nasa social media gawa ho ng ang akin hong ama ay post ng post ng kung ano ano gay-on ho..WAV",Ang akin hong ama ay photographer po.  Ngayon po ay di syempre ho kami ho ay laging nasa social media.  Gawa ho na ang akin hong ama ay post ng post ng kung ano-ano.  Ngayon ho.,0.014,0.0001,0.1435,Uncertain,Falling
+F071,"ano ayaw mo talaga, eh di wag..WAV",Ano? Ayaw mo talaga?  Eh di huwag.,-0.0554,-0.0044,0.6259,Falling,Falling
+F072,ano gang ulaga.WAV,Nugang ulaga.,-0.1541,-0.0187,0.1806,Falling,Falling
+F073,"ano ka gaman, ikaw ga_y ulaga.WAV",Huwag na namanin ko kayo laga!,-0.0369,-0.0017,0.1927,Falling,Falling
+F074,anong pagkakalamig looking for kayapos.WAV,Anong pagkakalamayg looking for kayapos?,-0.1217,-0.008,0.2039,Falling,Falling
+F075,"are oh abay katabi mo na, hindi mo pa makita. tutuklawin ka na.WAV","Aray oh, mabay ka tabi muna niyong pamakita.  Tutoklawin ka na.",-0.093,-0.0029,0.2519,Falling,Falling
+F076,"areng si kulas nakapunta laang ng maynila at nakatigil ng ilang bu-wan doon ay sawit na eh, nag-iba na ang punto.WAV","Aking si Kulas, nakapunta lang ng Maynila at nakatigil ng ilang buwan doon,  ay sa wit na eh, nag-iba na ang punto.",-0.0287,0.0007,1.1531,Uncertain,Falling
+F077,ari ga ang hinahanap mo.WAV,Arigang.  Tagay na hahanap mo.,-0.2076,-0.0113,0.3071,Falling,Falling
+F078,at ang mga taga batangas ho ay mahilig ho sa kapeng barako okay lang ho sa akin na uminom ng kapeng barako dahil ako poy batangueña.WAV,"At ng mga taga-batanggas ho,  ay mahilig ho sa Kaping Barako.  Okay lang ho sa akin  uminom ng Kaping Barako  dahil ako po'y batanggin niya.",-0.1752,-0.006,0.3195,Falling,Falling
+F079,ay Huo naman.WAV,Ayhoo naman.,-0.053,-0.0103,0.1053,Falling,Falling
+F080,ay alam ga ninyong ang sabi ng mamay itong ang sinumang hindi magmahal sa sariling punto ay daig pa ang laog na pusa at bangaw na aso.WAV,"ay alam ganin yung sabi ng mamay itong.  Ang sino mang hindi magmahal sa sariling tunto,  ay died pa ang laob na pusa at bangaw na aso.",-0.0401,0.0021,0.6581,Uncertain,Falling
+F081,"ay di ano ho, di akoy may cellphone ginagamit ko ho kunwari akoy nagvv-vlog.WAV","Ay di, ano ho, di ako yung may cellphone, ginagamit ko, kunwari ako yung nagbablog.",-0.1063,-0.0042,0.199,Falling,Falling
+F082,ay hay ako naman ay tinatamad na diyan sa module.WAV,"Ay, hay ako lang may tinatabad na dyan sa module.  At kung anong-anong tanong, hindi ko naman maaintendan ako tinatabad na maigay pa'y matulog.",-0.0274,-0.0034,0.4628,Uncertain,Falling
+F083,ay kainaman ka naman.WAV,Eh kainamang ka naman.,-0.1465,-0.018,0.179,Falling,Falling
+F084,ay kainaman na.WAV,ay kainaman na.,-0.0561,-0.02,0.2659,Falling,Falling
+F085,ay kapag may nabilita nabalitaang hawig na maganda ay siya ay siya pagsapit ng gabi may mga harana.WAV,"Ay kapag may nabalit ang lawig na maganda, ay siya.  Pagsapit ng gabi, may mga hara na.",-0.2709,0.002,0.6768,Uncertain,Falling
+F086,"ay mamayang gabi sasamahan mo ang mamay at manliligaw kay aling maria, ay pagka minamalas malas eh ang sasalubong sa inyo ay arinola.WAV","Ay, mami ang gabi, sasamahan mo mamay.  At manliligaw kay Aling Maria,  ay pagka minamalas-malas eh,  ang sasalubong sa inyo ay arinula.",-0.0413,-0.0015,0.6196,Falling,Falling
+F087,ay pag sa ulaga.WAV,ay pagsaulaga.,-0.2774,-0.0177,0.5002,Falling,Falling
+F088,ay sinasabi ko sainyo!.WAV,ay sinasabi ko sa AEL.,0.0322,-0.01,0.2372,Uncertain,Falling
+F089,ay siya diklom na koy lagunos ang ulan eh ay kumaripas ka na ng takbo at baka ikay abutan ng ulan ay wag kang sasayi baka ikay landangin.WAV,"Diklom na  Koy, Lagunos ang ulan na eh  Eh, kung maripas ka na ng dakbo  At baka kayo abutan ng ulan  Eh, huwag ka sasaya  Baka kayo landangin",-0.0559,0.0003,0.7092,Uncertain,Falling
+F090,ay siya.WAV,Are you sure?,0.0,0.0,0.0,Uncertain,Falling
+F091,"ay tingne nang maigi, ika_y ay mamalag-malag.WAV",Ay tingin ang maigi kay Mama Lagmalag.,-0.1598,-0.0142,0.2987,Falling,Falling
+F092,"ay uho, gawa ng ka- garne ho.WAV","Ay, uh-ho.  Uh-ho, gawa nang ka-  G-garani, ho.",-0.0711,-0.0023,0.4004,Falling,Falling
+F093,ay wag kang mamaasmaas dine baka ikaw ay masuwag ng tortorite.WAV,Ay huwag kang mamas-mas din eh.  Bakay ko eh masuwag ng turite.,-0.2367,-0.007,0.4348,Falling,Falling
+F094,ay walanjo.wav,"Aywa, lancook.",-0.053,-0.0059,0.0891,Falling,Falling
+F095,"ayos eh nabili ko yan sa ibayo, BANGLAYO lang talaga.WAV",Ayosan eh. Nabili ko yan sa ibayo. Bang layo lang talaga.,0.0886,-0.0015,0.2529,Uncertain,Falling
+F096,bagtasin mo nga iyong daang iyon.WAV,bagtasin mo nga yung daang yun,-0.152,-0.0166,0.2072,Falling,Falling
+F097,"bakit ga gusto mo lagi akong magalit, baka gusto mong makita ang hinahanap mo baka gusto mong makita ang hinahanap mo.WAV",Bakit gagusto mo lagi akong magalit?  Baka gusto mong makita ang hinahanap mo.,-0.4013,-0.0104,0.5052,Falling,Falling
+F098,banayaR po lamang.WAV,Banayar po lamang.,-0.1279,-0.0241,0.2817,Falling,Falling
+F099,bang gaganda talaga at bang popogi talaga ng mga tao sa rizal hane.WAV,Bang gaganda talaga at bang popogi ng mga tao sa Rizalani.,-0.1041,-0.0133,0.5657,Falling,Falling
+F100,bang-aw - ulol.WAV,"Bang aw, lol!",-0.1563,-0.0262,0.2424,Falling,Falling
+F101,bunRok.WAV,Bunrok.,0.0,0.0,0.0,Uncertain,Falling
+F102,buog.WAV,Bo-o-,0.0,0.0,0.0,Uncertain,Falling
+F103,buro ka nanaman ah.WAV,Buro ka na naman ah.,-0.0788,-0.0255,0.2597,Falling,Falling
+F104,dang layo pala ng inuuwian mo hane_.wav,Dang layo pala ng inuuwian mo han eh.,-0.0112,-0.0038,0.1066,Uncertain,Falling
+F105,di pa pero masubukan eh baka namn BANG-INIT roon.WAV,"Hindi pa, pero masubukan. Ay baka naman bang initroon.",-0.2245,-0.0154,0.386,Falling,Falling
+F106,diba ang sabi ko sa iyo ay ako ay sura na sa iyo.WAV,"Diba ang sabi ko sa iyo, ako sura na sa iyo,  pumarinig ka at mabanata na kita, dadago ka na kita.  Talagang sura na ako, pumarinig ka, pumarinig ka.  Dito, dito, pumarinig ka.  Talagang dadago ka na kita.",-0.0523,0.0002,0.6305,Uncertain,Falling
+F107,diyan la-ang.WAV,Jalala!,0.0,0.0,0.0,Uncertain,Falling
+F108,diyan lang kanina lang ako kasi dumating.WAV,Diyan lang? Kanila lang ako kasi dumating?,-0.0084,-0.0029,0.2035,Uncertain,Falling
+F109,diyos ko po rudy.WAV,"Ko paru, de!",-0.0906,-0.0119,0.114,Falling,Falling
+F110,"eh yung mga tao ay bahite, o eh sama.. masama ang lasa.WAV","Eh yung mga tao'y bahit eh.  Oh, isa mga masamaalas ah.",0.0271,-0.0069,0.5344,Uncertain,Falling
+F111,ga.WAV,Gah!,0.0,0.0,0.0,Uncertain,Falling
+F112,"grabe ka naman alam mo namang naghihintay na ko, hindi ka pa pumarine.WAV","Grabe ka naman.  Alam mo namang naghihintay na ako, hindi ka pa pumarin eh.",-0.0516,-0.0001,0.3626,Falling,Falling
+F113,hala ay kainaman naman po areng batang are ay sayang po naman ay pagkakagaling sa eskwela eh nabuntis laang.WAV,"Ala, eh, kainaman naman po aring batang-ari. Eh, sayang ko naman. Eh, pagkakagaling sa eskwela eh, nabuntis la ah.",0.0952,-0.0013,0.5456,Uncertain,Falling
+F114,hindi ka mapirmi.WAV,Hindi ka ma-permi.,-0.1214,-0.0206,0.1841,Falling,Falling
+F115,hoy anak! mag urong ka na nga ng pinggan diyan sa banggirahan!.WAV,"Hoy anak, mag-urong ka na nga ng pinggit dun sa banggilahan.",-0.0036,0.0045,0.8138,Uncertain,Falling
+F116,ika_y lumayas! ako_y nababarino sa iyong pagmumukha.WAV,"Like kayo, lumayas ako na babarino sa iyong pagmumuka.",-0.0597,-0.0058,0.1016,Falling,Falling
+F117,ikaw bata ka kapag akoy nakalapit-lapit.WAV,ikaw bata ka pag ako'y nakalapit-lapit diyan.,0.0097,0.0166,0.4202,Uncertain,Falling
+F118,ikaw ba’y may boyfriend na_.wav,Ikaw bae may boyfriend na?,-0.1644,-0.0247,0.29,Falling,Falling
+F119,"ikaw pa talaga unang kukurot sa lechon HANE, di ka nga imbitado eh YA MUKHA mo ah!.WAV",Ikaw pa talaga o ng kokrut sa lechonan eh.  Hindi ka nga invitado eh.  Yamo-amo ah.,-0.0714,-0.0016,0.2628,Falling,Falling
+F120,kailan ka ga dumating.WAV,Kaila agad dumating!,0.0095,0.0042,0.1087,Uncertain,Falling
+F121,"kainaman areng anak ni ka pili, eh napakatsismosa eh kaingay ingay pa diyos ko po rudy.WAV","E naman aring anak ni Kapili, napakajismosa, e kaingay-ingay pa, Diyos ko puro de.",-0.14,-0.0057,0.3964,Falling,Falling
+F122,kainaman ka naman.WAV,Inamang ka naman!,-0.1384,-0.0157,0.4209,Falling,Falling
+F123,kalaki ng mata_y bibig ang pinanghahanap ay yano.WAV,"Kung laki ng matay, bibig ang pinahahanap iyan.",0.0049,-0.0039,0.2957,Uncertain,Falling
+F124,kanina lang ako dumating.WAV,Kanina lang ako dumating.,-0.0015,0.0003,0.0352,Uncertain,Falling
+F125,karipas - mabilis na pagtakbo.WAV,"Karipas,  mabilis na pagtakbaw.",0.0097,0.0002,0.5515,Uncertain,Falling
+F126,"kaya nga pare, diba sabi mo naman Rati Bangkababaho ng hininga.WAV","Kaya nga pare, di ba sabi mo rin naman rate, bangka babaho ng hininga.",-0.0305,-0.002,0.1948,Falling,Falling
+F127,kumain ka na ba_.wav,Kumain ka na ba?,-0.0548,-0.0214,0.2085,Falling,Falling
+F128,kumbagay may usapan kayo ngayon ay hindi dumating.WAV,Kumbaga may usapan kayo ngayon ay hindi dumating.,-0.0062,0.0,0.0838,Uncertain,Falling
+F129,kung bakit bagay pinapalabas pa ng bahay bakit bag.WAV,Kung bakit bagay pinapalabas pa ng bahay?  Bakit bagay hindi nalaang bantay doon sa bahay ng maigi?,-0.0874,-0.0056,0.3991,Falling,Falling
+F130,kuya san mo binili tong chicharon BANGlutong aba.WAV,"Kuya, sa mo binili itong chicharon bang loto nga ba?",-0.0327,-0.0015,0.4132,Falling,Falling
+F131,ma kaunin mo nga yong perokperok natin diyan.WAV,Makakulin mo nga yung perok-perok natin yan at brownout na naman daw mamaya.  Sabi sa balita eh.,-0.0341,0.0002,0.2754,Uncertain,Falling
+F132,mag imis at ikustal ang kayakas na pinagwalisan pag ikaw ay paungkot ungkot at ikaw ay nakita ng mamay ay siya hihiyawan ka.WAV,"Nag-emails at ikustan lang kayakas na pinagwalisan.  Pag ikaw'y pangkotongkot at ikaw'y nakaitang mamay, ay siya.  Hihiyawang ka.",-0.421,-0.0032,0.613,Falling,Falling
+F133,magabulak ng tubig at humigop ng kapeng barako.WAV,Magpabulak ng tubig at humigop ng kaping barakaw.,0.0178,0.0049,0.3249,Uncertain,Falling
+F134,"magaling pa ay tumimong sa bahay at maglaba ng tubal, tambak na eh.WAV","Galim pa'y ikaw ay tumimong sa bahay at maglaban ng tubal, tambak na eh!",-0.2729,-0.0077,0.4265,Falling,Falling
+F135,magdayag na kayo.WAV,magdayag na kayo.,0.0,0.0,0.0,Uncertain,Falling
+F136,manlimot ng panggatong kahit siit. maggamas. at magtabas ng sukal sa harapan ng bahay.WAV,Malimot ng panggataw kahit si it.  Maggamas at magtabas ng sukal sa harapan ng bahay.,-0.0253,-0.0004,0.6225,Uncertain,Falling
+F137,mga bata hwag kayong mag landi diyan.WAV,"Mga bata, huwag kayo maglandidi yan.",0.009,-0.0058,0.2024,Uncertain,Falling
+F138,mga salitang malimit gamitin ng isang batanguenyo.WAV,"Mga salitang malimig, gamitay ng isang batanggin niyo.",-0.0115,-0.0011,0.1169,Uncertain,Falling
+F139,nagkwento sa akin noong yumaon sa dagat.WAV,"Eto nga, sikwedaan eh.  Kamo, eto.  Nagkwento sa akin eh.  Lung lumakot siya sa dagat eh.  Nung nasa kalagit na doon siya ng dagat eh,  nangawil, ano?  May tala siyang kawil.  Nangawil eh.  Hala, sa sobrang dami ng isdang nakapaligid,  hindi niya maibaba yung kawil.  Sa sobrang dami ng ulo ng isda,  sa paligid ng bangka niya,  hindi niya maibaba yung kawil.  Hala, sa sobrang inis,  ay umuwi.",-0.0318,-0.0006,0.6351,Falling,Falling
+F140,nakakaiyamot itong taong ito.WAV,nakakaiyamot itong taong ito.,-0.0043,0.0287,0.3243,Uncertain,Falling
+R001,A5.wav,Pwede po bang makahingi ng tulong saglit?,0.0248,-0.0012,0.1326,Uncertain,Rising
+R002,"Angel_Laguna_A_A1 - FLORDELIZA, ANGELITO.wav",Kamusta? Kumain ko na ba bago umalis kanina?,-0.0114,-0.0055,0.4849,Uncertain,Rising
+R003,"Angel_Laguna_C_C2 - FLORDELIZA, ANGELITO.wav",Na wat parun tahimik moyo?,-0.0102,-0.0098,0.424,Uncertain,Rising
+R004,"Angel_Laguna_C_C3 - FLORDELIZA, ANGELITO.wav",Pasok pa tayo mga mayang hapun.,0.0103,0.0017,0.4245,Uncertain,Rising
+R005,"Angel_Laguna_C_C4 - FLORDELIZA, ANGELITO.wav",Pwede pang makairam muna ng ball pen.,0.0068,0.002,0.0924,Uncertain,Rising
+R006,"Angel_Laguna_D_D5 - FLORDELIZA, ANGELITO.wav",Haga akong nagising dahil may ingay sa labas.,0.0493,0.0041,0.2048,Rising,Rising
+R007,BACK UP E2.wav,Ang isang nakakapagod na nangyari sa akin sa loob ng isang araw ay nung ako'y nagmaniho ng alas 4 ng madaling araw.  Papunta ako sa lugar ng Sambales na dapat ay 6 na oras lamang pero sa kadahilanan ng matinding trapiko ay inabot ako ng 16 na oras.,0.184,0.0001,0.7499,Rising,Rising
+R008,Bahite - walang pera.WAV,Ang bahit eh!  Walang pera!,1.0143,0.0789,1.3519,Rising,Rising
+R009,C3.wav,May pasok pa ba tayo mamayang hapon?,0.1173,0.0095,0.56,Rising,Rising
+R010,E2.wav,"Ang isang nakakapagod na nangyayari sa akin sa loob ng isang araw ay nung nagsimula akong magmaneho ng alas 4 ng madaling araw,  papunta ako sa lugar ng Sambales na dapat saan ay 6 na oras lamang pero sa kadahilanan ng matinding trapiko ay inabot ako ng 13 oras.",0.0435,0.0001,0.6514,Rising,Rising
+R011,E3.wav,Ang isang magandang lugar sa aming probinsya ng Quezon ay ang napakagandang tanawin sa karagatan.  May mga kulay asul na tubig at puting buhangin. Maraming mga turista ang dumadayo rito.,0.3693,0.0029,0.7229,Rising,Rising
+R012,E4.wav,Ang huling lakad namin kasama ang aking mga barkada at pati na ang aking pamilya  ay noong nagkamping kami sa lugar ng Dolores Quezon.  May malawak na swimming pool doon pati na palaruan ng mga bata.  May makikita ka rin magagandang bulaklak dito.,0.1585,0.0001,0.538,Rising,Rising
+R013,EH (SAD).WAV,E,0.0,0.0,0.0,Uncertain,Rising
+R014,"Eh, maniwala ako sa iyo.WAV",Eh? Mani rola aksa ayo.,0.4164,0.04,0.7884,Rising,Rising
+R015,Gura - Sumbrero.WAV,"Gura, sombrero.",0.1684,0.0229,0.2039,Rising,Rising
+R016,KAINIT~1.WAV,"kainit-init,  ay wala ka namang kaguragura,  ay mamaya ikaw ay landang.  Bago ikaw ay  pupunta sa  albularyo at magpapagamot,  ay ang albularyo naman  hindi mo makausap sa gab, eh.  At barik na.",0.0206,0.0003,0.9799,Uncertain,Rising
+R017,Kaye_Laguna_C_C2.wav,Bakit parang taymik mo ngayon?,0.0133,0.0014,0.0354,Uncertain,Rising
+R018,Naku! kailangan ko na palang umuwi ngay-on at malapit na palang mag gab-i.WAV,Kailangan ko na pala umuwi ngayon  at malapit na pala mag-  Eh!,0.0535,0.0083,0.3563,Rising,Rising
+R019,Raga.WAV,Raga.,0.0,0.0,0.0,Uncertain,Rising
+R020,Ragat.WAV,Ragat.,0.0,0.0,0.0,Uncertain,Rising
+R021,Ringring.WAV,"Ring, ring.",0.0,0.0,0.0,Uncertain,Rising
+R022,abay utoy paabot nga ng silo.WAV,"abay utoy, pabot nga ng silok",0.0278,0.0127,0.1426,Uncertain,Rising
+R023,"ah ah diyos ko po!  ay ano baga namang pagkakaingay ng bilot kagabi yung bilot ng kahanggan. ay tunay ka namang maya_t maya_y kangkang e, ay ako di na makatulog, pagkakaingay.WAV","Ah, ah, Diyos ko po.  Ay, ano ba ka namang pagkakaingay ng bilot kagab?  Eh, yung bilot ng kahanggan.  Ay, tunay ka namang mayot may kangkang.  Eh, ay ako hindi na makatulog.  Pagkakaingay.",0.0209,0.002,0.8916,Uncertain,Rising
+R024,akyat nga pala ako ng burok para manguha ng ruhat at ibenta sa tinrahan..WAV,kaya kakawala akong nambunro  para nangunro at katibenta sa tinrahan,0.0225,0.0034,0.2805,Uncertain,Rising
+R025,"ala eh, pagkakasalida. ako ho si maloi.WAV",ALAEN!  Ong kakasalita! Ako po si Balay!,0.0587,0.0026,0.4009,Rising,Rising
+R026,amusing amusin ka nanaman eh itsura mo oh.WAV,Amusing-amusing ka na naman eh.  Cura mo.  Pandug yut eh.,0.1562,0.0048,0.8903,Rising,Rising
+R027,ang mamay ay may bilin sa umaga.WAV,Ang mama yin may biling sa omaga,0.1225,0.0133,0.1841,Rising,Rising
+R028,ang mga bargas at busong na taoy nabibilangki dine.WAV,Ang mga bargas at busong na tao ay nabibilang kay Dine.,1.0799,0.0281,1.5388,Rising,Rising
+R029,ang mga tao sa amin dine kapag naghuhuntahan ay kaiingay.WAV,"Ang mga tao na sa amin,  din ay kapag naguhuntahan,  ay kaiingay.",1.2716,0.012,1.5103,Rising,Rising
+R030,ang usapan namin e dadaanan ako sa kanto.WAV,"Ang usapan namin eh, dadaanan na ko sa kanto ng bukandal, hindi ako dinaanan.  Kapag ko sa'yo, hindi nagdala ako sa sarili ko sa sakyan.",0.067,0.0013,0.5652,Rising,Rising
+R031,anim na oras ka ng late eh pumasok ka pa talaga hane YA MUKHA mo ah.WAV,"Anim na oras ka nang liti pumasok ka pa talaga, nahiya mo ka nga mo ah.",0.0539,0.0004,0.317,Rising,Rising
+R032,"anlah, ay bakit! ay kay bata-bata pa nuon eh.WAV","Alay, bakit? Ay kabata-bata pa noon eh?",-0.0079,0.0028,0.2655,Uncertain,Rising
+R033,"anlah, ay nabuntis ay nag-aaral pa iyon eh.WAV","Alay, nabuntis!  Ay, nag-aaral pa yun eh!",0.1937,0.0123,0.4402,Rising,Rising
+R034,ano ba (2).WAV,Ano ba?,0.0,0.0,0.0,Uncertain,Rising
+R035,ano ba ga.WAV,Ano paga?,0.0,0.0,0.0,Uncertain,Rising
+R036,ano ba.WAV,Anubah!,0.0,0.0,0.0,Uncertain,Rising
+R037,"ano ga are dine, parne ka, tuturuan kita. papagarine, papagarne ha..WAV",Ano ga are?  Dini!  Pernika!  Tuturuan kita!  Papagarinay!  Papagarinya!,0.039,0.0038,0.7143,Rising,Rising
+R038,ano ga.WAV,Ano ka!,0.0,0.0,0.0,Uncertain,Rising
+R039,ano ka ba naman.WAV,Ano ka ba naman?,0.0617,0.0187,0.2124,Rising,Rising
+R040,ano ka ga naman.WAV,"Oh, guna man!",0.0,0.0,0.0,Uncertain,Rising
+R041,are.WAV,Array.,0.0,0.0,0.0,Uncertain,Rising
+R042,asbag - mayabang.WAV,Ang asbag mayabang.,0.1715,0.0343,0.7742,Rising,Rising
+R043,asbar - garuti.WAV,Pasbar!  Garote!,0.5139,0.0606,0.8023,Rising,Rising
+R044,at pag ikaw ay mataas na ang araw at ikaw ay buog pa ay siya ay siya yung ikaw ay yung ikaw ay may asbar.WAV,"At pag ikaw'y mataas ng araw at ikaw'y buhok pa, ay siya.  Yung ikaw'y miyasbar.",0.8633,0.0184,1.0456,Rising,Rising
+R045,at talagang pagkakaulaga.WAV,Talagang pagkakaulaga.,-0.092,0.0061,0.6147,Uncertain,Rising
+R046,atungal - iyak.WAV,Atungal.  Iyak.,0.0106,0.0569,1.2114,Uncertain,Rising
+R047,"ay ano ga, ako pa ga_y pagbibigyan mo isang yapos laang e, di pa pagbigyan. Dali na!.WAV","Eh, ano ga?  O, pag ipagbibigyan mo?  Sanya pos lang, eh.  Hindi pa pagbigyan.  Dali na!",0.238,0.0052,0.8952,Rising,Rising
+R048,ay ba_t balita ko yung iyo daw tagiliran ay nagsasakitin gayak ikaw bilis bilis ikaw at isusugod kay tuklaw.WAV,"Eh babe, balita ko yung ayaw daw tagiliran ay nagsasakitin.  Gayak ikaw, bilis-bilis ikaw, isusugod kay Tuklaw!",0.0031,0.0007,0.4366,Uncertain,Rising
+R049,ay hay awan nga dami ngang gawa akoy surang sura na.WAV,"Ay, hay, awan nga, daming manggawa ako'y suraksura na hiyak na iiyam.",0.2149,0.0066,0.8242,Rising,Rising
+R050,ay kainaman naman iyon.WAV,"eh, kaya naman naman iyon!",-0.0036,0.0077,0.3094,Uncertain,Rising
+R051,ay kasarap namang kumain ay lalo na_t sakol.WAV,Ay kasarap na mong kumain at lalo na't sa call.,0.1584,0.023,0.4721,Rising,Rising
+R052,"ay siguro nama_y alam ninyo ang tuyo, edi kapatid ng sapsap iyon.WAV",ay siguro na may alam ninyo ang tuyo.  Pwede kikapatid ng sap-sap yun.,0.1553,0.0029,0.606,Rising,Rising
+R053,ay yung nanay moy ganiyan din nung kadalagahan ay yanong ganda.WAV,Ayong nanay may gayaan din ng kadalagahan eh.  Yan ang ganda.,0.0776,0.0058,0.2394,Rising,Rising
+R054,babag - away.WAV,Babag.  Away.,0.6073,0.0823,1.2888,Rising,Rising
+R055,balatong - munggo.WAV,Balatong  mungkaw.,0.614,0.0587,0.8058,Rising,Rising
+R056,bangi - inihaw.WAV,Bangay!  Inihau!,0.2123,0.0253,0.3108,Rising,Rising
+R057,barik - lasing.WAV,"Ba-rek, la-san!",0.4977,0.0973,1.3987,Rising,Rising
+R058,buog - tulog pa.WAV,"buo, tulog pa.",0.0736,0.0238,0.4925,Rising,Rising
+R059,busyar - busog.WAV,Busyar.  Busong.,0.4471,0.0594,0.8996,Rising,Rising
+R060,diga.WAV,Diga!,0.0,0.0,0.0,Uncertain,Rising
+R061,diklom - kulimlim ang langit.WAV,Ang diklong kolumlim ang langit.,0.0204,0.0021,0.204,Uncertain,Rising
+R062,dine.WAV,Diné!,0.0,0.0,0.0,Uncertain,Rising
+R063,dito sa aming barangay sabi nga ay napakalalim daw.WAV,"Dito sa aming barangay, sabi nga ay napakalalim daw.  Ay, ako yung yan, inilista ko yung iba at ating isa-isahin.  Yung mga lagi kong iniimik ba, minsan ay hindi po ninyo naiintindihan.",0.014,0.0003,0.8381,Uncertain,Rising
+R064,diyan la-ang kanina lang ako dumating.WAV,"Diyan lang, kanina lang ako dumatay.",0.9808,0.0332,1.1353,Rising,Rising
+R065,diyan lang.WAV,Yalla!,0.0,0.0,0.0,Uncertain,Rising
+R066,"eh di gayun nga ho, eh di kami ho_y nandodoon nga sa banyaga sa may agoncillo, eh ang lola ko ho ay ayaw pa hong lumikas.WAV","Ay, di ganyan ho.  Ay, di kami ho ay nandudun nga sa Banyaga,  sa May Agoncillo.  Ay, ang lola ko ho, ay ayaw pa kong lumikas.",0.1235,0.0021,0.3498,Rising,Rising
+R067,garine.WAV,Garinay.,0.0,0.0,0.0,Uncertain,Rising
+R068,garne.WAV,Garnay.,0.0,0.0,0.0,Uncertain,Rising
+R069,"gusto ng inom eh,  wag kang asbag. at baka ikaw eh masumbi, baka ikaw eh mataluti pa sa dinatnan. bago pag nasumbi eh atungal.WAV","Sasabihin sa iyo, ikaw ikaw idadayo ng inumi, wag kang asbag, at baka ikaw masumbi, baka ikaw mataluti pa sa dinatnan, bago pag nasumbi atungan.",1.3227,0.0003,1.6925,Rising,Rising
+R070,hawot - tuyo.WAV,"Hawo, doyo!",0.6467,0.0857,0.663,Rising,Rising
+R071,ho.WAV,Oh!,0.0,0.0,0.0,Uncertain,Rising
+R072,hoy anak! tingnan mo nga yung tatay mo diyan sa nayon baka nakikipag ud-uran na naman!.WAV,"Hoy anak, tingnan mo ngayon tatay mo dyan sa nangit, baka nakikipag-udura na naman.",0.05,0.0008,0.1513,Rising,Rising
+R073,hoy linggo bukas ika_y magsimba hane.WAV,"Hoy, linggo bukas. Ikay magsimbahan eh.",0.0627,0.0082,0.1966,Rising,Rising
+R074,huntahan - kwentuhan.WAV,Untahan!  Kuntuhan!,0.1875,0.027,0.8373,Rising,Rising
+R075,huwag mo nga akong asarin nang asarin.WAV,"Huwag mo nga akong asarin ang asarin.  Nabubwisit na ako, dadagukan na kita.  Kakabwisit eh.  Piko na ako.  Dadagukan kita, sige.  Pagpatuloy mo yan.",0.0538,0.0008,0.7112,Rising,Rising
+R076,ika_y ga_y ulaga.WAV,Ikaigay ulaga.,0.0644,0.0059,0.118,Rising,Rising
+R077,ika_y lumayas! ako_y nababarino sa iyong pagmumukh.WAV,"Alah, ay sasama ka pa gaya ko na laang, biyabit pa kita eh.",0.2095,0.0145,0.7388,Rising,Rising
+R078,ikaw ba_y ano anak ni ka-cecille pagkakagandang bata.WAV,"Ay, ikay ba'y anak ni ano?  Ni ka Cecil?  Ay, oo nga ano, tapakagandang bata ang ariin.",0.2991,0.0055,0.7795,Rising,Rising
+R079,"ikaw ga_y nakapagsaing na, kainaman ka na pagkaganan ako wala pa akong taghalian, wala pang hapunan ay wag mo kong iniiyamot.WAV",Ito ginakapagsaing na.  Kaya namang napagkaganakoy wala pang tanghali ay wala pang hapunan.  Eh huwag mo kong iniiyam oh.,0.702,0.0031,1.3255,Rising,Rising
+R080,ikaw na nga ang humanap doon.WAV,Ikaw na ang kumanap doon?,0.1589,0.0206,0.231,Rising,Rising
+R081,imis - maglinis.WAV,"Imes, maglinis.",0.0921,0.0331,0.6642,Rising,Rising
+R082,ipagkanaw mo nga ako ng kape at ako ay lamig na lamig.WAV,Pagka na humungha ko ng kapay at ako'y lamig na lamig eh.  Talagang gusto kong mainitan ng aking sikmura.  Pagka na humungha ko ng kapay.,0.2894,0.0053,0.4437,Rising,Rising
+R083,ipagngungudngudan ko kapag nakita ko ang hinahanap ko iyan.WAV,Pag ngungud-ngud ako kapag nakita ko yung hinahanap ko ng iyan.,0.033,0.0009,0.1508,Rising,Rising
+R084,kainaman ka naman bumili ka pa alam mo namang meron na dine.WAV,"Kainaman ka naman, bumili ka pa, alam mo namang meron na din eh.",0.09,0.0007,0.3967,Rising,Rising
+R085,"kala moy may babagan na eh, ay kalapit lang ang kausap kalakas ng boses, kala moy galit.WAV","Kala mo'y may babaganay, ay kalapit lang ang kausap, kalaas ng boses, kala mo'y galit.",0.0289,0.0125,1.7969,Uncertain,Rising
+R086,kami_y pangatal na kami pangatal na ho ay talagang.WAV,pangatal na kami.  Pangatal na ho ay talagang takbo na kami.,0.7643,0.0248,0.8172,Rising,Rising
+R087,kanina pa ako naghahanap eh.WAV,Ma! Kaya na pangaganap eh!,0.0242,0.0015,0.3428,Uncertain,Rising
+R088,"kanino bang mga anak ito ah, NAGKAKARAAN sa loob eh, may mga gamit baka makaaksidente.WAV","Kanina bang mga anak ito ah, nagkakarahan sa loob ay may mga gamit, baka makaaksidente.",0.0905,0.0021,0.2074,Rising,Rising
+R089,kapulong - kausap.WAV,Kapulong!  Kau sắp!,0.8339,0.0646,1.1936,Rising,Rising
+R090,"kaynasampiga ko looking for kayapos, eh pagkagarneng malamig, ang hinahanap ay lume o di kayay kumot, kakababaeng tao eh kanding kande, nasampiga ko, nakadali ka!.WAV","kinasampig ako.  Looking poor kaya,  post?  Eh pagkagarning malamay,  kang hinahanap ay luma eh,  o di kayo kumout.  Kakababahing tayo,  kandeng-kande.  Nasampig ako,  kadali.",0.2934,0.0049,0.7833,Rising,Rising
+R091,kitay mag miminandal na.WAV,Kita'y magmiminindal na.,0.0579,0.0119,0.1429,Rising,Rising
+R092,"ku po, naku po.WAV",Nakupo! Nakupo!,0.601,0.0484,0.7333,Rising,Rising
+R093,"kumangkang na nangg kumangkang ang bilot na yun. yun yata_y hindi na pinaparamot. Ako hindi na nakatuoh kagabi, jusko ko po.WAV","Kumangkang na lang, kumangkang ang bilot na yun.  Yung yata'y hindi na pinapara mo.  Ako hindi na nakatulog kagabi.  Saka po.",0.0642,0.0018,0.6987,Rising,Rising
+R094,kumusta mga idol alam ga alam ga ninyo ang mga taga batangas eh malalalim magsalita tagalog na eh hindi pa maintindihan ng iba.WAV,"Kumusta, mga idol?  Alam gan ninyo?  Ang mga taga-batangas eh, malalim ang salita.  Tagalog na eh, hindi pa maintindihan ng iba.",0.419,0.0051,0.8638,Rising,Rising
+R095,kumusta.WAV,Como está?,0.0,0.0,0.0,Uncertain,Rising
+R096,kupo pagkakapangkal.WAV,po pagkakapangkay.,0.5765,0.0653,0.6601,Rising,Rising
+R097,kupo.WAV,Coupon!,0.0,0.0,0.0,Uncertain,Rising
+R098,landang - lagnat.WAV,Landang.  Lagnap.,0.3147,0.0344,1.146,Rising,Rising
+R099,maas - tanga.WAV,"Mas,  Tanga!",0.0816,0.0661,1.0678,Rising,Rising
+R100,"mag sosorry na nga ikaw ga_y titigas pa sa akin, ano ga inililigalig mo.WAV","Susuri na nga!  Kung kayo titigas pa sa akin, anong kayo nililalig mo?",-0.0028,-0.0074,0.4976,Uncertain,Rising
+R101,magpabulak - magpakulo.WAV,Magpabulak.  Magpakulaw.,0.4784,0.0304,1.1484,Rising,Rising
+R102,magsaing magbangi ng hawot at magluto ng balatong timuse kung may lasa at pihong busyarang mamay tuloy pa ang pandali.WAV,"Magsaing, magbangin ang hawat, at magluto ng balatong, timose kung may lasa, at pihong bussyarang mamay, tuloy pang pandale.",0.7994,0.0057,1.093,Rising,Rising
+R103,mahal nag sorry na nga di ga_y akoy aminado na na ako ngay hindi nakapamaalam eh ako naman yung magsasabi sa iyo eh.WAV,"Ah, alay, sorry na nga.  Madigyan ko yung minadunan.  Ako nga hindi nakapamaalam.  Ako naman yung magsasabi sa iyo eh.",0.015,0.0046,0.5972,Uncertain,Rising
+R104,mainit ga din sa inyo ngay-on grabe ano ga pagkakabanas sa amin.WAV,"Mainig galing sa inyo ngayon?  Grabe, ano kong pagkakabana sa amin?",0.1271,0.0111,0.68,Rising,Rising
+R105,mamay - lolo.WAV,"Vama ay, Lolo.",0.1359,0.02,0.6387,Rising,Rising
+R106,manghiso - magsipilyo.WAV,"Manghiso, magsipilyo!",0.0484,0.0171,0.1913,Rising,Rising
+R107,mataluti - madaldal.WAV,Matalute!  Madaldal!,0.7333,0.0606,1.4547,Rising,Rising
+R108,nakakaiyamot ka naman ay.WAV,makakaiimot ka naman ay,0.1628,-0.0038,0.6073,Uncertain,Rising
+R109,"naku po! ay kita, kita niyo ga ayan gaganlaki na ng usok ay galing itim na.WAV","Ako po, kita nyo, gagaling laki ng usok, ay galing itim na.",0.3668,0.0089,0.7222,Rising,Rising
+R110,"naku, napagkasarap hu noon.WAV","Nako na, pagkasala po noon.",-0.0217,0.0414,0.7696,Uncertain,Rising
+R111,napakabuslog nitong taong ito ay hindi pumunta.WAV,"Napaka-boslog na itong taong ito, hindi pumunta.",0.7182,0.0616,0.9749,Rising,Rising
+R112,oh nariyan ka na pala may pagkain sa lamesa ika_y kumain hane.WAV,"Oh, nariyang ka na pala. May pagkain sa lamisa. Iki kumainhan eh.",0.0633,0.0068,0.2569,Rising,Rising
+R113,"oh wag mong itapon at iinumin ko pa yan mamaya, YA MUKHA nito ah.WAV",Huwag mong itapon at iinumin ko pa in mamaya.  Haya mo ka nito ah.,0.1545,0.0048,0.375,Rising,Rising
+R114,oy may dayo duon sa kabilang brgy ah nakita mo ba.WAV,"Uy, may dayo doon sa kabilang barangay ah. Nakakita mo ba?",-0.016,-0.0061,0.4442,Uncertain,Rising
+R115,paabot nga ng labakara.WAV,Paabot nga ng labakara.,0.0392,0.004,0.044,Rising,Rising
+R116,paabot nga po ng suking.WAV,Pabot nga po ng suking.,0.2278,0.0308,0.4494,Rising,Rising
+R117,pagbaba ko naman ay kukunin ko ang sanrok sa ringring para magluto ng rinuguan.WAV,Pagproba ko naman ay kukunin kung sa narok sa ring ring para magluto ng renuguan.,0.0876,0.0106,0.5014,Rising,Rising
+R118,"pagkabango, magmumog at manghiso bago mangupay.WAV","Pagkabangon, magmumog at manghiso bago mangumpay.",0.3246,0.0102,0.8503,Rising,Rising
+R119,"pare nakakain ka na ba roon sa bagong karinderya sa kanto, BANG sarap ng mga pagkain.WAV","Pare, nakakain ka na ba roon sa bagong karenderya sa kanto?  Bang sarap na mga pagkain.",0.1673,0.0071,0.4059,Rising,Rising
+R120,parine.WAV,Parine.,0.0,0.0,0.0,Uncertain,Rising
+R121,parne.WAV,Parne!,0.0,0.0,0.0,Uncertain,Rising
+R122,pasuray-suray - paliko-liko.WAV,"Pasuray-suray, palikulikaw!",1.0088,0.0738,1.1148,Rising,Rising
+R123,paungkot-ungkot - paupo-upo.WAV,Ba-ro-ko-to-ko-po-po-po-po-po-po-po-po.,0.0123,0.0047,0.1571,Uncertain,Rising
+R124,pwede kong kainin ng isang linggo.WAV,Pwede kong kainin ng isang linggo.,-0.0146,0.0426,0.6127,Uncertain,Rising
+R125,sa susunod na la-ang uli at dine e nalalim na ang gabi bubuog muna ako.WAV,Sasusunod na lang uli.  At dini...  Nalalim ng gabi.  Bubuog muna ka.,0.927,0.0122,1.1988,Rising,Rising
+R126,sabi nang tigilan ang pagaasar sakin eh.WAV,"Sabi ng tigilan ng pag-asar sa akin eh, sura na nga ako.  Surang-sura na ako.  Tigilan mo na ako.  Surang-sura na nga.",0.194,0.0039,0.7779,Rising,Rising
+R127,sasabihin sa iyo ay ang pagkakapangkal mo ay pagka ikay paupo upo ay siya ay wala kang matatapos na trabaho.WAV,"Nakasabihin sa iyo eh, ang pagkakapang kalmaw.  Eh pagkakitipaw-upo-upo, eh siya eh wala akong matatapos na trabaho.",0.1079,0.0033,0.6576,Rising,Rising
+R128,"sasama ka pa, ako na la-ang, biyabit pa kita eh.WAV","Alah, ay sasama ka pa gaya ko na laang, biyabit pa kita eh.",0.2095,0.0145,0.7388,Rising,Rising
+R129,sukal - malago na anag damo.WAV,"Sukal, malagunan damo.",0.1745,0.0155,0.203,Rising,Rising
+R130,sumbi - suntok.WAV,Sumbi.  Suntok.,0.7079,0.067,0.8135,Rising,Rising
+R131,sungasub - nadapay una mukha.WAV,"So nga saob, nada pa, unay mo ka!",0.3241,0.0146,0.8301,Rising,Rising
+R132,ta naman ay hindi ka nagpapasali ay.WAV,Ang tao naman ay hindi tayo nagpapasali ay kaya ba ang tuloy na dapa ay maigi nga.,0.1116,0.0018,0.3936,Rising,Rising
+R133,takin ng aso ay dinig at kulinting ng gitara ang lawig may dayo may bagong dating na babae maganda.WAV,Taki ng aso ay dinig at kulinting ng gitara.  Ang lawig may dayo.  May bagong dating na babae. Maganda.,0.5052,0.0076,0.8741,Rising,Rising
+R134,talagang sa inis ko sa iyo ay hahampasin kita ng bote.WAV,"Talagang sa inis ko sa iyo.  Eh ha, hampasin kita ng bote  nang mapurungo yung ulo mo.  Talagang busit na busit ako sa iyo.  Eh alatang mo akong inis yun eh.  Pupurunguhin ko yung mukha mo.  Hala, sige.  Babasakin ko ang bote at mapupurungo ka.  Sige.  Hala.",0.0022,-0.0013,0.5149,Uncertain,Rising
+R135,"tigilan mo na iyan, wag mo nang iyakan ang ex mo BANGKAPAPANGET naman iyan e.WAV","Sigilan mo na iyan, huwag mo nang iyakan yung ex mo, bang kapapangit naman yun eh.",0.1244,0.0077,0.2654,Rising,Rising
+R136,timo - tigil .WAV,Timo Tigail.,0.2782,0.0363,0.3053,Rising,Rising
+R137,timusan.WAV,Temo-san.,0.0,0.0,0.0,Uncertain,Rising
+R138,tingnan mo naman at mukha nang libagin.WAV,Iyan mo naman at mukha ng deba din,-0.0069,-0.0081,0.2636,Uncertain,Rising
+R139,tubal - maduming damit.WAV,2 bal  baduming damit,0.751,0.0576,1.0095,Rising,Rising
+R140,uho.WAV,Oho!,0.0,0.0,0.0,Uncertain,Rising

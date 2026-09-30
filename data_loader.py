@@ -155,6 +155,51 @@ def load_risk_words():
 
     return df.fillna("")
 
+def load_diction_rules():
+    path = "diction_rules.csv"
+
+    if not os.path.exists(path):
+        print("WARNING: diction_rules.csv not found.")
+        return pd.DataFrame()
+
+    df = safe_read_csv(path)
+
+    if df.empty:
+        return df
+
+    required_cols = [
+        "token",
+        "category"
+    ]
+
+    missing = [
+        col for col in required_cols
+        if col not in df.columns
+    ]
+
+    if missing:
+        print(
+            f"WARNING: diction_rules.csv "
+            f"missing columns: {missing}"
+        )
+        return pd.DataFrame()
+
+    df["token"] = (
+        df["token"]
+        .astype(str)
+        .str.lower()
+        .str.strip()
+    )
+
+    df["category"] = (
+        df["category"]
+        .astype(str)
+        .str.lower()
+        .str.strip()
+    )
+
+    return df.fillna("")
+
 
 # -----------------------------
 # LOAD HONORIFICS
@@ -227,6 +272,8 @@ print("--- Loading Research Data ---")
 proto_df = load_reference_sentences()
 
 risk_df = load_risk_words()
+
+diction_rules_df = load_diction_rules()
 
 honorifics_df = load_honorifics()
 

@@ -1,0 +1,11 @@
+audio_file,actual_label,transcript,matched_particles,normalized_final_pitch_change,normalized_final_pitch_slope,normalized_final_pitch_range,ra_sbert_dimension,acoustic_dimension,fusion_dimension,predicted_label,confidence_percent,correct,status,error
+test01.m4a,Rising,Kumain ka na ba?,ba,0.03191976,0.011871695,0.22636132,384,3,35,Rising,66.97340393066406,True,OK,
+test02.m4a,Rising,Pupunta ka mamaya.,,0.34685308,0.07075685,1.6019899,384,3,35,Rising,99.2864990234375,True,OK,
+test03.m4a,Rising,Talaga?,talaga,0.24747142,0.058247548,0.38884914,384,3,35,Rising,97.23963928222656,True,OK,
+test04.m4a,Rising,Saan tayo?,,0.050646424,0.011575233,0.11820915,384,3,35,Rising,64.39647674560547,True,OK,
+test05.m4a,Rising,Uubi ka na?,na,0.37609306,0.088388875,0.7615554,384,3,35,Rising,99.60196685791016,True,OK,
+test06.m4a,Falling,Kumain ako.,,-0.011904448,0.008847201,0.14895473,384,3,35,Rising,61.56216812133789,False,OK,
+test07.m4a,Falling,Pupunta ako mamaya.,,0.19315626,0.017080996,0.31627756,384,3,35,Rising,81.20701599121094,False,OK,
+test08.m4a,Falling,Maraming salamat sa tulong mo.,,-0.18014988,-0.018496623,0.24740557,384,3,35,Falling,91.27830505371094,True,OK,
+test09.m4a,Falling,Uuwi ako pagkatapos ng klase.,,-0.2078563,-0.021689035,0.21838625,384,3,35,Falling,93.15080261230469,True,OK,
+test10.m4a,Falling,Maganda ang panahon ngayon.,,-0.18111542,-0.02183857,0.21283652,384,3,35,Falling,92.96224975585938,True,OK,
