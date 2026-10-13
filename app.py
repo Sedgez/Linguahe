@@ -37,6 +37,8 @@ from outputs import (
     create_ann_html
 )
 
+import csv
+import html
 import io
 import os
 import re
@@ -2418,6 +2420,200 @@ def predict_diction(text):
     }
 
 
+
+# =========================================================
+# CATEGORY EXPLANATIONS + SIMPLE SUBJECT/PREDICATE CONTEXT
+# =========================================================
+
+SUBJECT_WORDS_PATH = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "subject_words.csv"
+)
+
+
+def load_subject_words():
+    """Load the simple list of Tagalog subject words from CSV."""
+    words = set()
+    try:
+        with open(SUBJECT_WORDS_PATH, "r", encoding="utf-8-sig", newline="") as file:
+            for row in csv.DictReader(file):
+                word = str(row.get("subject_word", "")).strip().lower()
+                if word:
+                    words.add(word)
+    except (OSError, csv.Error) as exc:
+        print(f"Could not load subject_words.csv: {exc}")
+    return words
+
+
+SUBJECT_WORDS = load_subject_words()
+
+
+def detect_subject_and_predicate(sentence):
+    """Choose a likely subject from all whole-word dictionary matches.
+
+    First prefer a dictionary word immediately preceded by a common subject
+    marker or demonstrative phrase (e.g., ang, ang mga, si, sina, itong mga).
+    If none is found, fall back to the first dictionary match. This is a small
+    heuristic, not a full Tagalog grammar parser.
+    """
+    original = str(sentence or "").strip()
+    if not original or not SUBJECT_WORDS:
+        return None, None
+
+    token_pattern = re.compile(r"(?<!\w)[\w'-]+(?!\w)", re.UNICODE)
+    candidates = []
+    for match in token_pattern.finditer(original):
+        word = match.group(0)
+        if word.lower() not in SUBJECT_WORDS:
+            continue
+
+        prefix = original[:match.start()]
+        marker_match = re.search(
+            r"(?i)(?:^|\s)(ang\s+mga|ang|si|sina|itong\s+mga|itong|iyan\s+mga|iyan|iyon\s+mga|iyon|ito|ire|yung|yong)\s+$",
+            prefix,
+        )
+        candidates.append({
+            "word": word,
+            "start": match.start(),
+            "end": match.end(),
+            "marker_start": marker_match.start() if marker_match else None,
+            "has_subject_marker": marker_match is not None,
+        })
+
+    if not candidates:
+        return None, None
+
+    # If several words match, prefer the earliest one explicitly marked by
+    # a supported subject marker/demonstrative phrase. Otherwise use the first
+    # match as a predictable fallback.
+    selected = next(
+        (candidate for candidate in candidates if candidate["has_subject_marker"]),
+        candidates[0],
+    )
+    subject = selected["word"]
+    start, end = selected["start"], selected["end"]
+    predicate = original[:start] + original[end:]
+
+    # Remove a directly attached marker to keep the remaining context readable.
+    prefix = original[:start]
+    marker_match = re.search(
+        r"(?i)(?:^|\s)(ang\s+mga|ang|ng|si|sina|ni|nina|kay|kina|itong\s+mga|itong|iyan\s+mga|iyan|iyon\s+mga|iyon|ito|ire|yung|yong)\s+$",
+        prefix,
+    )
+    if marker_match:
+        predicate = original[:marker_match.start()] + original[end:]
+
+    predicate = re.sub(r"\s+", " ", predicate).strip()
+    predicate = re.sub(r"\s+([,.;:!?])", r"\1", predicate)
+    predicate = re.sub(r"([,;:])\s*([.!?])", r"\2", predicate)
+    return subject, predicate
+
+
+def _context_phrase(sentence, subject):
+    """Get meaningful context around a matched word, excluding grammar markers."""
+    text = str(sentence or "").strip()
+    match = re.search(r"(?<!\w)" + re.escape(subject) + r"(?!\w)", text, re.IGNORECASE | re.UNICODE)
+    if not match:
+        return ""
+
+    before = text[:match.start()].strip(" \t,;:.-")
+    after = text[match.end():].strip(" \t,;:.-")
+
+    # Remove leading/trailing grammatical markers so phrases like "ang mga"
+    # are never mistaken for a description of the subject.
+    marker_words = r"(?:ang|mga|ng|sa|si|sina|ni|nina|kay|kina|ay|itong|iyan|iyon|ito|ire|yung|yong)"
+    before_clean = re.sub(r"(?i)^(?:(?:" + marker_words + r")\b\s*)+", "", before).strip()
+    before_clean = re.sub(r"(?i)\s+(?:" + marker_words + r")$", "", before_clean).strip()
+    if before_clean and before_clean.casefold() not in {"ang", "mga", "ang mga", "si", "sina", "ng", "sa", "ni"}:
+        return before_clean.rstrip(".!?").strip()
+
+    # Prefer the clause after the subject, e.g. "ay masaya" -> "masaya".
+    after_clean = re.sub(r"(?i)^\s*(?:(?:ay|ang|ng|sa|na|naman|rin|din)\b\s*)+", "", after).strip()
+    after_clean = after_clean.rstrip(".!?").strip()
+    if after_clean:
+        return after_clean
+
+    return ""
+
+
+def detect_sentence_context(sentence):
+    """Recognize a small set of clear communicative intents using local rules."""
+    text = str(sentence or "").strip().lower()
+    if not text:
+        return None
+
+    rules = [
+        (r"\b(magandang\s+(umaga|hapon|gabi)|magandang araw|kumusta|kamusta|hello|hi)\b",
+         "pagbati sa kausap o mga nakikinig"),
+        (r"\b(maraming salamat|salamat|thank you|thanks)\b",
+         "pagpapahayag ng pasasalamat"),
+        (r"\b(pasensya|patawad|paumanhin|sorry)\b",
+         "paghingi ng paumanhin"),
+        (r"\b(paalam|kitakits|hanggang sa muli|goodbye)\b",
+         "pamamaalam sa kausap"),
+        (r"\b(pakiusap|pakitulong|pakisuyo|paki[- ]\w+|maaari bang|pwede bang|puwede bang)\b",
+         "paghingi ng tulong o paggawa ng isang bagay"),
+        (r"\b(mag-ingat|babala|huwag|wag|paalala)\b",
+         "pagbibigay ng babala o paalala"),
+        (r"\b(congratulations|congrats|binabati kita)\b",
+         "pagbati o pagkilala sa nagawa ng isang tao"),
+        (r"^(opo|oo|sige|tama|totoo|sumasang-ayon ako)\b",
+         "pagsang-ayon o pagpapatibay sa sinabi"),
+        (r"\?$|^(ano|sino|saan|kailan|bakit|paano|ilan|alin)\b",
+         "pagtatanong o paghahanap ng impormasyon"),
+    ]
+    for pattern, explanation in rules:
+        if re.search(pattern, text, re.IGNORECASE):
+            return explanation
+    return None
+
+
+def generate_contextual_explanation(sentence, intonation, emotion, diction, risks):
+    """Build a concise Tagalog context explanation without guessing sentence roles."""
+    original = str(sentence or "").strip()
+    if not original:
+        return ""
+
+    safe_sentence = html.escape(original.rstrip(".!?"))
+    context = detect_sentence_context(original)
+    if context:
+        paragraph = f'Ang pangungusap na “{safe_sentence}” ay nagpapahayag ng {context}.'
+    else:
+        # Conservative fallback: preserve the original statement instead of
+        # guessing a subject, predicate, or relationship between clauses.
+        paragraph = (
+            f'Ang pangungusap ay nagpapahayag ng sumusunod: “{safe_sentence}.” '
+            'Hindi ito binibigyan ng mas tiyak na buod dahil hindi sapat ang mga tuntunin '
+            'ng sistema upang matiyak ang kahulugan nito.'
+        )
+
+    # Add dictionary meanings for detected risk words, without changing the
+    # sentence-context decision above.
+    seen = set()
+    for risk in (risks or []):
+        if not isinstance(risk, dict):
+            continue
+        word = str(risk.get("word", "")).strip()
+        meaning = str(risk.get("meaning", "")).strip()
+        key = word.casefold()
+        if not word or not meaning or key in seen:
+            continue
+        seen.add(key)
+        paragraph += (
+            f' Ang salitang “{html.escape(word)}” ay may kahulugang '
+            f'“{html.escape(meaning)},” na nagbibigay-linaw sa pahayag.'
+        )
+
+    return (
+        "<section style='margin:14px 0 0;padding:12px 14px;border:1px solid #cbd5e1;"
+        "border-radius:9px;background:#ffffff;'>"
+        "<h3 style='margin:0 0 8px;color:#334155;font-size:16px;'>Paliwanag sa Konteksto</h3>"
+        "<p style='margin:0;color:#475569;font-size:13px;line-height:1.6;'>"
+        + paragraph
+        + "</p></section>"
+    )
+
+
 # =========================================================
 # TEXT ANALYSIS
 # =========================================================
@@ -3124,12 +3320,14 @@ def analyze():
             "<div style='font-weight:bold; "
             "margin-bottom:10px; "
             "color:#e11d48;'>"
-            "Flagged Unique dialect Words"
+            "Risk Words / Mga Salitang Natukoy"
             "</div>"
         )
 
         for risk in risks:
 
+            risk_word_safe = html.escape(str(risk.get("word", "unknown")))
+            risk_category_safe = html.escape(str(risk.get("category", "Uncategorized")))
             report.append(
 
                 f"""
@@ -3142,31 +3340,12 @@ def analyze():
                 '>
 
                     • <strong>
-                        {risk.get(
-                            'word',
-                            'unknown'
-                        )}
+                        {risk_word_safe}
                     </strong>
 
                     (
-                    {risk.get(
-                        'category',
-                        'Uncategorized'
-                    )}
+                    {risk_category_safe}
                     )
-
-                    <br>
-
-                    <small style='color:#475569;'>
-
-                        Meaning:
-
-                        {risk.get(
-                            'meaning',
-                            'No meaning metadata'
-                        )}
-
-                    </small>
 
                 </div>
                 """
@@ -3178,12 +3357,23 @@ def analyze():
 
             "<div style='color:#64748b; "
             "font-style:italic;'>"
-            "No Unique dialect "
-            "misunderstanding or "
-            "dialect-sensitive terms "
-            "detected."
+            "Walang salitang natukoy sa talaan ng risk words."
             "</div>"
         )
+
+    # -----------------------------------------
+    # CONTEXTUAL EXPLANATION
+    # -----------------------------------------
+
+    contextual_html = generate_contextual_explanation(
+        text,
+        intonation_input,
+        emotion_input,
+        verbal_style,
+        risks
+    )
+
+    report.append(contextual_html)
 
     return jsonify({
 

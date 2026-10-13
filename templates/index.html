@@ -31,7 +31,18 @@
       type="image/png"
       href="{{ url_for('static', filename='icon.png') }}"
     />
-  </head>
+  
+    <style>
+      /* Linguahe compact analysis explanations */
+      .explanation-box { overflow-wrap: anywhere; }
+      .explanation-box h3 { line-height: 1.35; }
+      .explanation-box p { overflow-wrap: anywhere; }
+      @media (max-width: 640px) {
+        .explanation-box { font-size: 14px; }
+        .explanation-box > div { max-width: 100%; box-sizing: border-box; }
+      }
+    </style>
+</head>
 
   <body class="bg-slate-100">
     <div class="main-content">
