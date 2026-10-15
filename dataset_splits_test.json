@@ -1,0 +1,1 @@
+{"splits":[{"dataset":"sapinsapin/filipinospeechcorpus","config":"default","split":"train"},{"dataset":"sapinsapin/filipinospeechcorpus","config":"default","split":"test"}],"pending":[],"failed":[]}
