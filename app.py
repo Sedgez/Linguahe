@@ -54,6 +54,7 @@ from flask import (
 
 import edge_tts
 import librosa
+from emotion_ai.audio_features import extract_emotion_features
 import noisereduce as nr
 import numpy as np
 from sentence_transformers import SentenceTransformer, util
@@ -268,62 +269,7 @@ def predict_accent_in_memory(
             0.0
         )
 
-    y = librosa.resample(
-        y_16k,
-        orig_sr=sr_16k,
-        target_sr=22050
-    )
-
-    sr = 22050
-
-    mfcc = np.mean(
-        librosa.feature.mfcc(
-            y=y,
-            sr=sr,
-            n_mfcc=13
-        ).T,
-        axis=0
-    )
-
-    zcr = np.mean(
-        librosa.feature.zero_crossing_rate(y)
-    )
-
-    rms = np.mean(
-        librosa.feature.rms(y=y)
-    )
-
-    centroid = np.mean(
-        librosa.feature.spectral_centroid(
-            y=y,
-            sr=sr
-        )
-    )
-
-    bandwidth = np.mean(
-        librosa.feature.spectral_bandwidth(
-            y=y,
-            sr=sr
-        )
-    )
-
-    rolloff = np.mean(
-        librosa.feature.spectral_rolloff(
-            y=y,
-            sr=sr
-        )
-    )
-
-    features = np.concatenate(
-        [
-            mfcc,
-            [zcr],
-            [rms],
-            [centroid],
-            [bandwidth],
-            [rolloff]
-        ]
-    ).reshape(1, -1)
+    features = extract_emotion_features(y_16k, sr_16k).reshape(1, -1)
 
     features = accent_scaler.transform(
         features
@@ -467,9 +413,10 @@ def predict_emotion_in_memory(
     # NORMALIZE LABEL
     # -----------------------------------------
 
-    if ann_emotion.lower() == "normal":
-
+    if str(ann_emotion).strip().lower() in {"normal", "neutral"}:
         ann_emotion = "Neutral"
+    else:
+        ann_emotion = str(ann_emotion).strip().title()
 
     # -----------------------------------------
     # TEXT-BASED EMOTION FALLBACK

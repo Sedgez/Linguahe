@@ -1,9 +1,8 @@
 import os
-import librosa
 import pandas as pd
-import numpy as np
 from tqdm import tqdm
 from pathlib import Path
+from audio_features import extract_emotion_features_from_file
 
 labels = pd.read_csv("labels.csv")
 
@@ -24,44 +23,7 @@ for _, row in tqdm(labels.iterrows(), total=len(labels)):
 
         continue
 
-    y, sr = librosa.load(path, sr=22050)
-
-    mfcc = librosa.feature.mfcc(
-        y=y,
-        sr=sr,
-        n_mfcc=13
-    )
-
-    mfcc = np.mean(mfcc.T, axis=0)
-
-    zcr = np.mean(
-        librosa.feature.zero_crossing_rate(y)
-    )
-
-    rms = np.mean(
-        librosa.feature.rms(y=y)
-    )
-
-    centroid = np.mean(
-        librosa.feature.spectral_centroid(
-            y=y,
-            sr=sr
-        )
-    )
-
-    bandwidth = np.mean(
-        librosa.feature.spectral_bandwidth(
-            y=y,
-            sr=sr
-        )
-    )
-
-    rolloff = np.mean(
-        librosa.feature.spectral_rolloff(
-            y=y,
-            sr=sr
-        )
-    )
+    extracted = extract_emotion_features_from_file(path)
 
     features = {
 
@@ -73,14 +35,13 @@ for _, row in tqdm(labels.iterrows(), total=len(labels)):
     }
 
     for i in range(13):
+        features[f"mfcc_{i+1}"] = extracted[i]
 
-        features[f"mfcc_{i+1}"] = mfcc[i]
-
-    features["zcr"] = zcr
-    features["rms"] = rms
-    features["centroid"] = centroid
-    features["bandwidth"] = bandwidth
-    features["rolloff"] = rolloff
+    features["zcr"] = extracted[13]
+    features["rms"] = extracted[14]
+    features["centroid"] = extracted[15]
+    features["bandwidth"] = extracted[16]
+    features["rolloff"] = extracted[17]
 
     output.append(features)
 

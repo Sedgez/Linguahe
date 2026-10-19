@@ -1,4 +1,6 @@
 import os
+import json
+import zipfile
 import joblib
 import pandas as pd
 
@@ -104,7 +106,7 @@ history = model.fit(
 
     epochs=100,
 
-    batch_size=8,
+    batch_size=32,
 
     verbose=1
 
@@ -129,9 +131,28 @@ os.makedirs(
     exist_ok=True
 )
 
-model.save(
-    "models/emotion_ann.keras"
-)
+weights_path = "models/emotion_ann.weights.h5"
+model.save_weights(weights_path)
+
+with zipfile.ZipFile(
+    "models/emotion_ann.keras",
+    mode="w",
+    compression=zipfile.ZIP_STORED,
+) as archive:
+    archive.writestr(
+        "metadata.json",
+        json.dumps({"keras_version": "3"}),
+    )
+    archive.writestr(
+        "config.json",
+        model.to_json(),
+    )
+    archive.write(
+        weights_path,
+        arcname="model.weights.h5",
+    )
+
+os.remove(weights_path)
 
 joblib.dump(
     scaler,

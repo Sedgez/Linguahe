@@ -1,41 +1,22 @@
 from pathlib import Path
 
 import joblib
-import librosa
 import numpy as np
 import pandas as pd
 from tensorflow.keras.models import load_model
+from audio_features import extract_emotion_features_from_file
 
 
 TEST_DATASET = Path("test_dataset")
 OUTPUT_CSV = Path("test_results.csv")
-VALID_EMOTIONS = {"angry", "happy", "normal", "sad"}
-
-
-def extract_features(audio_path):
-    signal, sample_rate = librosa.load(audio_path, sr=22050)
-
-    mfcc = np.mean(
-        librosa.feature.mfcc(y=signal, sr=sample_rate, n_mfcc=13).T,
-        axis=0,
-    )
-
-    return [
-        *mfcc,
-        np.mean(librosa.feature.zero_crossing_rate(signal)),
-        np.mean(librosa.feature.rms(y=signal)),
-        np.mean(librosa.feature.spectral_centroid(y=signal, sr=sample_rate)),
-        np.mean(librosa.feature.spectral_bandwidth(y=signal, sr=sample_rate)),
-        np.mean(librosa.feature.spectral_rolloff(y=signal, sr=sample_rate)),
-    ]
-
-
 if not TEST_DATASET.exists():
     raise FileNotFoundError(f"Test dataset folder not found: {TEST_DATASET}")
 
 model = load_model("models/emotion_ann.keras")
 scaler = joblib.load("models/scaler.pkl")
 encoder = joblib.load("models/label_encoder.pkl")
+known_emotions = {str(label).strip().lower(): str(label) for label in encoder.classes_}
+known_emotions["normal"] = known_emotions.get("neutral", "Neutral")
 
 rows = []
 feature_rows = []
@@ -44,8 +25,8 @@ for emotion_folder in sorted(TEST_DATASET.iterdir()):
     if not emotion_folder.is_dir():
         continue
 
-    true_label = emotion_folder.name.capitalize()
-    if emotion_folder.name.lower() not in VALID_EMOTIONS:
+    true_label = known_emotions.get(emotion_folder.name.lower())
+    if true_label is None:
         print(f"Skipping unknown emotion folder: {emotion_folder}")
         continue
 
@@ -58,7 +39,7 @@ for emotion_folder in sorted(TEST_DATASET.iterdir()):
             "filename": audio_path.name,
             "true_label": true_label,
         })
-        feature_rows.append(extract_features(audio_path))
+        feature_rows.append(extract_emotion_features_from_file(audio_path))
 
 if not rows:
     raise ValueError("No WAV files found in test_dataset.")
@@ -69,6 +50,17 @@ for row, prediction in zip(rows, probabilities):
     predicted_index = int(np.argmax(prediction))
     row["predicted_label"] = encoder.inverse_transform([predicted_index])[0]
     row["confidence_pct"] = round(float(prediction[predicted_index]) * 100, 2)
+
+feature_names = [
+    *(f"mfcc_{index}" for index in range(1, 14)),
+    "zcr",
+    "rms",
+    "centroid",
+    "bandwidth",
+    "rolloff",
+]
+for row, values in zip(rows, feature_rows):
+    row.update(dict(zip(feature_names, map(float, values))))
 
 results = pd.DataFrame(rows)
 results.to_csv(OUTPUT_CSV, index=False)
