@@ -309,75 +309,24 @@ def predict_emotion_in_memory(
 
         return (
             "Emotion Model Unavailable",
-            0.0
+            0.0,
+            [],
+            "Unavailable"
         )
 
     if len(y_16k) == 0:
 
         return (
             "Emotion Cannot predict",
-            0.0
+            0.0,
+            [],
+            "Unavailable"
         )
 
-    # -----------------------------------------
-    # ANN AUDIO FEATURES
-    # -----------------------------------------
-
-    y = librosa.resample(
+    # Keep live inference aligned with the feature pipeline used to train the ANN.
+    features = extract_emotion_features(
         y_16k,
-        orig_sr=sr_16k,
-        target_sr=22050
-    )
-
-    sr = 22050
-
-    mfcc = np.mean(
-        librosa.feature.mfcc(
-            y=y,
-            sr=sr,
-            n_mfcc=13
-        ).T,
-        axis=0
-    )
-
-    zcr = np.mean(
-        librosa.feature.zero_crossing_rate(y)
-    )
-
-    rms = np.mean(
-        librosa.feature.rms(y=y)
-    )
-
-    centroid = np.mean(
-        librosa.feature.spectral_centroid(
-            y=y,
-            sr=sr
-        )
-    )
-
-    bandwidth = np.mean(
-        librosa.feature.spectral_bandwidth(
-            y=y,
-            sr=sr
-        )
-    )
-
-    rolloff = np.mean(
-        librosa.feature.spectral_rolloff(
-            y=y,
-            sr=sr
-        )
-    )
-
-    features = np.concatenate(
-        [
-            mfcc,
-            [zcr],
-            [rms],
-            [centroid],
-            [bandwidth],
-            [rolloff]
-        ]
+        sr_16k
     ).reshape(1, -1)
 
     # -----------------------------------------
@@ -397,154 +346,63 @@ def predict_emotion_in_memory(
         verbose=0
     )
 
-    predicted_class = np.argmax(
-        prediction
+    predicted_index = int(np.argmax(prediction[0]))
+    predicted_label = emotion_encoder.inverse_transform([predicted_index])[0]
+    ann_emotion = (
+        "Neutral" if str(predicted_label).strip().lower() in {"normal", "neutral"}
+        else str(predicted_label).strip().title()
     )
+    ann_confidence = float(prediction[0][predicted_index] * 100)
+    top_indices = np.argsort(prediction[0])[-2:][::-1]
+    emotion_comparison = []
+    for rank, index in enumerate(top_indices, start=1):
+        label = emotion_encoder.inverse_transform([int(index)])[0]
+        label = (
+            "Neutral" if str(label).strip().lower() in {"normal", "neutral"}
+            else str(label).strip().title()
+        )
+        emotion_comparison.append({
+            "rank": rank,
+            "label": label,
+            "score": round(float(prediction[0][index]) * 100, 2),
+        })
 
-    ann_confidence = float(
-        np.max(prediction) * 100
-    )
-
-    ann_emotion = emotion_encoder.inverse_transform(
-        [predicted_class]
-    )[0]
-
-    # -----------------------------------------
-    # NORMALIZE LABEL
-    # -----------------------------------------
-
-    if str(ann_emotion).strip().lower() in {"normal", "neutral"}:
-        ann_emotion = "Neutral"
-    else:
-        ann_emotion = str(ann_emotion).strip().title()
-
-    # -----------------------------------------
-    # TEXT-BASED EMOTION FALLBACK
-    # -----------------------------------------
-
+    # Clear words in the transcript can provide a separate text-based cue.
     text_lower = text.lower().strip()
+    text_emotion_rules = {
+        "Happy": ["ang saya", "masaya", "masayang", "saya naman",
+                  "sobrang saya", "napakasaya", "tuwang-tuwa",
+                  "nakakatuwa", "yehey", "yay", "excited", "panalo",
+                  "ang ganda", "maganda ito", "masaya ako"],
+        "Sad": ["sayang naman", "sayang", "malungkot", "lungkot",
+                "nalulungkot", "umiiyak", "iyak", "kawawa",
+                "hindi ako nakapunta", "namimiss", "miss ko",
+                "miss na kita", "malungkot ako"],
+        "Angry": ["galit", "inis", "naiinis", "nakakainis",
+                  "sobrang inis", "bakit mo ginawa", "ayoko", "tigil",
+                  "huwag", "wag", "nakakagalit"],
+    }
+    text_detected_emotion = next(
+        (label for label, phrases in text_emotion_rules.items()
+         if any(phrase in text_lower for phrase in phrases)),
+        None,
+    )
 
-    happy_phrases = [
-        "ang saya",
-        "masaya",
-        "masayang",
-        "saya naman",
-        "sobrang saya",
-        "napakasaya",
-        "tuwang-tuwa",
-        "nakakatuwa",
-        "yehey",
-        "yay",
-        "excited",
-        "panalo",
-        "ang ganda",
-        "maganda ito",
-        "masaya ako"
-    ]
-
-    sad_phrases = [
-        "sayang naman",
-        "sayang",
-        "malungkot",
-        "lungkot",
-        "nalulungkot",
-        "umiiyak",
-        "iyak",
-        "kawawa",
-        "hindi ako nakapunta",
-        "namimiss",
-        "miss ko",
-        "miss na kita",
-        "malungkot ako"
-    ]
-
-    angry_phrases = [
-        "galit",
-        "inis",
-        "naiinis",
-        "nakakainis",
-        "sobrang inis",
-        "bakit mo ginawa",
-        "ayoko",
-        "tigil",
-        "huwag",
-        "wag",
-        "nakakagalit"
-    ]
-
-    # -----------------------------------------
-    # DEMO / RULE OVERRIDE
-    # -----------------------------------------
-
-    detected_emotion = None
-
-    if any(
-        phrase in text_lower
-        for phrase in happy_phrases
-    ):
-
-        detected_emotion = "Happy"
-
-    elif any(
-        phrase in text_lower
-        for phrase in sad_phrases
-    ):
-
-        detected_emotion = "Sad"
-
-    elif any(
-        phrase in text_lower
-        for phrase in angry_phrases
-    ):
-
-        detected_emotion = "Angry"
-
-    # -----------------------------------------
-    # USE TEXT FALLBACK ONLY WHEN CLEAR
-    # -----------------------------------------
-
-    if detected_emotion is not None:
-
-        print(
-            "\n========== EMOTION PREDICTION =========="
-        )
-
-        print(
-            f"ANN Prediction: {ann_emotion}"
-        )
-
-        print(
-            f"ANN Confidence: {ann_confidence:.2f}%"
-        )
-
-        print(
-            f"Text Evidence: {detected_emotion}"
-        )
-
-        print(
-            f"Final Prediction: {detected_emotion}"
-        )
-
-        print(
-            "=========================================\n"
-        )
-
+    if text_detected_emotion is not None:
+        print(f"Text emotion cue: {text_detected_emotion}")
+        print(f"Audio ANN top prediction: {ann_emotion}")
         return (
-            detected_emotion,
-            75.0
+            text_detected_emotion,
+            75.0,
+            emotion_comparison,
+            "Text rule",
         )
-
-    # -----------------------------------------
-    # OTHERWISE USE ANN
-    # -----------------------------------------
 
     print(
         "\n========== EMOTION PREDICTION =========="
     )
 
-    print(
-        f"ANN Prediction: {ann_emotion}"
-    )
+    print(f"ANN Prediction: {ann_emotion}")
 
     print(
         f"ANN Confidence: {ann_confidence:.2f}%"
@@ -560,7 +418,9 @@ def predict_emotion_in_memory(
 
     return (
         ann_emotion,
-        ann_confidence
+        ann_confidence,
+        emotion_comparison,
+        "Audio ANN",
     )
 
 
@@ -2827,7 +2687,7 @@ def transcribe():
             )
         )
 
-        emotion, emotion_confidence = (
+        emotion, emotion_confidence, emotion_comparison, emotion_source = (
             predict_emotion_in_memory(
                 y_cached,
                 sr_cached,
@@ -2933,6 +2793,12 @@ def transcribe():
                     emotion_confidence,
                     2
                 ),
+
+            "emotion_comparison":
+                emotion_comparison,
+
+            "emotion_source":
+                emotion_source,
         
             # -----------------------------------------
             # INTONATION ANN INFORMATION
@@ -3017,6 +2883,9 @@ def analyze():
             "Emotion Cannot predict"
         )
     )
+
+    emotion_comparison = data.get("emotion_comparison", [])
+    emotion_source = data.get("emotion_source", "")
 
     accent_input = (
         data.get(
@@ -3241,7 +3110,9 @@ def analyze():
     ann_html = (
         create_ann_html(
             accent_input,
-            emotion_input
+            emotion_input,
+            emotion_comparison,
+            emotion_source
         )
     )
 
@@ -3255,7 +3126,7 @@ def analyze():
 
         prosody_html,
 
-        sbert_html,
+        # sbert_html,  # Temporarily hidden from the linguistic analysis output.
 
         ann_html
     ]

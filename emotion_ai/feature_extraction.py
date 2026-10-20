@@ -4,6 +4,7 @@ from tqdm import tqdm
 from pathlib import Path
 from audio_features import extract_emotion_features_from_file
 
+# labels.csv excludes the clips reserved in matlab_test_manifest.csv.
 labels = pd.read_csv("labels.csv")
 
 output = []

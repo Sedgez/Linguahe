@@ -31,9 +31,9 @@ except Exception as e:
 # -----------------------------
 print("--- Loading Emotion ANN Models ---")
 try:
-    emotion_model = load_model("emotion_ai/models/emotion_ann.keras")
-    emotion_scaler = joblib.load("emotion_ai/models/scaler.pkl")
-    emotion_encoder = joblib.load("emotion_ai/models/label_encoder.pkl")
+    emotion_model = load_model("emotion_ai/models/emotion_ann_v2.keras")
+    emotion_scaler = joblib.load("emotion_ai/models/scaler_v2.pkl")
+    emotion_encoder = joblib.load("emotion_ai/models/label_encoder_v2.pkl")
     print("Emotion ANN Loaded Successfully")
 except Exception as e:
     print(f"Warning: Failed to load Emotion ANN models: {e}")

@@ -10,6 +10,7 @@ from scipy.signal import resample_poly
 
 
 SAMPLE_RATE = 22050
+MAX_FEATURE_DURATION_SECONDS = 8
 N_FFT = 2048
 HOP_LENGTH = 512
 N_MELS = 128
@@ -73,6 +74,9 @@ def resample_emotion_audio(signal, sample_rate, target_sr=SAMPLE_RATE):
     if signal.size == 0:
         raise ValueError("Cannot extract emotion features from empty audio.")
 
+    # Limit before resampling too, so very long source recordings stay cheap.
+    signal = signal[: int(sample_rate * MAX_FEATURE_DURATION_SECONDS)]
+
     if sample_rate != target_sr:
         divisor = gcd(int(sample_rate), int(target_sr))
         signal = resample_poly(
@@ -80,6 +84,8 @@ def resample_emotion_audio(signal, sample_rate, target_sr=SAMPLE_RATE):
             target_sr // divisor,
             int(sample_rate) // divisor,
         ).astype(np.float32)
+
+    signal = signal[: int(target_sr * MAX_FEATURE_DURATION_SECONDS)]
 
     return signal
 

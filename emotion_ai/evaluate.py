@@ -21,15 +21,15 @@ X = data.drop(
 y = data["emotion"]
 
 encoder = joblib.load(
-    "models/label_encoder.pkl"
+    "models/label_encoder_v2.pkl"
 )
 
 scaler = joblib.load(
-    "models/scaler.pkl"
+    "models/scaler_v2.pkl"
 )
 
 model = load_model(
-    "models/emotion_ann.keras"
+    "models/emotion_ann_v2.keras"
 )
 
 X = scaler.transform(X)

@@ -7,39 +7,54 @@ from tensorflow.keras.models import load_model
 from audio_features import extract_emotion_features_from_file
 
 
-TEST_DATASET = Path("test_dataset")
-OUTPUT_CSV = Path("test_results.csv")
+ROOT = Path(__file__).resolve().parent
+TEST_DATASET = ROOT / "test_dataset"
+OUTPUT_CSV = ROOT / "test_results.csv"
+MATLAB_OUTPUT_CSV = ROOT / "matlab" / "emotion_test_results.csv"
+MANIFEST = ROOT / "matlab_test_manifest.csv"
 if not TEST_DATASET.exists():
     raise FileNotFoundError(f"Test dataset folder not found: {TEST_DATASET}")
 
-model = load_model("models/emotion_ann.keras")
-scaler = joblib.load("models/scaler.pkl")
-encoder = joblib.load("models/label_encoder.pkl")
+model = load_model(ROOT / "models" / "emotion_ann_v2.keras")
+scaler = joblib.load(ROOT / "models" / "scaler_v2.pkl")
+encoder = joblib.load(ROOT / "models" / "label_encoder_v2.pkl")
 known_emotions = {str(label).strip().lower(): str(label) for label in encoder.classes_}
 known_emotions["normal"] = known_emotions.get("neutral", "Neutral")
 
+manifest = pd.read_csv(MANIFEST)
 rows = []
 feature_rows = []
 
-for emotion_folder in sorted(TEST_DATASET.iterdir()):
-    if not emotion_folder.is_dir():
-        continue
+for record in manifest.itertuples(index=False):
+    emotion_folder = TEST_DATASET / str(record.emotion).strip().lower()
+    requested_name = str(record.filename)
+    audio_path = emotion_folder / requested_name
+    if not audio_path.is_file():
+        heldout_path = emotion_folder / f"holdout_{requested_name}"
+        if heldout_path.is_file():
+            audio_path = heldout_path
+        else:
+            matches = [
+                path for path in emotion_folder.iterdir()
+                if path.is_file() and path.name.lower() == requested_name.lower()
+            ]
+            if len(matches) != 1:
+                raise FileNotFoundError(
+                    f"Expected exactly one manifest audio file for {requested_name} "
+                    f"in {emotion_folder}; found {len(matches)}."
+                )
+            audio_path = matches[0]
 
-    true_label = known_emotions.get(emotion_folder.name.lower())
+    true_label = known_emotions.get(str(record.emotion).strip().lower())
     if true_label is None:
-        print(f"Skipping unknown emotion folder: {emotion_folder}")
-        continue
+        raise ValueError(f"Unknown emotion in manifest: {record.emotion}")
 
-    for audio_path in sorted(emotion_folder.iterdir()):
-        if not audio_path.is_file() or audio_path.suffix.lower() != ".wav":
-            continue
-
-        rows.append({
-            "category": "Emotion",
-            "filename": audio_path.name,
-            "true_label": true_label,
-        })
-        feature_rows.append(extract_emotion_features_from_file(audio_path))
+    rows.append({
+        "category": "Emotion",
+        "filename": audio_path.name,
+        "true_label": true_label,
+    })
+    feature_rows.append(extract_emotion_features_from_file(audio_path))
 
 if not rows:
     raise ValueError("No WAV files found in test_dataset.")
@@ -64,6 +79,10 @@ for row, values in zip(rows, feature_rows):
 
 results = pd.DataFrame(rows)
 results.to_csv(OUTPUT_CSV, index=False)
+MATLAB_OUTPUT_CSV.parent.mkdir(parents=True, exist_ok=True)
+results.to_csv(MATLAB_OUTPUT_CSV, index=False)
 
 print(f"Created {OUTPUT_CSV} with {len(results)} test predictions.")
+print(f"Created {MATLAB_OUTPUT_CSV} with {len(results)} test predictions.")
+print(f"Single-label accuracy: {(results['predicted_label'] == results['true_label']).mean():.2%}")
 print(results.groupby("true_label").size())
