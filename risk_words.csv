@@ -1,131 +1,196 @@
-token,category,meaning,dialect_tag
-hibo,noun,Putik o madulas na dumi sa daan,laguna
-liban,verb,Tumawid (To cross a road or river),laguna
-atungal,verb,Malakas na ingay ng makina o sigaw,laguna
-alapaap,noun,Langit (Sky/Clouds),laguna
-palaot,verb,Pumunta sa gitna ng lawa,laguna
-suba,noun,Ilog o daluyan ng tubig,laguna
-tumpok,noun,Bunton ng gamit (Pile),laguna
-urong,verb,Pumunta sa kusina o bandang likod,laguna
-pamutat,noun,Side dish o dessert,cavite
-mabalasik,adjective,Mabangis,cavite
-Tikna,particle,Lintik na,cavite
-dang,particle,Sobrang/ubod,cavite
-kampet,noun,Kutsilyo(Knife),cavite
-pupugayo,noun,Saranggola(Kite),cavite
-kunsyal,noun,Kagawad(councilor),cavite
-pisan,noun,Pinsan(Cousin),cavite
-panchon,noun,Sementeryo(Cemetery),cavite
-panchong,noun,Sementeryo(Cemetery),cavite
-eskaparate,noun,Glass cabinet,cavite
-balanggot,noun,Sumbrero(Cap),cavite
-purunggo,noun,bubog (glass shard),cavite
-simutsang,noun,higad,cavite
-bugong,noun,Ulam baon,cavite
-agkap,expression / adjective,Hindi mahalaga/baliw(Crazy/Senseless),rizal
-ampupurit,adjective,Magulo o hindi mapakali(Meddlesome),rizal
-aswit,verb,Pagtatalik,rizal
-ulog,adjective,Mabagal,rizal
-buturot,noun / description,Matabang tiyan,rizal
-yayao,verb,Aalis,rizal
-kangay,verb,Magpapakasal / pagpapakasal,rizal
-lantiti,adjective,Madumi,rizal
-hampok,adjective,Hindi sariwa,rizal
-buyag,verb,Tulak,rizal
-talamitan,expression,Masyadong malapit,rizal
-tawo,noun,Tao,rizal
-aburan,noun,May uod na pananim(worm infested crops),rizal
-arag arag,noun,karetilya(wheelbarrow),rizal
-bangal,verb,"Mabali(torn off, broken off)",rizal
-bayiki,noun,Beke (mumps),rizal
-hane,particle,Ipinakikiusap/ ipinagbibilin,rizal
-harungas,adjective,Pabaya(Reckless),rizal
-yayo,verb,Aalis na/Paalis na/Pumanaw(Pass away/Go away),rizal
-dag-im,noun,Maitim na ulap(Cloud / dark rain cloud),quezon
-guyabnan,noun,Hawakan sa hagdan(Handrail),quezon
-bagaybay,noun,Buwig ng niyog( bunch of coconuts),quezon
-tindagan,noun,Pantuhog(Skewer),quezon
-dayag,verb,Maglinis ng pinagkainan(to wash dishes),quezon
-adios,expression,Why or an expression of uncertainty,quezon
-atano,expression,Bakit(Why),quezon
-akaw,expression,An expression of surprise wonder disgust or objection,quezon
-atab,verb,To lie or fabricate a story,quezon
-atikha,verb,To lie or fabricate a story,quezon
-atmal,verb,To lie or fabricate a story,quezon
-dagasa,noun,Heavy or pouring rain,quezon
-dayidi,noun,Extremely heavy rain,quezon
-dapil,adjective,Extremely hungry,quezon
-dayag,verb,To wash dishes,quezon
-bangul,adjective,Extremely lazy or foolish,quezon
-bulastug,adjective,Liar or dishonest person,quezon
-bulitug,adjective,Liar or dishonest person,quezon
-bugtak,adjective,Extremely full after eating,quezon
-gos-sok,adjective,Extremely hungry,quezon
-hiduk,adjective,Crazy foolish or mentally confused,quezon
-imoy,noun,Money or cash,quezon
-intin,verb,To wait,quezon
-mabanas,adjective,Feeling hot due to warm and humid weather,quezon
-mabang-i,adjective,Smelly or foul smelling,quezon
-maradis,adjective,Smelly or foul smelling,quezon
-malag,adjective,Foolish or unintelligent,quezon
-ne-ut,verb,To steal,quezon
-nangku,expression,Let me see it or let me hold it,quezon
-or?,verb,To talk or chat,quezon
-palas,adjective,Hunger that has passed or subsided,quezon
-poypoy,noun,A gentle breeze or wind,quezon
-sapyot,verb,To throw splash or cast water or liquid,quezon
-sibig,noun,School dismissal or time to leave school,quezon
-tagiti,noun,A light rain or shower,quezon
-takad,verb,To measure the depth of water or a river,quezon
-tayka,expression,Wait,quezon
-tayongtong,verb,To squat,quezon
-teptep,verb,To play with or splash water using the palm,quezon
-topopung,expression,An expression used to temporarily pause or stop a game,quezon
-yakyak,verb,To step on or trample,quezon
-panaog,verb,To go down or descend,batangas
-busayak,verb,To squander or waste something,batangas
-dukawang,verb,To reach out with the hand,batangas
-lakdaw,noun,A large step forward,batangas
-buog,verb,To sleep deeply,batangas
-damput,verb,To pick up or take something,batangas
-suong,verb,To carry a load on the shoulder,batangas
-hilhil,verb,To laugh,batangas
-hagilhil,verb,To laugh loudly,batangas
-sumbi,noun,A closed-fist punch,batangas
-samlang,adjective,Messy or untidy,batangas
-mautdo,adjective,Short in length or size,batangas
-papagayo,noun,A kite toy flown in the wind,batangas
-dine,expression,Here or in this place,batangas
-parine,expression,Come here,batangas
-timus,verb,To taste food or drink,batangas
-patikar,verb,To run quickly,batangas
-karibok,noun,Chaos or disorder,batangas
-barik,verb,To drink alcohol,batangas
-lupagi,verb,To sit on the ground or floor,batangas
-bagting,adjective,Tight or firmly fastened,batangas
-lubay,adjective,Loose or not tightly fastened,batangas
-lanip,noun,A flood or flooded area,batangas
-damusak,adjective,Dirty messy or muddy,batangas
-kitse,noun,A bottle cap,batangas
-kantiyaw,verb,To tease or make fun of someone,batangas
-awas,verb,To overflow,batangas
-panhik,verb,To go up or climb,batangas
-babag,noun,A fight or quarrel,batangas
-hirol,noun,Pain or physical discomfort,batangas
-mangol,verb,To complain,batangas
-anlaa,expression,expression of disbelief or surprise,batangas
-are,demonstrative,this,batangas
-damusak,behavior,mess up badly; clumsy or careless,batangas
-gay-on,expression,like that; ganyan,batangas
-ganire,expression,like this; ganito,batangas
-hunta,conversation,small talk or chatting,batangas
-imis,action,to clean,batangas
-karibok,state,confusion or chaos,batangas
-la-ang,modifier,only; just,batangas
-liban,action,to cross the street,batangas
-maas,description,stupid or foolish,batangas
-patikar,action,to run,batangas
-sungaba,action,to fall face-first or fall flat,batangas
-sya na,expression,enough; alright; stop it,batangas
-tubal,noun,dirty clothes or laundry,batangas
-bang,particle,super/very/ubod ng,rizal
+token,category,meaning,dialect_tag,source
+hibo,noun,Putik o madulas na dumi sa daan,Laguna,source no provided
+liban,verb,Tumawid (To cross a road or river),Laguna,source no provided
+atungal,verb,Malakas na ingay ng makina o sigaw,Laguna,source no provided
+alapaap,noun,Langit (Sky/Clouds),Laguna,source no provided
+palaot,verb,Pumunta sa gitna ng lawa,Laguna,source no provided
+suba,noun,Ilog o daluyan ng tubig,Laguna,source no provided
+tumpok,noun,Bunton ng gamit (Pile),Laguna,source no provided
+urong,verb,Pumunta sa kusina o bandang likod,Laguna,source no provided
+pamutat,noun,Side dish o dessert,Cavite,source no provided
+mabalasik,adjective,Mabangis,Cavite,source no provided
+Tikna,particle,Lintik na,Cavite,source no provided
+dang,particle,Sobrang/ubod,Cavite,source no provided
+kampet,noun,Kutsilyo(Knife),Cavite,source no provided
+pupugayo,noun,Saranggola(Kite),Cavite,source no provided
+kunsyal,noun,Kagawad(councilor),Cavite,source no provided
+pisan,noun,Pinsan(Cousin),Cavite,source no provided
+panchon,noun,Sementeryo(Cemetery),Cavite,source no provided
+panchong,noun,Sementeryo(Cemetery),Cavite,source no provided
+eskaparate,noun,Glass cabinet,Cavite,source no provided
+balanggot,noun,Sumbrero(Cap),Cavite,source no provided
+purunggo,noun,bubog (glass shard),Cavite,source no provided
+simutsang,noun,higad,Cavite,source no provided
+bugong,noun,Ulam baon,Cavite,source no provided
+agkap,expression / adjective,Hindi mahalaga/baliw(Crazy/Senseless),Rizal,source no provided
+ampupurit,adjective,Magulo o hindi mapakali(Meddlesome),Rizal,source no provided
+aswit,verb,Pagtatalik,Rizal,source no provided
+ulog,adjective,Mabagal,Rizal,source no provided
+buturot,noun / description,Matabang tiyan,Rizal,source no provided
+yayao,verb,Aalis,Rizal,source no provided
+kangay,verb,Magpapakasal / pagpapakasal,Rizal,source no provided
+lantiti,adjective,Madumi,Rizal,source no provided
+hampok,adjective,Hindi sariwa,Rizal,source no provided
+buyag,verb,Tulak,Rizal,source no provided
+talamitan,expression,Masyadong malapit,Rizal,source no provided
+tawo,noun,Tao,Rizal,source no provided
+aburan,noun,May uod na pananim(worm infested crops),Rizal,source no provided
+arag arag,noun,karetilya(wheelbarrow),Rizal,source no provided
+bangal,verb,"Mabali(torn off, broken off)",Rizal,source no provided
+bayiki,noun,Beke (mumps),Rizal,source no provided
+hane,particle,Ipinakikiusap/ ipinagbibilin,Rizal,source no provided
+harungas,adjective,Pabaya(Reckless),Rizal,source no provided
+yayo,verb,Aalis na/Paalis na/Pumanaw(Pass away/Go away),Rizal,source no provided
+dag-im,noun,Maitim na ulap(Cloud / dark rain cloud),Quezon,source no provided
+guyabnan,noun,Hawakan sa hagdan(Handrail),Quezon,source no provided
+bagaybay,noun,Buwig ng niyog( bunch of coconuts),Quezon,source no provided
+tindagan,noun,Pantuhog(Skewer),Quezon,source no provided
+dayag,verb,Maglinis ng pinagkainan(to wash dishes),Quezon,source no provided
+adios,expression,Why or an expression of uncertainty,Quezon,source no provided
+atano,expression,Bakit(Why),Quezon,source no provided
+akaw,expression,An expression of surprise wonder disgust or objection,Quezon,source no provided
+atab,verb,To lie or fabricate a story,Quezon,source no provided
+atikha,verb,To lie or fabricate a story,Quezon,source no provided
+atmal,verb,To lie or fabricate a story,Quezon,source no provided
+dagasa,noun,Heavy or pouring rain,Quezon,source no provided
+dayidi,noun,Extremely heavy rain,Quezon,source no provided
+dapil,adjective,Extremely hungry,Quezon,source no provided
+bangul,adjective,Extremely lazy or foolish,Quezon,source no provided
+bulastug,adjective,Liar or dishonest person,Quezon,source no provided
+bulitug,adjective,Liar or dishonest person,Quezon,source no provided
+bugtak,adjective,Extremely full after eating,Quezon,source no provided
+gos-sok,adjective,Extremely hungry,Quezon,source no provided
+hiduk,adjective,Crazy foolish or mentally confused,Quezon,source no provided
+imoy,noun,Money or cash,Quezon,source no provided
+intin,verb,To wait,Quezon,source no provided
+mabanas,adjective,Feeling hot due to warm and humid weather,Quezon,source no provided
+mabang-i,adjective,Smelly or foul smelling,Quezon,source no provided
+maradis,adjective,Smelly or foul smelling,Quezon,source no provided
+malag,adjective,Foolish or unintelligent,Quezon,source no provided
+ne-ut,verb,To steal,Quezon,source no provided
+nangku,expression,Let me see it or let me hold it,Quezon,source no provided
+or?,verb,To talk or chat,Quezon,source no provided
+palas,adjective,Hunger that has passed or subsided,Quezon,source no provided
+poypoy,noun,A gentle breeze or wind,Quezon,source no provided
+sapyot,verb,To throw splash or cast water or liquid,Quezon,source no provided
+sibig,noun,School dismissal or time to leave school,Quezon,source no provided
+tagiti,noun,A light rain or shower,Quezon,source no provided
+takad,verb,To measure the depth of water or a river,Quezon,source no provided
+tayka,expression,Wait,Quezon,source no provided
+tayongtong,verb,To squat,Quezon,source no provided
+teptep,verb,To play with or splash water using the palm,Quezon,source no provided
+topopung,expression,An expression used to temporarily pause or stop a game,Quezon,source no provided
+yakyak,verb,To step on or trample,Quezon,source no provided
+panaog,verb,To go down or descend,Batangas,source no provided
+busayak,verb,To squander or waste something,Batangas,source no provided
+dukawang,verb,To reach out with the hand,Batangas,source no provided
+lakdaw,noun,A large step forward,Batangas,source no provided
+buog,verb,To sleep deeply,Batangas,source no provided
+damput,verb,To pick up or take something,Batangas,source no provided
+suong,verb,To carry a load on the shoulder,Batangas,source no provided
+hilhil,verb,To laugh,Batangas,source no provided
+hagilhil,verb,To laugh loudly,Batangas,source no provided
+sumbi,noun,A closed-fist punch,Batangas,source no provided
+samlang,adjective,Messy or untidy,Batangas,source no provided
+mautdo,adjective,Short in length or size,Batangas,source no provided
+papagayo,noun,A kite toy flown in the wind,Batangas,source no provided
+dine,expression,Here or in this place,Batangas,source no provided
+parine,expression,Come here,Batangas,source no provided
+timus,verb,To taste food or drink,Batangas,source no provided
+patikar,verb,To run quickly,Batangas,source no provided
+karibok,noun,Chaos or disorder,Batangas,source no provided
+barik,verb,To drink alcohol,Batangas,source no provided
+lupagi,verb,To sit on the ground or floor,Batangas,source no provided
+bagting,adjective,Tight or firmly fastened,Batangas,source no provided
+lubay,adjective,Loose or not tightly fastened,Batangas,source no provided
+lanip,noun,A flood or flooded area,Batangas,source no provided
+damusak,adjective,Dirty messy or muddy,Batangas,source no provided
+kitse,noun,A bottle cap,Batangas,source no provided
+kantiyaw,verb,To tease or make fun of someone,Batangas,source no provided
+awas,verb,To overflow,Batangas,source no provided
+panhik,verb,To go up or climb,Batangas,source no provided
+babag,noun,A fight or quarrel,Batangas,source no provided
+hirol,noun,Pain or physical discomfort,Batangas,source no provided
+mangol,verb,To complain,Batangas,source no provided
+anlaa,expression,expression of disbelief or surprise,Batangas,source no provided
+are,demonstrative,this,Batangas,source no provided
+gay-on,expression,like that; ganyan,Batangas,source no provided
+ganire,expression,like this; ganito,Batangas,source no provided
+hunta,conversation,small talk or chatting,Batangas,source no provided
+imis,action,to clean,Batangas,source no provided
+la-ang,modifier,only; just,Batangas,source no provided
+maas,description,stupid or foolish,Batangas,source no provided
+sungaba,action,to fall face-first or fall flat,Batangas,source no provided
+sya na,expression,enough; alright; stop it,Batangas,source no provided
+tubal,noun,dirty clothes or laundry,Batangas,source no provided
+bang,particle,super/very/ubod ng,Rizal,source no provided
+aré,demonstrative,This/it; a local form reported for Batangas Tagalog,Batangas,https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog
+bilót,noun,Puppy; reported as a Batangas form (standard Tagalog: tuta),Batangas,https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog
+diklóm,noun,Darkness; reported Batangas Tagalog form,Batangas,https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog
+guyam,noun,Ant; local lexical form reported for Batangas Tagalog,Batangas,https://linguistics.upd.edu.ph/news/huber-on-what-the-corpus-reveals-about-language-acquisition/
+ga,particle,Question marker reported in Batangas Tagalog in place of ba in some usage,Batangas,https://linguistics.upd.edu.ph/news/huber-on-what-the-corpus-reveals-about-language-acquisition/
+laang,modifier,Only/just; local form compared with standard lang,Batangas,https://linguistics.upd.edu.ph/news/huber-on-what-the-corpus-reveals-about-language-acquisition/
+huntahan,noun,Conversation or storytelling; a regional form reported for Batangas Tagalog,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+kakaunin,verb,To fetch/pick someone up; reported as a Batangas form compared with susunduin,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+asbag,noun/adjective,Yabang/egoism; reported in Batangas Tagalog examples,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+taluti,noun/adjective,Talkative; reported in Batangas Tagalog vocabulary lists,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+tarangkahan,noun,Gate; reported in Batangas Tagalog vocabulary lists,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+kahanggan,noun,Neighbor; reported as a Batangas form compared with kapitbahay,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+bang-aw,adjective/insult,A derogatory term glossed as ulol in a Batangas vocabulary list,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+barino,noun/adjective,Glossed as galit in a Batangas Tagalog vocabulary list,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+sura,noun/adjective,Glossed as inis/annoying in a Batangas Tagalog vocabulary list,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+susot,adjective,Glossed as yamot/exasperated in a Batangas Tagalog vocabulary list,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+bagól,noun,Limang sentimos na barya (five-centavo coin),Batangas,"Wiktionary, Appendix: Glossary of Batangas Tagalog (https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog)"
+hawot,noun,Pinatuyong isda (dried fish),Batangas,"Wiktionary, Appendix: Glossary of Batangas Tagalog (https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog)"
+hinaw,noun/verb,Paghuhugas ng kamay o paa,Batangas,"Wiktionary, Appendix: Glossary of Batangas Tagalog (https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog)"
+ineng,address term,Tawag o pantawag sa isang babae/batang babae,Batangas,"Wiktionary, Appendix: Glossary of Batangas Tagalog (https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog)"
+harot,adjective,Malandi o mapagharot; maaaring may mapanuyang dating depende sa konteksto,Batangas,Batangas Tagalog glossary (https://en.wikipedia.org/wiki/Batangas_Tagalog); cross-check with regional glossary
+suray,verb,Lumiko o yumuko (bend/turn; source gloss says bend),Batangas,Batangas Tagalog glossary (https://en.wikipedia.org/wiki/Batangas_Tagalog)
+takin,verb,"Tumahol (bark, as a dog)",Batangas,Batangas Tagalog glossary (https://en.wikipedia.org/wiki/Batangas_Tagalog)
+timo,verb,Tumigil (stop),Batangas,Batangas Tagalog glossary (https://en.wikipedia.org/wiki/Batangas_Tagalog)
+umungkot,verb,Umupo (sit),Batangas,Batangas Tagalog glossary (https://en.wikipedia.org/wiki/Batangas_Tagalog)
+baak,verb,"Hatiin / split, sever (reported in a Batangas Tagalog vocabulary list)",Batangas,Batangas Tagalog vocabulary list; https://en.wikipedia.org/wiki/Batangas_Tagalog
+gahaman,adjective,Matakaw / gluttonous (reported in a Batangas Tagalog vocabulary list),Batangas,Batangas Tagalog vocabulary list; https://en.wikipedia.org/wiki/Batangas_Tagalog
+litar,noun/verb,Listed in a Batangas Tagalog vocabulary page; precise meaning needs checking,Batangas,Batangas Tagalog vocabulary list; https://en.wikipedia.org/wiki/Batangas_Tagalog
+kisíg,noun,Pulikat o pamumulikat na iniuugnay sa lamig,Batangas,https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog
+liyo,noun,Pagkahilo; dizziness,Batangas,https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog
+sagakto,verb,Isaksak o ipasok; insert,Batangas,https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog
+sita,verb,Magrenta ng pribadong sasakyan,Batangas,https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog
+sinsay,verb,Pumunta rito; go here (as glossed in regional list),Batangas,https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog
+tagtág,verb/noun,Pag-alis o pagtanggal ng isang bagay,Batangas,https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog
+utoy,address term,Tawag o pantawag sa isang batang lalaki,Batangas,https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog
+ulagâ,adjective/insult,Tanga o bobo; potentially insulting term,Batangas,https://en.wiktionary.org/wiki/Appendix:Glossary_of_Batangas_Tagalog
+gura,noun,Sumbrero; hat,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+hiso,noun,Sipilyo; toothbrush,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+landang,noun,Lagnat; fever,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+lungange,adjective,Lasing; drunk,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+balatong,noun,Munggo (mung bean).,Batangas,https://en.wikipedia.org/wiki/Batangas_Tagalog
+pungko,verb,Umupo; sit (listed under Batangas Tagalog; verify local meaning/use),Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+panos,noun,Regional Tagalog entry; exact sense should be checked before production use,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+nahan,verb/adverb,Regional Tagalog entry; exact sense and usage should be checked,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+baluga,noun/adjective,Bahagyang maalat ang tubig; may kaugnay ding lumang kahulugang “may halong ibang sangkap” para sa solusyon.,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+bisting-bisti,adjective,Maayos o magarang manamit; well-dressed.,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+kabayuan,noun,"Bagong kasal o bagong asawa; newlywed (karaniwang Batangas, lumang gamit).",Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+lambit,noun/verb,Magkadugtong na sulat-kamay; cursive/joined-up handwriting. Maaari ring pang-uri para sa mga titik na magkakadugtong.,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+lawig,noun/adjective,Pansamantalang pag-alis sa sariling lugar upang mag-ani ng palay sa malayong bayan o lalawigan; maaari ring tumukoy sa taong gumagawa nito.,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+marahuya,adjective,Alternatibong anyo ng “maruya” (uri ng pagkaing pinirito).,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+marani,adjective/adverb,Karaniwan; pangkaraniwan; ordinarily/commonly.,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+matab-ang,adjective,Alternatibong anyo ng “matabang”; kahulugan ay nakabatay sa gamit ng “matabang” sa pangungusap.,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+mawido,adjective/verb,"Matalino, madiskarte, o may kakayahan; clever.",Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+palos,noun/verb,"Sa kolokyal na gamit sa Batangas, taong pandak; maaari ring tumukoy sa freshwater eel (kasili).",Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+pas-an,verb,Alternatibong anyo ng “pasan” (pagbubuhat/pagdadala ng bigat).,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+tangwa,noun/verb,Gilid ng matarik na lugar o bangin; maaari ring anumang butas o bukana na maaaring mahulugan.,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+tibuyo,noun,Alkansiya o lalagyan ng barya/perang iniipon; piggy bank.,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+tubalan,noun,Basket o lalagyan ng labahin; laundry basket/clothes hamper.,Batangas,https://en.wiktionary.org/wiki/Category:Batangas_Tagalog
+akit,verb,Mag-anyaya; invite.,Quezon,"Tayabas Tagalog vocabulary list; cites E. Arsenio Manuel, “A Lexicographic Study of Tayabas Tagalog of Quezon Province” (1971): https://en.wikipedia.org/wiki/Tayabas_Tagalog"
+kabyawan,noun,Kudkuran o kasangkapan sa pagkayod ng laman ng niyog.,Quezon,"Tayabas Tagalog vocabulary list; cites E. Arsenio Manuel, “A Lexicographic Study of Tayabas Tagalog of Quezon Province” (1971): https://en.wikipedia.org/wiki/Tayabas_Tagalog"
+halabas,noun,Karit o pang-ani; scythe.,Quezon,"Tayabas Tagalog vocabulary list; cites E. Arsenio Manuel, “A Lexicographic Study of Tayabas Tagalog of Quezon Province” (1971): https://en.wikipedia.org/wiki/Tayabas_Tagalog"
+isugba,verb,Ilagay o ihagis sa apoy; put/throw into the fire.,Quezon,"Tayabas Tagalog vocabulary list; cites E. Arsenio Manuel, “A Lexicographic Study of Tayabas Tagalog of Quezon Province” (1971): https://en.wikipedia.org/wiki/Tayabas_Tagalog"
+linang,noun,Liblib na bukid o pook na rural; remote area/farm.,Quezon,"Tayabas Tagalog vocabulary list; cites E. Arsenio Manuel, “A Lexicographic Study of Tayabas Tagalog of Quezon Province” (1971): https://en.wikipedia.org/wiki/Tayabas_Tagalog"
+panik,verb,Akyat; to go up/upstairs.,Laguna,"“Laguna Tagalog Language Insights” word list (community-uploaded document; preliminary evidence, not peer-reviewed lexicography): https://www.scribd.com/document/931012548/Laguna"
+dae,adjective,Dami; many/a lot.,Laguna,"“Laguna Tagalog Language Insights” word list (community-uploaded document; preliminary evidence, not peer-reviewed lexicography): https://www.scribd.com/document/931012548/Laguna"
+alpas,verb,Tumakas o makawala; escape/get free.,Laguna,"“Laguna Tagalog Language Insights” word list (community-uploaded document; preliminary evidence, not peer-reviewed lexicography): https://www.scribd.com/document/931012548/Laguna"
+banas,adjective,Mainit o maalinsangan; hot/humid.,Laguna,"“Laguna Tagalog Language Insights” word list (community-uploaded document; preliminary evidence, not peer-reviewed lexicography): https://www.scribd.com/document/931012548/Laguna"
+bagnos,verb,Maligo; to bathe.,Laguna,"“Laguna Tagalog Language Insights” word list (community-uploaded document; preliminary evidence, not peer-reviewed lexicography): https://www.scribd.com/document/931012548/Laguna"
+at ano,particle,Pananong/discourse expression na naitala sa Morong Tagalog; gamit ay nakadepende sa pangungusap.,Rizal,"Vincent Christopher A. Santiago, “Mga Morposintaktikong Katangian ng Tagalog na Sinasalita sa Morong, Rizal” (UP Diliman; 2025): https://pages.upd.edu.ph/vasantiago/publications/mga-morposintaktikong-katangian-ng-tagalog-na-sinasalita-sa-morong-rizal"
+pinakang,adjective,Superlatibong anyo na naitala sa Morong Tagalog.,Rizal,"Vincent Christopher A. Santiago, “Mga Morposintaktikong Katangian ng Tagalog na Sinasalita sa Morong, Rizal” (UP Diliman; 2025): https://pages.upd.edu.ph/vasantiago/publications/mga-morposintaktikong-katangian-ng-tagalog-na-sinasalita-sa-morong-rizal"
