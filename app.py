@@ -295,8 +295,9 @@ def predict_accent_in_memory(
     return accent, confidence
 
 
+
 # =========================================================
-# EMOTION ANN
+# EMOTION ANN + LEXICAL FUSION
 # =========================================================
 
 def predict_emotion_in_memory(
@@ -304,9 +305,7 @@ def predict_emotion_in_memory(
     sr_16k,
     text=""
 ):
-
     if emotion_model is None:
-
         return (
             "Emotion Model Unavailable",
             0.0,
@@ -315,7 +314,6 @@ def predict_emotion_in_memory(
         )
 
     if len(y_16k) == 0:
-
         return (
             "Emotion Cannot predict",
             0.0,
@@ -323,105 +321,240 @@ def predict_emotion_in_memory(
             "Unavailable"
         )
 
-    # Keep live inference aligned with the feature pipeline used to train the ANN.
+    # -----------------------------------------
+    # EXTRACT AND SCALE AUDIO FEATURES
+    # -----------------------------------------
+
     features = extract_emotion_features(
         y_16k,
         sr_16k
     ).reshape(1, -1)
 
-    # -----------------------------------------
-    # SCALE FEATURES
-    # -----------------------------------------
-
-    features = emotion_scaler.transform(
-        features
-    )
+    features = emotion_scaler.transform(features)
 
     # -----------------------------------------
-    # ANN PREDICTION
+    # AUDIO ANN PREDICTION
+    # Assumes the model returns softmax probabilities.
     # -----------------------------------------
 
     prediction = emotion_model.predict(
         features,
         verbose=0
+    )[0]
+
+    classes = list(emotion_encoder.classes_)
+
+    if len(prediction) != len(classes):
+        raise ValueError(
+            "Emotion ANN output count does not match "
+            "the encoder's class count."
+        )
+
+    def normalize_label(label):
+        label = str(label).strip().lower()
+
+        if label in {"normal", "neutral"}:
+            return "Neutral"
+
+        if label in {"surprise", "surprised"}:
+            return "Surprised"
+
+        return label.title()
+
+    labels = [normalize_label(label) for label in classes]
+
+    # Combine duplicate aliases safely, if any exist.
+    ann_scores = {}
+    for label, score in zip(labels, prediction):
+        ann_scores[label] = (
+            ann_scores.get(label, 0.0) + float(score)
+        )
+
+    total_ann = sum(ann_scores.values())
+    if total_ann <= 0:
+        raise ValueError("Emotion ANN returned invalid scores.")
+
+    ann_scores = {
+        label: score / total_ann
+        for label, score in ann_scores.items()
+    }
+
+    # -----------------------------------------
+    # LEXICAL EMOTION CUES
+    # These are initial rules, not validated emotion labels.
+    # -----------------------------------------
+
+    text_lower = str(text).lower().strip()
+
+    text_emotion_rules = {
+        "Angry": [
+            "galit", "nagagalit", "nakakainis", "inis", "inis na inis",
+            "bwisit", "nakakabwisit", "nakakagalit", "pagalit",
+            "nakakayamot", "hindi makatarungan", "tama na",
+            "ayoko na", "bakit naman", "ano ba yan"
+        ],
+
+        "Disgusted": [
+            "kadiri", "nakakadiri", "duwal", "nakakasuka",
+            "nasusuka ako", "kasuklam-suklam", "marumi",
+            "mabaho", "ang baho", "ang dumi", "nakakasuklam",
+            "ayoko sa amoy", "diring-diri"
+        ],
+
+        "Happy": [
+            "masaya", "saya", "ang saya", "natutuwa",
+            "natutuwa ako", "maligaya", "sobrang saya",
+            "napakasaya", "kinikilig", "excited ako",
+            "ang ganda", "ang sarap", "salamat naman",
+            "masayang-masaya", "nakakatuwa", "tuwa ako"
+        ],
+
+        "Neutral": [
+            "ayon sa impormasyon",
+            "ayon sa sinabi",
+            "batay sa impormasyon",
+            "batay sa datos",
+            "sa kasalukuyan",
+            "sa ngayon",
+            "sa ganitong paraan",
+            "halimbawa",
+            "ibig sabihin",
+            "ang ibig kong sabihin",
+            "para sa kaalaman ng lahat",
+            "ayon sa ulat",
+            "iniulat na",
+            "ipinapakita ng datos",
+            "ang pulong ay magsisimula",
+            "magsisimula bukas",
+            "alas otso ng umaga",
+            "alas nuwebe ng gabi",
+            "sa susunod na linggo",
+            "sa ganitong pagkakataon"
+        ],
+
+        "Sad": [
+            "malungkot", "lungkot", "nalulungkot",
+            "nalulungkot ako", "naiiyak", "umiiyak",
+            "iyak", "luha", "nasasaktan ako",
+            "nanghihinayang", "panghihinayang",
+            "miss ko na", "nawalan ako", "nakakalungkot",
+            "labis na kalungkutan", "bigat ng loob",
+            "durog ang puso", "disappointed ako"
+        ],
+
+        "Scared": [
+            "takot", "natatakot", "nakakatakot",
+            "kinakabahan", "kinabahan ako", "natataranta",
+            "nangangamba", "kabado", "kinikilabutan",
+            "nakakatindig-balahibo", "baka may mangyari",
+            "hindi ako mapakali", "natatakot ako",
+            "nag-aalala ako", "nakakakilabot"
+        ],
+
+        "Surprised": [
+           "nagulat", "gulat ako", "nakakagulat",
+           "hindi ako makapaniwala", "talaga ba",
+            "seryoso ba", "ha", "hala", "ay",
+            "wow", "grabe", "aba", "hindi ko inaasahan",
+            "di ko akalain", "bigla na lang",
+            "ano iyon", "totoo ba"
+        ]
+    }
+
+    # Match longer phrases first, to reduce some overlaps.
+    matched_cues = {}
+
+    for label, phrases in text_emotion_rules.items():
+        matches = [
+            phrase for phrase in sorted(
+                phrases, key=len, reverse=True
+            )
+            if phrase in text_lower
+        ]
+
+        if matches:
+            matched_cues[label] = matches
+
+    # -----------------------------------------
+    # FUSE AUDIO + LEXICAL SCORES
+    # -----------------------------------------
+
+    if matched_cues:
+        lexical_scores = {
+            label: 0.0 for label in ann_scores
+        }
+
+        for label, matches in matched_cues.items():
+            if label in lexical_scores:
+                lexical_scores[label] = float(len(matches))
+
+        lexical_total = sum(lexical_scores.values())
+
+        if lexical_total > 0:
+            lexical_scores = {
+                label: score / lexical_total
+                for label, score in lexical_scores.items()
+            }
+
+            lexical_weight = 0.70
+            audio_weight = 0.30
+
+            fused_scores = {
+                label: (
+                    audio_weight * ann_scores.get(label, 0.0)
+                    + lexical_weight * lexical_scores.get(label, 0.0)
+                )
+                for label in ann_scores
+            }
+
+            source = "Audio + Lexical Fusion"
+        else:
+            fused_scores = ann_scores.copy()
+            source = "Audio ANN"
+    else:
+        fused_scores = ann_scores.copy()
+        source = "Audio ANN"
+
+    # -----------------------------------------
+    # FINAL PREDICTION + TOP TWO COMPARISON
+    # -----------------------------------------
+
+    ranked = sorted(
+        fused_scores.items(),
+        key=lambda item: item[1],
+        reverse=True
     )
 
-    predicted_index = int(np.argmax(prediction[0]))
-    predicted_label = emotion_encoder.inverse_transform([predicted_index])[0]
-    ann_emotion = (
-        "Neutral" if str(predicted_label).strip().lower() in {"normal", "neutral"}
-        else str(predicted_label).strip().title()
-    )
-    ann_confidence = float(prediction[0][predicted_index] * 100)
-    top_indices = np.argsort(prediction[0])[-2:][::-1]
-    emotion_comparison = []
-    for rank, index in enumerate(top_indices, start=1):
-        label = emotion_encoder.inverse_transform([int(index)])[0]
-        label = (
-            "Neutral" if str(label).strip().lower() in {"normal", "neutral"}
-            else str(label).strip().title()
-        )
-        emotion_comparison.append({
+    final_emotion, final_score = ranked[0]
+
+    emotion_comparison = [
+        {
             "rank": rank,
             "label": label,
-            "score": round(float(prediction[0][index]) * 100, 2),
-        })
-
-    # Clear words in the transcript can provide a separate text-based cue.
-    text_lower = text.lower().strip()
-    text_emotion_rules = {
-        "Happy": ["ang saya", "masaya", "masayang", "saya naman",
-                  "sobrang saya", "napakasaya", "tuwang-tuwa",
-                  "nakakatuwa", "yehey", "yay", "excited", "panalo",
-                  "ang ganda", "maganda ito", "masaya ako"],
-        "Sad": ["sayang naman", "sayang", "malungkot", "lungkot",
-                "nalulungkot", "umiiyak", "iyak", "kawawa",
-                "hindi ako nakapunta", "namimiss", "miss ko",
-                "miss na kita", "malungkot ako"],
-        "Angry": ["galit", "inis", "naiinis", "nakakainis",
-                  "sobrang inis", "bakit mo ginawa", "ayoko", "tigil",
-                  "huwag", "wag", "nakakagalit"],
-    }
-    text_detected_emotion = next(
-        (label for label, phrases in text_emotion_rules.items()
-         if any(phrase in text_lower for phrase in phrases)),
-        None,
-    )
-
-    if text_detected_emotion is not None:
-        print(f"Text emotion cue: {text_detected_emotion}")
-        print(f"Audio ANN top prediction: {ann_emotion}")
-        return (
-            text_detected_emotion,
-            75.0,
-            emotion_comparison,
-            "Text rule",
+            "score": round(score * 100, 2)
+        }
+        for rank, (label, score) in enumerate(
+            ranked[:2], start=1
         )
+    ]
 
-    print(
-        "\n========== EMOTION PREDICTION =========="
-    )
-
-    print(f"ANN Prediction: {ann_emotion}")
-
-    print(
-        f"ANN Confidence: {ann_confidence:.2f}%"
-    )
-
-    print(
-        f"Final Prediction: {ann_emotion}"
-    )
-
-    print(
-        "=========================================\n"
-    )
+    print("\n========== EMOTION PREDICTION ==========")
+    print("Matched lexical cues:", matched_cues or "None")
+    print("Audio ANN prediction:", max(
+        ann_scores, key=ann_scores.get
+    ))
+    print("Final prediction:", final_emotion)
+    print("Fusion score:", round(final_score * 100, 2), "%")
+    print("Source:", source)
+    print("========================================\n")
 
     return (
-        ann_emotion,
-        ann_confidence,
+        final_emotion,
+        round(final_score * 100, 2),
         emotion_comparison,
-        "Audio ANN",
+        source
     )
+
 
 
 # =========================================================

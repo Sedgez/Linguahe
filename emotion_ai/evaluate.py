@@ -1,13 +1,16 @@
+
 import joblib
 import pandas as pd
+from pathlib import Path
 
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
-
 from tensorflow.keras.models import load_model
 
+BASE_DIR = Path(__file__).resolve().parent
+
 data = pd.read_csv(
-    "features/features.csv"
+    BASE_DIR / "features" / "features.csv"
 )
 
 X = data.drop(
@@ -21,16 +24,18 @@ X = data.drop(
 y = data["emotion"]
 
 encoder = joblib.load(
-    "models/label_encoder_v2.pkl"
+    BASE_DIR / "models" / "label_encoder_v2.pkl"
 )
 
 scaler = joblib.load(
-    "models/scaler_v2.pkl"
+    BASE_DIR / "models" / "scaler_v2.pkl"
 )
 
 model = load_model(
-    "models/emotion_ann_v2.keras"
+    BASE_DIR / "models" / "emotion_ann_v2.keras"
 )
+
+print("Emotion classes:", encoder.classes_)
 
 X = scaler.transform(X)
 
@@ -48,12 +53,15 @@ print()
 print(classification_report(
     truth,
     prediction,
-    target_names=encoder.classes_
+    labels=range(len(encoder.classes_)),
+    target_names=encoder.classes_,
+    zero_division=0
 ))
 
 print()
 
 print(confusion_matrix(
     truth,
-    prediction
+    prediction,
+    labels=range(len(encoder.classes_))
 ))
