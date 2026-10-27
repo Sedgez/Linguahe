@@ -270,7 +270,6 @@ def create_sbert_html(
     </div>
     """
 
-
 def create_ann_html(
     accent_input,
     emotion_input,
@@ -278,103 +277,42 @@ def create_ann_html(
     emotion_source=""
 ):
 
-    ranking_rows = []
-    if emotion_comparison:
-        ranked_emotions = sorted(
-            emotion_comparison,
-            key=lambda item: int(item.get("rank", 99)),
-        )[:2]
-        for position, item in enumerate(ranked_emotions):
-            label = html.escape(str(item.get("label", "Unknown")))
-            try:
-                score = float(item.get("score", 0))
-            except (TypeError, ValueError):
-                score = 0.0
-            if position == 0:
-                ranking_rows.append(f"""
-                <div style='margin-bottom:10px;padding:14px;background:#dcfce7;
-                    border-left:6px solid #16a34a;border-radius:8px;'>
-                    <div style='font-size:16px;font-weight:bold;color:#166534;margin-bottom:5px;'>
-                        PREDICTED EMOTION
-                    </div>
-                    <div style='font-size:20px;font-weight:bold;color:#14532d;'>
-                        {label} — {score:.2f}%
-                    </div>
-                </div>
-                """)
-            else:
-                ranking_rows.append(f"""
-                <div style='margin-bottom:6px;padding:5px;background:#f8fafc;
-                    border-left:4px solid #cbd5e1;border-radius:6px;color:#334155;'>
-                    {label}: <strong>{score:.2f}%</strong>
-                </div>
-                """)
-    else:
-        ranking_rows.append("""
-        <div style='font-size:13px;color:#64748b;'>
-            Available when emotion is analyzed from audio.
-        </div>
-        """)
+    detected_emotion_title = "Detected Emotion"
 
-    ranking_html = "".join(ranking_rows)
-    source_labels = {"Text rule": "Text Cue", "Audio ANN": "Audio ANN"}
-    source_label = source_labels.get(str(emotion_source), "")
-    detected_emotion_title = (
-        f"Detected Emotion ({source_label})" if source_label
-        else "Detected Emotion"
-    )
     safe_emotion = html.escape(str(emotion_input))
-    emotion_ranking_html = f"""
-    <div style='margin-bottom:18px;background:#f8fafc;border-left:6px solid #6366f1;
-        padding:14px;border-radius:8px;'>
-        <div style='font-size:18px;font-weight:bold;color:#4338ca;margin-bottom:10px;'>
-            Audio ANN Emotion Ranking
-            <span title='The ANN ranks emotions from the audio. Top 1 is its highest-scoring choice; top 2 is its next-highest. Scores are model outputs, not calibrated probabilities.'
-                style='cursor:help;font-size:16px;'>ⓘ</span>
-        </div>
-        {ranking_html}
-    </div>
-    """
+    safe_accent = html.escape(str(accent_input))
 
     ann_analysis_html = f"""
-    <div style='
+    <div style="
         margin-bottom:18px;
         background:#fff7ed;
         border-left:6px solid #ea580c;
         padding:14px;
         border-radius:8px;
-    '>
-
-        <div style='
+    ">
+        <div style="
             font-size:18px;
             font-weight:bold;
             color:#c2410c;
             margin-bottom:10px;
-        '>
-
-            ANN model Analysis
-
+        ">
+            ANN Model Analysis
             <span
-                title='This section uses Artificial Neural Network models to analyze audio characteristics and provide predictions for accent and emotion.'
-                style='cursor:help; font-size:16px;'
-            >
-                ⓘ
-            </span>
-
+                title="This section displays the accent and emotion predicted by the ANN models."
+                style="cursor:help;font-size:16px;"
+            >ⓘ</span>
         </div>
 
-        <div style='font-size:14px; color:#334155;'>
-
+        <div style="font-size:14px;color:#334155;">
             • Detected Accent:
-            <strong>{accent_input}</strong>
+            <strong>{safe_accent}</strong>
 
             <br><br>
 
             • {detected_emotion_title}:
             <strong>{safe_emotion}</strong>
-
         </div>
     </div>
     """
 
-    return emotion_ranking_html + ann_analysis_html
+    return ann_analysis_html

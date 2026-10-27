@@ -296,14 +296,18 @@ def predict_accent_in_memory(
 
 
 
+
 # =========================================================
-# EMOTION ANN + LEXICAL FUSION
+# EMOTION ANN
 # =========================================================
+
 
 def predict_emotion_in_memory(
     y_16k,
     sr_16k,
-    text=""
+    text="",
+    emotion_mode="full",
+    selected_emotions=None
 ):
     if emotion_model is None:
         return (
@@ -321,21 +325,12 @@ def predict_emotion_in_memory(
             "Unavailable"
         )
 
-    # -----------------------------------------
-    # EXTRACT AND SCALE AUDIO FEATURES
-    # -----------------------------------------
-
     features = extract_emotion_features(
         y_16k,
         sr_16k
     ).reshape(1, -1)
 
     features = emotion_scaler.transform(features)
-
-    # -----------------------------------------
-    # AUDIO ANN PREDICTION
-    # Assumes the model returns softmax probabilities.
-    # -----------------------------------------
 
     prediction = emotion_model.predict(
         features,
@@ -361,166 +356,85 @@ def predict_emotion_in_memory(
 
         return label.title()
 
-    labels = [normalize_label(label) for label in classes]
-
-    # Combine duplicate aliases safely, if any exist.
+    # Combine duplicate label aliases, if any
     ann_scores = {}
-    for label, score in zip(labels, prediction):
-        ann_scores[label] = (
-            ann_scores.get(label, 0.0) + float(score)
+
+    for label, score in zip(classes, prediction):
+        normalized_label = normalize_label(label)
+
+        ann_scores[normalized_label] = (
+            ann_scores.get(normalized_label, 0.0)
+            + float(score)
         )
 
-    total_ann = sum(ann_scores.values())
-    if total_ann <= 0:
-        raise ValueError("Emotion ANN returned invalid scores.")
+    total_score = sum(ann_scores.values())
+
+    if total_score <= 0:
+        raise ValueError(
+            "Emotion ANN returned invalid scores."
+        )
 
     ann_scores = {
-        label: score / total_ann
+        label: score / total_score
         for label, score in ann_scores.items()
     }
 
-    # -----------------------------------------
-    # LEXICAL EMOTION CUES
-    # These are initial rules, not validated emotion labels.
-    # -----------------------------------------
-
-    text_lower = str(text).lower().strip()
-
-    text_emotion_rules = {
-        "Angry": [
-            "galit", "nagagalit", "nakakainis", "inis", "inis na inis",
-            "bwisit", "nakakabwisit", "nakakagalit", "pagalit",
-            "nakakayamot", "hindi makatarungan", "tama na",
-            "ayoko na", "bakit naman", "ano ba yan"
-        ],
-
-        "Disgusted": [
-            "kadiri", "nakakadiri", "duwal", "nakakasuka",
-            "nasusuka ako", "kasuklam-suklam", "marumi",
-            "mabaho", "ang baho", "ang dumi", "nakakasuklam",
-            "ayoko sa amoy", "diring-diri"
-        ],
-
-        "Happy": [
-            "masaya", "saya", "ang saya", "natutuwa",
-            "natutuwa ako", "maligaya", "sobrang saya",
-            "napakasaya", "kinikilig", "excited ako",
-            "ang ganda", "ang sarap", "salamat naman",
-            "masayang-masaya", "nakakatuwa", "tuwa ako"
-        ],
-
-        "Neutral": [
-            "ayon sa impormasyon",
-            "ayon sa sinabi",
-            "batay sa impormasyon",
-            "batay sa datos",
-            "sa kasalukuyan",
-            "sa ngayon",
-            "sa ganitong paraan",
-            "halimbawa",
-            "ibig sabihin",
-            "ang ibig kong sabihin",
-            "para sa kaalaman ng lahat",
-            "ayon sa ulat",
-            "iniulat na",
-            "ipinapakita ng datos",
-            "ang pulong ay magsisimula",
-            "magsisimula bukas",
-            "alas otso ng umaga",
-            "alas nuwebe ng gabi",
-            "sa susunod na linggo",
-            "sa ganitong pagkakataon"
-        ],
-
-        "Sad": [
-            "malungkot", "lungkot", "nalulungkot",
-            "nalulungkot ako", "naiiyak", "umiiyak",
-            "iyak", "luha", "nasasaktan ako",
-            "nanghihinayang", "panghihinayang",
-            "miss ko na", "nawalan ako", "nakakalungkot",
-            "labis na kalungkutan", "bigat ng loob",
-            "durog ang puso", "disappointed ako"
-        ],
-
-        "Scared": [
-            "takot", "natatakot", "nakakatakot",
-            "kinakabahan", "kinabahan ako", "natataranta",
-            "nangangamba", "kabado", "kinikilabutan",
-            "nakakatindig-balahibo", "baka may mangyari",
-            "hindi ako mapakali", "natatakot ako",
-            "nag-aalala ako", "nakakakilabot"
-        ],
-
-        "Surprised": [
-           "nagulat", "gulat ako", "nakakagulat",
-           "hindi ako makapaniwala", "talaga ba",
-            "seryoso ba", "ha", "hala", "ay",
-            "wow", "grabe", "aba", "hindi ko inaasahan",
-            "di ko akalain", "bigla na lang",
-            "ano iyon", "totoo ba"
-        ]
-    }
-
-    # Match longer phrases first, to reduce some overlaps.
-    matched_cues = {}
-
-    for label, phrases in text_emotion_rules.items():
-        matches = [
-            phrase for phrase in sorted(
-                phrases, key=len, reverse=True
+    if emotion_mode == "pair":
+        if (
+            not selected_emotions
+            or len(selected_emotions) != 2
+            or normalize_label(selected_emotions[0])
+               == normalize_label(selected_emotions[1])
+        ):
+            raise ValueError(
+                "Pair mode requires two different emotions."
             )
-            if phrase in text_lower
+
+        selected = [
+            normalize_label(label)
+            for label in selected_emotions
         ]
 
-        if matches:
-            matched_cues[label] = matches
+        missing = [
+            label for label in selected
+            if label not in ann_scores
+        ]
 
-    # -----------------------------------------
-    # FUSE AUDIO + LEXICAL SCORES
-    # -----------------------------------------
+        if missing:
+            raise ValueError(
+                f"Selected emotions are unavailable: {missing}"
+            )
 
-    if matched_cues:
-        lexical_scores = {
-            label: 0.0 for label in ann_scores
+        filtered_scores = {
+            label: ann_scores[label]
+            for label in selected
         }
 
-        for label, matches in matched_cues.items():
-            if label in lexical_scores:
-                lexical_scores[label] = float(len(matches))
+        pair_total = sum(filtered_scores.values())
 
-        lexical_total = sum(lexical_scores.values())
+        if pair_total <= 0:
+            raise ValueError(
+                "The selected emotions have no usable scores."
+            )
 
-        if lexical_total > 0:
-            lexical_scores = {
-                label: score / lexical_total
-                for label, score in lexical_scores.items()
-            }
+        comparison_scores = {
+            label: score / pair_total
+            for label, score in filtered_scores.items()
+        }
 
-            lexical_weight = 0.70
-            audio_weight = 0.30
+        source = "Audio ANN (Pair-Restricted)"
 
-            fused_scores = {
-                label: (
-                    audio_weight * ann_scores.get(label, 0.0)
-                    + lexical_weight * lexical_scores.get(label, 0.0)
-                )
-                for label in ann_scores
-            }
-
-            source = "Audio + Lexical Fusion"
-        else:
-            fused_scores = ann_scores.copy()
-            source = "Audio ANN"
-    else:
-        fused_scores = ann_scores.copy()
+    elif emotion_mode == "full":
+        comparison_scores = ann_scores
         source = "Audio ANN"
 
-    # -----------------------------------------
-    # FINAL PREDICTION + TOP TWO COMPARISON
-    # -----------------------------------------
+    else:
+        raise ValueError(
+            f"Unsupported emotion mode: {emotion_mode}"
+        )
 
     ranked = sorted(
-        fused_scores.items(),
+        comparison_scores.items(),
         key=lambda item: item[1],
         reverse=True
     )
@@ -534,17 +448,15 @@ def predict_emotion_in_memory(
             "score": round(score * 100, 2)
         }
         for rank, (label, score) in enumerate(
-            ranked[:2], start=1
+            ranked[:2],
+            start=1
         )
     ]
 
     print("\n========== EMOTION PREDICTION ==========")
-    print("Matched lexical cues:", matched_cues or "None")
-    print("Audio ANN prediction:", max(
-        ann_scores, key=ann_scores.get
-    ))
     print("Final prediction:", final_emotion)
-    print("Fusion score:", round(final_score * 100, 2), "%")
+    print("ANN score:", round(final_score * 100, 2), "%")
+    print("Mode:", emotion_mode)
     print("Source:", source)
     print("========================================\n")
 
@@ -554,6 +466,8 @@ def predict_emotion_in_memory(
         emotion_comparison,
         source
     )
+
+
 
 
 
@@ -2652,22 +2566,61 @@ def transcribe():
         ) == "true"
     )
 
-    if not audio:
+    # Read emotion experiment settings
+    emotion_mode = request.form.get("emotion_mode", "full").strip().lower()
 
+
+    selected_emotion_a = request.form.get(
+        "selected_emotion_a", ""
+    ).strip()
+
+    selected_emotion_b = request.form.get(
+        "selected_emotion_b", ""
+    ).strip()
+
+    valid_emotions = {
+        "Angry",
+        "Disgusted",
+        "Happy",
+        "Neutral",
+        "Sad",
+        "Scared",
+        "Surprised",
+    }
+
+    # Validate the selected emotion mode
+    if emotion_mode not in {"full", "pair"}:
         return jsonify({
-
-            "error":
-                "No audio uploaded",
-
-            "message":
-                "No audio detected. "
-                "Please speak and try "
-                "recording again."
+            "error": "Invalid emotion classification mode."
         }), 400
 
-    unique_name = (
-        f"{uuid.uuid4()}.wav"
-    )
+    # Validate the selected pair only in Pair Mode
+    if emotion_mode == "pair":
+        if (
+            selected_emotion_a not in valid_emotions
+            or selected_emotion_b not in valid_emotions
+        ):
+            return jsonify({
+                "error": "Please select two valid emotions."
+            }), 400
+
+        if selected_emotion_a == selected_emotion_b:
+            return jsonify({
+                "error": "Please select two different emotions."
+            }), 400
+
+    # Validate audio for BOTH modes
+    if not audio:
+        return jsonify({
+            "error": "No audio uploaded",
+            "message": (
+                "No audio detected. "
+                "Please speak and try recording again."
+        )
+        }), 400
+
+    # Generate the filename for BOTH modes
+    unique_name = f"{uuid.uuid4()}.wav"
 
     audio_path = os.path.join(
         UPLOAD_FOLDER,
@@ -2824,7 +2777,12 @@ def transcribe():
             predict_emotion_in_memory(
                 y_cached,
                 sr_cached,
-                text
+                text,
+                emotion_mode=emotion_mode,
+                selected_emotions=[
+                    selected_emotion_a,
+                    selected_emotion_b
+                ] if emotion_mode == "pair" else None
             )
         )
 
@@ -3358,6 +3316,21 @@ def analyze():
             }
         }
     })
+
+@app.route("/log_emotion_selection", methods=["POST"])
+def log_emotion_selection():
+    data = request.get_json(silent=True) or {}
+    emotion = data.get("emotion", "Unknown")
+    allowed_emotions = {"Angry", "Disgusted", "Happy", "Sad", "Scared", "Surprised"}
+    if emotion not in allowed_emotions:
+        return jsonify({"success": False}), 400
+
+    print(
+        f"Selected: {emotion}",
+        flush=True
+    )
+
+    return jsonify({"success": True})
 
 
 # =========================================================

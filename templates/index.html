@@ -31,18 +31,29 @@
       type="image/png"
       href="{{ url_for('static', filename='icon.png') }}"
     />
-  
+
     <style>
       /* Linguahe compact analysis explanations */
-      .explanation-box { overflow-wrap: anywhere; }
-      .explanation-box h3 { line-height: 1.35; }
-      .explanation-box p { overflow-wrap: anywhere; }
+      .explanation-box {
+        overflow-wrap: anywhere;
+      }
+      .explanation-box h3 {
+        line-height: 1.35;
+      }
+      .explanation-box p {
+        overflow-wrap: anywhere;
+      }
       @media (max-width: 640px) {
-        .explanation-box { font-size: 14px; }
-        .explanation-box > div { max-width: 100%; box-sizing: border-box; }
+        .explanation-box {
+          font-size: 14px;
+        }
+        .explanation-box > div {
+          max-width: 100%;
+          box-sizing: border-box;
+        }
       }
     </style>
-</head>
+  </head>
 
   <body class="bg-slate-100">
     <div class="main-content">
@@ -182,6 +193,94 @@
               ></textarea>
             </div>
 
+            <!-- KEYBOARD EMOTION SELECTION (HIDDEN UI) -->
+            <div class="hidden">
+              <p id="keyboardEmotionStatus">
+                Selected emotion: Happy vs. Neutral
+              </p>
+            </div>
+
+            <!-- HIDDEN EMOTION CLASSIFICATION CONTROLS -->
+            <div class="hidden mt-5 border-t border-gray-200 pt-4">
+              <label
+                for="emotionMode"
+                class="block text-sm font-bold text-gray-700 mb-2"
+              >
+                Emotion Classification Mode
+              </label>
+
+              <select
+                id="emotionMode"
+                class="w-full rounded-lg border border-gray-300 bg-white p-3 text-sm"
+              >
+                <option value="full">Full Classification (7 Emotions)</option>
+                <option value="pair" selected>
+                  Emotion Pair Experiment (2 Emotions)
+                </option>
+              </select>
+
+              <div
+                id="emotionPairControls"
+                class="hidden mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3"
+              >
+                <div>
+                  <label
+                    for="emotionOptionA"
+                    class="block text-xs font-semibold text-gray-600 mb-1"
+                  >
+                    First Emotion
+                  </label>
+
+                  <select
+                    id="emotionOptionA"
+                    class="w-full rounded-lg border border-gray-300 bg-white p-3 text-sm"
+                  >
+                    <option value="Angry">Angry</option>
+                    <option value="Disgusted">Disgusted</option>
+                    <option value="Happy" selected>Happy</option>
+                    <option value="Neutral">Neutral</option>
+                    <option value="Sad">Sad</option>
+                    <option value="Scared">Scared</option>
+                    <option value="Surprised">Surprised</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    for="emotionOptionB"
+                    class="block text-xs font-semibold text-gray-600 mb-1"
+                  >
+                    Second Emotion
+                  </label>
+
+                  <select
+                    id="emotionOptionB"
+                    class="w-full rounded-lg border border-gray-300 bg-white p-3 text-sm"
+                  >
+                    <option value="Angry">Angry</option>
+                    <option value="Disgusted">Disgusted</option>
+                    <option value="Happy">Happy</option>
+                    <option value="Neutral" selected>Neutral</option>
+                    <option value="Sad">Sad</option>
+                    <option value="Scared">Scared</option>
+                    <option value="Surprised">Surprised</option>
+                  </select>
+                </div>
+              </div>
+
+              <p
+                id="emotionPairMessage"
+                class="hidden mt-2 text-xs text-red-600"
+              >
+                Please select two different emotions.
+              </p>
+
+              <p class="mt-2 text-xs text-gray-500">
+                Pair mode compares the selected emotions using the existing ANN.
+                It does not use a separately trained two-class model.
+              </p>
+            </div>
+
             <!-- NOISE SUPPRESSION -->
             <div class="mt-4 flex items-center gap-2">
               <input type="checkbox" id="noiseToggle" class="w-4 h-4" />
@@ -274,7 +373,6 @@
             </button>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -854,6 +952,116 @@
       const noiseToggle = document.getElementById("noiseToggle");
 
       // =========================================================
+      // EMOTION EXPERIMENT CONTROLS
+      // =========================================================
+
+      const emotionMode = document.getElementById("emotionMode");
+      const emotionPairControls = document.getElementById(
+        "emotionPairControls",
+      );
+      const emotionOptionA = document.getElementById("emotionOptionA");
+      const emotionOptionB = document.getElementById("emotionOptionB");
+      const emotionPairMessage = document.getElementById("emotionPairMessage");
+
+      function updateEmotionControls() {
+        const pairMode = emotionMode.value === "pair";
+
+        emotionPairControls.classList.toggle("hidden", !pairMode);
+        emotionPairMessage.classList.add("hidden");
+
+        if (pairMode && emotionOptionA.value === emotionOptionB.value) {
+          emotionPairMessage.classList.remove("hidden");
+        }
+      }
+
+      // Keyboard selection: compare the selected emotion against Neutral.
+      const keyboardEmotionStatus = document.getElementById(
+        "keyboardEmotionStatus",
+      );
+
+      const emotionKeyboardMap = {
+        1: "Angry",
+        2: "Disgusted",
+        3: "Happy",
+        4: "Sad",
+        5: "Scared",
+        6: "Surprised",
+      };
+
+      document.addEventListener("keydown", function (event) {
+        // Ignore shortcuts while the user is typing or using form controls.
+        const target = event.target;
+        const tagName = target.tagName.toLowerCase();
+
+        if (
+          tagName === "input" ||
+          tagName === "textarea" ||
+          tagName === "select" ||
+          target.isContentEditable ||
+          event.ctrlKey ||
+          event.altKey ||
+          event.metaKey ||
+          event.isComposing
+        ) {
+          return;
+        }
+
+        const selectedEmotion = emotionKeyboardMap[event.key];
+
+        if (!selectedEmotion) {
+          return;
+        }
+
+        // Keep the experiment in pair mode and always compare against Neutral.
+        emotionMode.value = "pair";
+        emotionOptionA.value = selectedEmotion;
+        emotionOptionB.value = "Neutral";
+
+        updateEmotionControls();
+
+        fetch("/log_emotion_selection", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            emotion: selectedEmotion,
+          }),
+        }).catch((error) => {
+          console.error("Could not log emotion selection:", error);
+        });
+
+        if (keyboardEmotionStatus) {
+          keyboardEmotionStatus.textContent = `Selected emotion: ${selectedEmotion} vs. Neutral`;
+        }
+      });
+
+      emotionMode.addEventListener("change", updateEmotionControls);
+      emotionOptionA.addEventListener("change", updateEmotionControls);
+      emotionOptionB.addEventListener("change", updateEmotionControls);
+
+      updateEmotionControls();
+
+      function getEmotionExperimentSettings() {
+        const mode = emotionMode.value;
+
+        const selectedA = emotionOptionA.value;
+        const selectedB = emotionOptionB.value;
+
+        if (mode === "pair" && selectedA === selectedB) {
+          emotionPairMessage.classList.remove("hidden");
+          return null;
+        }
+
+        emotionPairMessage.classList.add("hidden");
+
+        return {
+          emotion_mode: mode,
+          selected_emotions: mode === "pair" ? [selectedA, selectedB] : [],
+        };
+      }
+
+      // =========================================================
       // TRANSLATIONS
       // =========================================================
 
@@ -999,7 +1207,7 @@
 
           // Mobile navigation buttons use a separate text span.
           const mobileText = element.querySelector(
-            ":scope > span:not(.nav-icon):not(.language-flag)"
+            ":scope > span:not(.nav-icon):not(.language-flag)",
           );
           if (mobileText) {
             mobileText.innerText = value;
@@ -1117,6 +1325,11 @@
       // =========================================================
 
       async function startRecording() {
+        const emotionSettings = getEmotionExperimentSettings();
+
+        if (!emotionSettings) {
+          return;
+        }
         try {
           const stream = await navigator.mediaDevices.getUserMedia({
             audio: true,
@@ -1190,6 +1403,16 @@
             formData.append("audio", blob, `recording.${extension}`);
 
             formData.append("noise_suppression", noiseToggle.checked);
+
+            formData.append("emotion_mode", emotionSettings.emotion_mode);
+            formData.append(
+              "selected_emotion_a",
+              emotionSettings.selected_emotions[0] || "",
+            );
+            formData.append(
+              "selected_emotion_b",
+              emotionSettings.selected_emotions[1] || "",
+            );
 
             try {
               const response = await fetch("/transcribe", {
@@ -1641,14 +1864,13 @@ ANN + SBERT Hybrid Linguistic Engine
       const mobileMenuBtn = document.getElementById("mobileMenuBtn");
       const mobileNav = document.getElementById("mobileNav");
 
-      const mobileTutorialBtn =
-        document.getElementById("mobileTutorialBtn");
+      const mobileTutorialBtn = document.getElementById("mobileTutorialBtn");
 
-      const mobileAboutBtn =
-        document.getElementById("mobileAboutBtn");
+      const mobileAboutBtn = document.getElementById("mobileAboutBtn");
 
-      const mobileLanguageToggle =
-        document.getElementById("mobileLanguageToggle");
+      const mobileLanguageToggle = document.getElementById(
+        "mobileLanguageToggle",
+      );
 
       const aboutBtn = document.getElementById("aboutBtn");
       const languageToggle = document.getElementById("languageToggle");
@@ -1664,10 +1886,7 @@ ANN + SBERT Hybrid Linguistic Engine
         mobileMenuBtn.classList.remove("active");
 
         mobileMenuBtn.setAttribute("aria-expanded", "false");
-        mobileMenuBtn.setAttribute(
-          "aria-label",
-          "Open navigation menu"
-        );
+        mobileMenuBtn.setAttribute("aria-label", "Open navigation menu");
       }
 
       if (mobileMenuBtn && mobileNav) {
@@ -1678,14 +1897,12 @@ ANN + SBERT Hybrid Linguistic Engine
 
           mobileMenuBtn.setAttribute(
             "aria-expanded",
-            isOpen ? "true" : "false"
+            isOpen ? "true" : "false",
           );
 
           mobileMenuBtn.setAttribute(
             "aria-label",
-            isOpen
-              ? "Close navigation menu"
-              : "Open navigation menu"
+            isOpen ? "Close navigation menu" : "Open navigation menu",
           );
         });
       }
@@ -1728,7 +1945,7 @@ ANN + SBERT Hybrid Linguistic Engine
          ========================================================= */
 
       const mobileHomeBtn = document.querySelector(
-        '.mobile-nav-button[href="/"]'
+        '.mobile-nav-button[href="/"]',
       );
 
       if (mobileHomeBtn) {
